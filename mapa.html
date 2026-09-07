@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa Productivo de la Ciudad de San José - Hecho en San José</title>
+  <meta name="description" content="Mapa interactivo georreferenciado de productores y emprendedores locales de la ciudad de San José, Entre Ríos. Integración turística y productiva.">
+  
+  <!-- Hoja de Estilos Propia -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗺️</text></svg>">
+</head>
+<body class="map-page-body">
+
+  <!-- Cabecera Superior Institucional -->
+  <header class="site-header">
+    <div class="header-main" style="padding: 0.65rem 1.5rem;">
+      <div class="logo-group">
+        <a href="index.html" class="btn-back" title="Regresar a Hecho en San José">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span>Volver a Inicio</span>
+        </a>
+        <div style="height: 24px; width: 1px; background: var(--border-light); margin: 0 4px;"></div>
+        <div class="logo-titles">
+          <h1 style="font-size: 1.15rem; margin-bottom: 0;">Hecho en <span>San José</span></h1>
+          <div class="logo-subtitle" style="font-size: 0.72rem;">Mapa Productivo Georreferenciado</div>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <button class="btn btn-outline" onclick="window.resetMapBounds()" style="padding: 0.45rem 0.95rem; font-size: 0.8rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="22" y1="12" x2="18" y2="12"></line>
+            <line x1="6" y1="12" x2="2" y2="12"></line>
+            <line x1="12" y1="6" x2="12" y2="2"></line>
+            <line x1="12" y1="22" x2="12" y2="18"></line>
+          </svg>
+          <span>Centrar todo</span>
+        </button>
+        <a href="https://sanjose.tur.ar/hechoensanjose/" target="_blank" rel="noopener" class="btn btn-primary" style="padding: 0.45rem 1rem; font-size: 0.8rem;">
+          <span>Portal Turístico</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Barra de Controles y Filtros por Rubro -->
+  <div class="map-control-bar">
+    <div class="map-page-title-group">
+      <h2>Productores de San José</h2>
+    </div>
+
+    <!-- Chips de Filtrado por Rubro -->
+    <div class="filter-categories-container" role="tablist">
+      <button class="filter-chip active" data-filter="todos">
+        <span>🌱 Todos</span>
+      </button>
+      <button class="filter-chip" data-filter="pecan">
+        <span>🌰 Pecán & Campo</span>
+      </button>
+      <button class="filter-chip" data-filter="cerveza">
+        <span>🍺 Cervecería</span>
+      </button>
+      <button class="filter-chip" data-filter="conservas">
+        <span>🍯 Miel, Quesos & Dulces</span>
+      </button>
+      <button class="filter-chip" data-filter="artesania">
+        <span>🔪 Cuchillería & Cuero</span>
+      </button>
+    </div>
+
+    <!-- Buscador en tiempo real -->
+    <div class="search-box-wrap">
+      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input type="text" id="search-producer" class="search-input" placeholder="Buscar por nombre, rubro o calle...">
+    </div>
+  </div>
+
+  <!-- Layout de Doble Panel: Lista + Mapa Leaflet -->
+  <div class="map-app-layout">
+    
+    <!-- Sidebar de Productores -->
+    <aside class="producers-sidebar">
+      <div class="sidebar-header">
+        <h3>Circuito Productivo</h3>
+        <span class="counter-badge" id="producers-counter">5 productores</span>
+      </div>
+      
+      <!-- Contenedor dinámico de tarjetas -->
+      <div class="producers-list-scroll" id="producers-list">
+        <!-- Renderizado dinámicamente por app.js -->
+      </div>
+    </aside>
+
+    <!-- Lienzo del Mapa Leaflet -->
+    <main class="map-canvas-container">
+      <div id="map"></div>
+    </main>
+
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <!-- Lógica de la Aplicación -->
+  <script src="app.js"></script>
+</body>
+</html>
