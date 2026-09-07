@@ -916,6 +916,36 @@ a {
   border: 1px solid rgba(190, 18, 60, 0.2);
 }
 
+.tag-bebidas, .tag-licores {
+  background: #f5f3ff;
+  color: #6d28d9;
+  border: 1px solid rgba(109, 40, 217, 0.2);
+}
+
+.tag-vinos {
+  background: #fff1f2;
+  color: #9f1239;
+  border: 1px solid rgba(159, 18, 57, 0.2);
+}
+
+.tag-alimentos, .tag-miel {
+  background: #fffbeb;
+  color: #b45309;
+  border: 1px solid rgba(180, 83, 9, 0.2);
+}
+
+.tag-quesos {
+  background: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid rgba(3, 105, 161, 0.2);
+}
+
+.tag-dulces {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid rgba(194, 65, 12, 0.2);
+}
+
 .producer-name {
   font-size: 1.05rem;
   font-weight: 700;

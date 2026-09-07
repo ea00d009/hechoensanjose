@@ -53,13 +53,22 @@ productores-sanjose/
 
 ---
 
-## 🌰 Productores Locales de Prueba
+## 🌰 Productores Locales Georreferenciados (11 Establecimientos)
 
-1. **Nueces del Río Uruguay - Finca La Casona** (Agroecología & Pecán &bull; Camino Vecinal a 1° de Mayo)
-2. **Cervecería Artesanal El Molino** (Cerveza artesanal &bull; Urquiza y Centenario)
-3. **Conservas & Miel Los Abuelos de la Colonia** (Miel de pradera y dulces típicos &bull; Calle 9 de Julio 1420)
-4. **Cuchillería & Talabartería Sanjo Tradición** (Artesanías en acero y cuero &bull; Mitre 1150)
-5. **Quesería & Granja La Suiza de Entre Ríos** (Lácteos coloniales &bull; Acceso Dr. Bastian 830)
+### Solicitados:
+1. **Licores Bard** &bull; *Licores Artesanales desde 1908* (Entre Ríos 1046, San José)
+2. **Establecimiento Los Pecanes** &bull; *Boutique de la Nuez Pecán, Casa de Té y Patio Cervecero* (Ruta 26 Km. 7)
+3. **De los Troncos Petrificados** &bull; *Piedras Semipreciosas del Río Uruguay y Maderas Petrificadas* (Ruta Prov. 26 Km. 3,5)
+4. **Artesanías El Palmar** &bull; *Cestería en fibra de palma yatay y obras tradicionales* (Colonia San José)
+
+### Investigados e Incorporados del Ecosistema Turístico:
+5. **Nuez Pecán La Reina** &bull; *Sello de Turismo Industrial y Productivo, pecán seleccionado* (2 de Abril y Mitre)
+6. **Apícola La Sanjosesina** &bull; *Miel pura de monte nativo, polen y propóleo artesanal* (Centenario 1580)
+7. **Granja y Museo Histórico La Administración** &bull; *Quesería tradicional, chacinados y picadas coloniales* (Acceso Bastían s/n)
+8. **Dulces Caseros La Juanita** &bull; *Mermeladas de higo, naranja amarga y yatay en paila de cobre* (Urquiza 1127)
+9. **Viñedos & Bodega Vulliez Sermet** &bull; *Enoturismo, viñedos históricos y vinos varietales* (RN 135 Km 8)
+10. **Cervecería Artesanal El Molino** &bull; *Microcervecería con maltas entrerrianas y estilos premiados* (Urquiza y Centenario)
+11. **Cuchillería & Talabartería Sanjo Tradición** &bull; *Cuchillos forjados a mano en acero y platería criolla* (Mitre 1150)
 
 ---
 
