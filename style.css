@@ -133,6 +133,33 @@ a {
   gap: 14px;
 }
 
+.logo-link-wrap {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.municipal-logo {
+  height: 48px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.06));
+  transition: var(--transition);
+}
+
+.municipal-logo:hover {
+  transform: scale(1.03);
+}
+
+.logo-divider {
+  width: 1.5px;
+  height: 38px;
+  background: var(--border-light);
+  margin: 0 4px;
+}
+
 .logo-icon-wrap {
   width: 46px;
   height: 46px;
@@ -169,6 +196,89 @@ a {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+/* Redes Sociales Minimalistas */
+.social-links-minimal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.social-btn-minimal {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.social-btn-minimal:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.social-btn-minimal.social-instagram:hover {
+  background: #fdf2f4;
+  color: #e1306c;
+  border-color: rgba(225, 48, 108, 0.3);
+}
+
+.social-btn-minimal.social-facebook:hover {
+  background: #eff6ff;
+  color: #1877f2;
+  border-color: rgba(24, 119, 242, 0.3);
+}
+
+/* Redes en Footer */
+.footer-social-wrap {
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.footer-social-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.social-btn-footer {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+}
+
+.social-btn-footer:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.footer-logo-card {
+  background: #ffffff;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  margin-bottom: 1.25rem;
+}
+
+.footer-logo-card img {
+  height: 42px;
+  width: auto;
+  max-width: 130px;
+  display: block;
 }
 
 .btn {
