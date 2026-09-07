@@ -3,7 +3,10 @@
 Plataforma interactiva y maqueta funcional para la integración del sector productivo local en el portal turístico oficial [sanjose.tur.ar/hechoensanjose](https://sanjose.tur.ar/hechoensanjose/), diseñada como propuesta de desarrollo económico y turístico para ser presentada ante el **Honorable Concejo Deliberante de la Ciudad de San José, Entre Ríos, Argentina**.
 
 🌐 **Sitio web en vivo (GitHub Pages):** [https://ea00d009.github.io/productores-sanjose/](https://ea00d009.github.io/productores-sanjose/)  
-📍 **Destino directo al Mapa Interactivo:** [https://ea00d009.github.io/productores-sanjose/mapa.html](https://ea00d009.github.io/productores-sanjose/mapa.html)
+📍 **Mapa Productivo Interactivo:** [https://ea00d009.github.io/productores-sanjose/mapa.html](https://ea00d009.github.io/productores-sanjose/mapa.html)  
+🛍️ **Catálogo de Negocios:** [https://ea00d009.github.io/productores-sanjose/catalogo.html](https://ea00d009.github.io/productores-sanjose/catalogo.html)  
+🛒 **Encontrá la Góndola:** [https://ea00d009.github.io/productores-sanjose/gondola.html](https://ea00d009.github.io/productores-sanjose/gondola.html)  
+📝 **Inscribí tu Negocio:** [https://ea00d009.github.io/productores-sanjose/inscribir.html](https://ea00d009.github.io/productores-sanjose/inscribir.html)
 
 ---
 
@@ -22,13 +25,18 @@ El repositorio está organizado de forma desacoplada y modular para facilitar su
 
 ```
 productores-sanjose/
-├── index.html          # Página principal con grilla institucional y recuadro destacado
-├── mapa.html           # Subpágina interactiva con doble panel (lista + mapa)
-├── style.css           # Sistema de diseño, variables de color y estilos responsivos
-├── app.js              # Lógica de Leaflet.js, marcadores, popups y filtros dinámicos
+├── index.html          # Portal principal con grilla institucional Hecho en San José
+├── catalogo.html       # Catálogo completo de productores con buscador y filtros
+├── gondola.html        # Puntos de venta del programa "Góndolas Hecho en San José"
+├── inscribir.html      # Formulario interactivo en 4 pasos para registro de productores
+├── mapa.html           # Subpágina interactiva con mapa Leaflet.js y panel lateral
+├── style.css           # Sistema de diseño integral, variables y estilos responsivos
+├── app.js              # Lógica del mapa Leaflet, datos de productores y filtros
+├── assets/
+│   └── logo-sanjose.png # Isologotipo oficial de la Municipalidad de San José
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml  # Automatización de despliegue continuo en GitHub Pages
+│       └── deploy.yml  # Automatización de despliegue continuo en GitHub Pages (gh-pages)
 └── README.md           # Documentación general del proyecto en español
 ```
 
