@@ -7,6 +7,17 @@
   <meta name="description" content="Localizá los comercios y supermercados de la ciudad que cuentan con las góndolas exclusivas del programa municipal «Hecho en San José». Comprá directo al productor.">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>">
+  <!-- Script para prevenir parpadeo de modo oscuro (Zero FOUC) -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('sanjose-theme');
+      if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -16,7 +27,7 @@
       <div class="topbar-badge">
         <span>San José, Entre Ríos &bull; Red de Góndolas Exclusivas del Sector Productivo</span>
       </div>
-      <div style="display: flex; gap: 1rem; align-items: center;">
+      <div class="topbar-extra" style="display: flex; gap: 1rem; align-items: center;">
         <span style="font-size: 0.78rem; opacity: 0.9;">Comercios Adheridos Oficiales</span>
         <a href="https://sanjose.tur.ar/hechoensanjose/" target="_blank" rel="noopener" style="color: #fff; text-decoration: underline; font-size: 0.78rem;">Sitio Oficial &nearr;</a>
       </div>
@@ -35,36 +46,63 @@
         </div>
       </div>
 
-      <nav class="nav-actions">
-        <div style="display: flex; gap: 8px; align-items: center;" class="nav-subpages-links">
-          <a href="index.html" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Inicio</a>
-          <a href="catalogo.html" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Catálogo</a>
-          <a href="inscribir.html" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Inscribirse</a>
-          <a href="mapa.html" class="btn btn-accent" style="padding: 0.5rem 1rem; font-size: 0.82rem;">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
-              <line x1="9" y1="3" x2="9" y2="18"></line>
-              <line x1="15" y1="6" x2="15" y2="21"></line>
-            </svg>
-            <span>Ver Mapa</span>
-          </a>
-        </div>
+      <div class="header-right-group">
+        <nav class="nav-actions" id="main-nav-actions">
+          <div style="display: flex; gap: 8px; align-items: center;" class="nav-subpages-links">
+            <a href="index.html" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Inicio</a>
+            <a href="catalogo.html" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Catálogo</a>
+            <a href="inscribir.html" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Inscribirse</a>
+            <a href="mapa.html" class="btn btn-accent" style="padding: 0.5rem 1rem; font-size: 0.82rem;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
+                <line x1="9" y1="3" x2="9" y2="18"></line>
+                <line x1="15" y1="6" x2="15" y2="21"></line>
+              </svg>
+              <span>Ver Mapa</span>
+            </a>
+          </div>
 
-        <div class="social-links-minimal">
-          <a href="https://www.instagram.com/turismosanjose/" target="_blank" rel="noopener" class="social-btn-minimal social-instagram" title="Instagram Oficial @turismosanjose" aria-label="Instagram">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-              <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+          <div class="social-links-minimal">
+            <a href="https://www.instagram.com/turismosanjose/" target="_blank" rel="noopener" class="social-btn-minimal social-instagram" title="Instagram Oficial @turismosanjose" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="http://www.facebook.com/turismosanjose" target="_blank" rel="noopener" class="social-btn-minimal social-facebook" title="Facebook Oficial @turismosanjose" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+              </svg>
+            </a>
+          </div>
+        </nav>
+
+        <div class="header-ctrl-btns">
+          <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Cambiar entre modo claro y oscuro" title="Cambiar tema">
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
             </svg>
-          </a>
-          <a href="http://www.facebook.com/turismosanjose" target="_blank" rel="noopener" class="social-btn-minimal social-facebook" title="Facebook Oficial @turismosanjose" aria-label="Facebook">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
             </svg>
-          </a>
+          </button>
+
+          <button class="mobile-menu-toggle" id="mobile-menu-btn" aria-label="Abrir menú de navegación" aria-expanded="false">
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+          </button>
         </div>
-      </nav>
+      </div>
     </div>
   </header>
 
@@ -92,14 +130,14 @@
 
   <!-- Sección: ¿Qué es la Góndola? -->
   <section style="max-width: 1280px; margin: 0 auto; padding: 3rem 1.5rem 1rem;">
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; background: #ffffff; border-radius: var(--radius-lg); padding: 2.5rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
+    <div class="gondola-intro-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; background: var(--bg-card); border-radius: var(--radius-lg); padding: 2.5rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm);">
       <div>
         <span style="font-size: 0.78rem; font-weight: 800; color: var(--color-secondary); text-transform: uppercase; letter-spacing: 1px;">Iniciativa Municipal</span>
-        <h2 style="font-size: 1.8rem; color: #0f172a; margin: 0.5rem 0 1rem;">Un espacio exclusivo para el trabajo local</h2>
-        <p style="font-size: 0.95rem; color: #64748b; line-height: 1.6; margin-bottom: 1rem;">
+        <h2 style="font-size: 1.8rem; color: var(--text-main); margin: 0.5rem 0 1rem;">Un espacio exclusivo para el trabajo local</h2>
+        <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1rem;">
           Las góndolas <strong>«Hecho en San José»</strong> son exhibidores especialmente identificados ubicados en los principales comercios, supermercados y centros turísticos de nuestra ciudad.
         </p>
-        <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; color: #334155;">
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; color: var(--text-main);">
           <li style="display: flex; gap: 10px; align-items: center;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
             <span>Precios justos sin intermediarios abusivos.</span>
@@ -115,15 +153,15 @@
         </ul>
       </div>
 
-      <div style="background: linear-gradient(135deg, #ecfdf5 0%, #f0fdfa 100%); border: 2px dashed rgba(5, 150, 105, 0.3); border-radius: var(--radius-md); padding: 2rem; text-align: center;">
-        <div style="width: 72px; height: 72px; background: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: #059669; box-shadow: var(--shadow-sm);">
+      <div style="background: linear-gradient(135deg, rgba(236, 253, 245, 0.9) 0%, rgba(240, 253, 250, 0.9) 100%); border: 2px dashed rgba(5, 150, 105, 0.3); border-radius: var(--radius-md); padding: 2rem; text-align: center;">
+        <div style="width: 72px; height: 72px; background: var(--bg-card); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: #059669; box-shadow: var(--shadow-sm);">
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
         </div>
         <h3 style="font-size: 1.3rem; color: #065f46; margin-bottom: 0.5rem;">¿Qué vas a encontrar en las góndolas?</h3>
         <p style="font-size: 0.88rem; color: #047857; margin-bottom: 1.25rem;">
           Nueces pecán en mitades y caramelizadas, miel pura de monte nativo, licores centenarios Bard, mermeladas artesanales La Juanita, cuchillos criollos y artesanías en fibra yatay.
         </p>
-        <a href="catalogo.html" class="btn btn-outline" style="background: #ffffff; border-color: #059669; color: #065f46; font-size: 0.85rem;">
+        <a href="catalogo.html" class="btn btn-outline" style="border-color: #059669; color: #065f46; font-size: 0.85rem;">
           Ver todos los productos del catálogo
         </a>
       </div>
@@ -134,11 +172,11 @@
   <main style="max-width: 1280px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
     <div style="text-align: center; margin-bottom: 3rem;">
       <span style="font-size: 0.8rem; font-weight: 800; color: #0284c7; text-transform: uppercase; letter-spacing: 1.5px;">Mapa de Puntos de Venta</span>
-      <h2 style="font-size: 2.2rem; color: #0f172a; margin-top: 0.4rem;">Comercios con Góndola Oficial Habilitada</h2>
-      <p style="color: #64748b; font-size: 1rem; margin-top: 0.5rem;">Visitá cualquiera de estos establecimientos habilitados para comprar directo del productor.</p>
+      <h2 style="font-size: 2.2rem; color: var(--text-main); margin-top: 0.4rem;">Comercios con Góndola Oficial Habilitada</h2>
+      <p style="color: var(--text-muted); font-size: 1rem; margin-top: 0.5rem;">Visitá cualquiera de estos establecimientos habilitados para comprar directo del productor.</p>
     </div>
 
-    <div class="portal-grid" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+    <div class="portal-grid">
 
       <!-- Comercio 1 -->
       <article class="grid-card" style="padding: 2rem; border-radius: var(--radius-md);">
@@ -314,5 +352,6 @@
     </div>
   </footer>
 
+  <script src="app.js"></script>
 </body>
 </html>

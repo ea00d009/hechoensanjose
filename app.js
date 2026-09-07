@@ -85,12 +85,12 @@ const PRODUCTORES_SAN_JOSE = [
     tagClass: "tag-pecan",
     pinColor: "#059669",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3c3 4 3 14 0 18"/><path d="M3 12c4-3 14-3 18 0"/></svg>`,
-    coords: [-32.2005, -58.2230],
-    direccion: "Calle 2 de Abril y Mitre, San José",
-    telefono: "+54 9 3447 49-6230",
-    whatsapp: "5493447496230",
-    horario: "Lun a Sáb: 09:00 a 13:00 y 17:00 a 20:30 hs",
-    descripcion: "Emprendimiento emblemático distinguido con el Sello de Turismo Industrial y Productivo. Nueces seleccionadas en mitades, garrapiñadas, saladas y bombones rellenos.",
+    coords: [-32.202766, -58.202412],
+    direccion: "Doctor Luis Cettour, San José, Entre Ríos",
+    telefono: "+54 9 3447 45-2947",
+    whatsapp: "5493447452947",
+    horario: "Lun a Dom: 09:00 a 13:00 y 16:00 a 20:00 hs",
+    descripcion: "Establecimiento Los Pecanes - La Boutique de la Nuez Pecán. Emprendimiento emblemático distinguido con el Sello de Turismo Industrial y Productivo. Nueces seleccionadas en mitades, garrapiñadas, saladas y bombones rellenos.",
     destacado: true
   },
   {
@@ -200,12 +200,15 @@ const PRODUCTORES_SAN_JOSE = [
 // 2. Estado Global de la Aplicación
 let mapInstance = null;
 let markerLayerGroup = null;
+let currentTileLayer = null;
 let currentFilter = 'todos';
 let searchQuery = '';
 const markerMap = new Map(); // id -> L.marker
 
 // 3. Inicialización cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', () => {
+  initThemeToggle();
+  initMobileNav();
   initMap();
   renderProducersList();
   setupFilterListeners();
@@ -234,11 +237,8 @@ function initMap() {
   // Control de zoom en la esquina superior derecha para no tapar el panel lateral
   L.control.zoom({ position: 'topright' }).addTo(mapInstance);
 
-  // Capa base: OpenStreetMap estándar con alta definición
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Hecho en San José'
-  }).addTo(mapInstance);
+  // Capa base dinámica según modo claro / oscuro
+  applyMapTileLayer();
 
   // Grupo de marcadores
   markerLayerGroup = L.layerGroup().addTo(mapInstance);
@@ -379,12 +379,16 @@ function updateMarkers() {
 function renderProducersList() {
   const container = document.getElementById('producers-list');
   const countBadge = document.getElementById('producers-counter');
+  const tabCounter = document.getElementById('tab-counter');
   if (!container) return;
 
   const filtered = getFilteredProducers();
 
   if (countBadge) {
     countBadge.textContent = `${filtered.length} ${filtered.length === 1 ? 'productor' : 'productores'}`;
+  }
+  if (tabCounter) {
+    tabCounter.textContent = filtered.length;
   }
 
   if (filtered.length === 0) {
@@ -424,6 +428,11 @@ function renderProducersList() {
  */
 function focusProducer(id) {
   selectProducerInList(id);
+
+  // Si estamos en vista móvil, alternar automáticamente al mapa para ver el pin
+  if (window.innerWidth <= 768 && window.switchMapTab) {
+    window.switchMapTab('map');
+  }
 
   const marker = markerMap.get(id);
   const productor = PRODUCTORES_SAN_JOSE.find(p => p.id === id);
@@ -496,4 +505,128 @@ window.resetMapBounds = function() {
   mapInstance.fitBounds(allBounds, { padding: [50, 50], maxZoom: 15 });
 };
 
+/**
+ * Control del Menú Móvil Desplegable
+ */
+function initMobileNav() {
+  const toggleBtn = document.getElementById('mobile-menu-btn');
+  const navActions = document.getElementById('main-nav-actions') || document.querySelector('.nav-actions');
+
+  if (!toggleBtn || !navActions) return;
+
+  toggleBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = navActions.classList.contains('is-open');
+    if (isOpen) {
+      navActions.classList.remove('is-open');
+      toggleBtn.classList.remove('active');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+    } else {
+      navActions.classList.add('is-open');
+      toggleBtn.classList.add('active');
+      toggleBtn.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  // Cerrar menú al hacer clic en cualquier enlace interno
+  navActions.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('click', () => {
+      navActions.classList.remove('is-open');
+      toggleBtn.classList.remove('active');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Cerrar menú al hacer clic fuera
+  document.addEventListener('click', (e) => {
+    if (!navActions.contains(e.target) && !toggleBtn.contains(e.target)) {
+      navActions.classList.remove('is-open');
+      toggleBtn.classList.remove('active');
+      toggleBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
+
+/**
+ * Conmutador de vista en Mapa para Celulares (Pestaña Mapa / Pestaña Lista)
+ */
+function switchMapTab(tab) {
+  const layout = document.querySelector('.map-app-layout');
+  const btnMap = document.getElementById('tab-btn-map');
+  const btnList = document.getElementById('tab-btn-list');
+
+  if (!layout) return;
+
+  if (tab === 'map') {
+    layout.classList.remove('layout-show-list');
+    layout.classList.add('layout-show-map');
+    if (btnMap) btnMap.classList.add('active');
+    if (btnList) btnList.classList.remove('active');
+
+    if (mapInstance) {
+      setTimeout(() => {
+        mapInstance.invalidateSize();
+      }, 100);
+    }
+  } else if (tab === 'list') {
+    layout.classList.remove('layout-show-map');
+    layout.classList.add('layout-show-list');
+    if (btnList) btnList.classList.add('active');
+    if (btnMap) btnMap.classList.remove('active');
+  }
+}
+
+/**
+ * Aplica la capa de mapa estándar de OpenStreetMap (el tema oscuro se gestiona por CSS sin requerir API Keys)
+ */
+function applyMapTileLayer() {
+  if (!mapInstance) return;
+
+  if (!currentTileLayer) {
+    currentTileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors | Hecho en San José'
+    });
+    currentTileLayer.addTo(mapInstance);
+  }
+}
+
+/**
+ * Alterna entre Modo Claro y Modo Oscuro
+ */
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme') || 'light';
+  const newTheme = current === 'dark' ? 'light' : 'dark';
+
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('sanjose-theme', newTheme);
+
+  // Actualizar teselas del mapa si está activo
+  applyMapTileLayer();
+}
+
+/**
+ * Inicializa el sistema de Modo Oscuro y escucha eventos
+ */
+function initThemeToggle() {
+  const saved = localStorage.getItem('sanjose-theme');
+  if (saved) {
+    document.documentElement.setAttribute('data-theme', saved);
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+
+  // Asociar evento a todos los botones .theme-toggle-btn
+  document.querySelectorAll('.theme-toggle-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleTheme();
+    });
+  });
+}
+
 window.focusProducer = focusProducer;
+window.switchMapTab = switchMapTab;
+window.initMobileNav = initMobileNav;
+window.toggleTheme = toggleTheme;
+window.initThemeToggle = initThemeToggle;

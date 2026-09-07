@@ -70,7 +70,7 @@ productores-sanjose/
 4. **Artesanías El Palmar** &bull; *Cestería en fibra de palma yatay y obras tradicionales* (Colonia San José)
 
 ### Investigados e Incorporados del Ecosistema Turístico:
-5. **Nuez Pecán La Reina** &bull; *Sello de Turismo Industrial y Productivo, pecán seleccionado* (2 de Abril y Mitre)
+5. **Nuez Pecán La Reina** &bull; *Establecimiento Los Pecanes - La Boutique de la Nuez Pecán, Sello de Turismo Industrial y Productivo* (Doctor Luis Cettour)
 6. **Apícola La Sanjosesina** &bull; *Miel pura de monte nativo, polen y propóleo artesanal* (Centenario 1580)
 7. **Granja y Museo Histórico La Administración** &bull; *Quesería tradicional, chacinados y picadas coloniales* (Acceso Bastían s/n)
 8. **Dulces Caseros La Juanita** &bull; *Mermeladas de higo, naranja amarga y yatay en paila de cobre* (Urquiza 1127)
