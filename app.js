@@ -599,7 +599,11 @@ function toggleTheme() {
   const newTheme = current === 'dark' ? 'light' : 'dark';
 
   document.documentElement.setAttribute('data-theme', newTheme);
-  localStorage.setItem('sanjose-theme', newTheme);
+  try {
+    localStorage.setItem('sanjose-theme', newTheme);
+  } catch (e) {
+    // Almacenamiento no disponible o navegación privada estricta
+  }
 
   // Actualizar teselas del mapa si está activo
   applyMapTileLayer();
@@ -609,11 +613,17 @@ function toggleTheme() {
  * Inicializa el sistema de Modo Oscuro y escucha eventos
  */
 function initThemeToggle() {
-  const saved = localStorage.getItem('sanjose-theme');
-  if (saved) {
-    document.documentElement.setAttribute('data-theme', saved);
-  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.documentElement.setAttribute('data-theme', 'dark');
+  try {
+    const saved = localStorage.getItem('sanjose-theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  } catch (e) {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
   }
 
   // Asociar evento a todos los botones .theme-toggle-btn
