@@ -408,23 +408,40 @@ a {
 .hero-title {
   font-size: 2.8rem;
   font-weight: 800;
-  color: #0f172a;
+  color: var(--text-main);
   letter-spacing: -1px;
   margin-bottom: 1rem;
 }
 
-.hero-title .highlight {
+.page-hero-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 0.8rem;
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+}
+
+.highlight,
+.hero-title .highlight,
+.page-hero-title .highlight {
   color: var(--color-primary);
   background: linear-gradient(120deg, var(--color-primary) 0%, var(--color-accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
-.hero-desc {
-  font-size: 1.1rem;
+.hero-desc,
+.page-hero-desc {
+  font-size: 1.05rem;
   color: var(--text-muted);
-  margin-bottom: 1.75rem;
-  max-width: 620px;
+  line-height: 1.6;
+}
+
+.page-hero-desc {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .hero-stats {
@@ -1687,8 +1704,22 @@ a {
 }
 
 [data-theme="dark"] .hero-title,
+[data-theme="dark"] .page-hero-title,
 [data-theme="dark"] .section-title {
-  color: #f8fafc;
+  color: #f8fafc !important;
+}
+
+[data-theme="dark"] .hero-desc,
+[data-theme="dark"] .page-hero-desc {
+  color: #94a3b8;
+}
+
+[data-theme="dark"] .highlight,
+[data-theme="dark"] .hero-title .highlight,
+[data-theme="dark"] .page-hero-title .highlight {
+  background: linear-gradient(120deg, #38bdf8 0%, #fb7185 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 [data-theme="dark"] .stat-item,
@@ -1900,5 +1931,55 @@ a {
   background: #1e293b;
   color: #f8fafc;
 }
+
+/* Soporte modo oscuro para Góndolas, Catálogo e Inscripción */
+.gondola-cta-box {
+  background: linear-gradient(135deg, rgba(236, 253, 245, 0.95) 0%, rgba(240, 253, 250, 0.95) 100%);
+  border: 2px dashed rgba(5, 150, 105, 0.35);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  text-align: center;
+}
+
+.gondola-cta-box h3 {
+  font-size: 1.3rem;
+  color: #065f46;
+  margin-bottom: 0.5rem;
+}
+
+.gondola-cta-box p {
+  font-size: 0.88rem;
+  color: #047857;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+[data-theme="dark"] .gondola-cta-box {
+  background: linear-gradient(135deg, rgba(6, 78, 59, 0.4) 0%, rgba(6, 95, 70, 0.3) 100%);
+  border-color: rgba(52, 211, 153, 0.4);
+}
+
+[data-theme="dark"] .gondola-cta-box h3 {
+  color: #6ee7b7;
+}
+
+[data-theme="dark"] .gondola-cta-box p {
+  color: #a7f3d0;
+}
+
+[data-theme="dark"] .gondola-detail-list {
+  color: #cbd5e1 !important;
+}
+
+[data-theme="dark"] .catalogo-card-info {
+  background: var(--bg-surface) !important;
+  border-color: var(--border-light) !important;
+  color: var(--text-main) !important;
+}
+
+[data-theme="dark"] .form-interest-label {
+  color: var(--text-main) !important;
+}
+
 
 

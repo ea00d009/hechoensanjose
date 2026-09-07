@@ -126,10 +126,10 @@
           </svg>
           <span>Producción Local con Identidad de Origen</span>
         </div>
-        <h1 style="font-size: 2.5rem; font-weight: 800; color: #0f172a; margin-bottom: 0.8rem; letter-spacing: -0.5px;">
+        <h1 class="page-hero-title">
           Catálogo Oficial de <span class="highlight">Negocios y Productores</span>
         </h1>
-        <p style="font-size: 1.05rem; color: #64748b; line-height: 1.6;">
+        <p class="page-hero-desc">
           Descubrí los emprendimientos registrados de San José. Productos artesanales, agroecología, sabores centenarios y creaciones únicas que impulsan el desarrollo de nuestra comunidad.
         </p>
 
@@ -282,18 +282,18 @@
                 </div>
                 <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px;">
                   <span class="category-tag ${p.tagClass}">${p.tagLabel}</span>
-                  ${p.destacado ? '<span style="font-size: 0.68rem; font-weight: 800; color: #d97706; background: #fef3c7; padding: 2px 8px; border-radius: 9999px;">★ Sello Destacado</span>' : ''}
+                  ${p.destacado ? '<span style="font-size: 0.68rem; font-weight: 800; color: var(--color-amber); background: var(--color-amber-light); padding: 2px 8px; border-radius: 9999px;">★ Sello Destacado</span>' : ''}
                 </div>
               </div>
 
               <h3 class="card-title" style="font-size: 1.25rem; margin-bottom: 0.35rem;">${p.nombre}</h3>
               <div style="font-size: 0.8rem; font-weight: 700; color: #0284c7; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">${p.rubro}</div>
               
-              <p class="card-description" style="font-size: 0.9rem; margin-bottom: 1.25rem; color: #64748b; line-height: 1.5;">
+              <p class="card-description" style="font-size: 0.9rem; margin-bottom: 1.25rem; color: var(--text-muted); line-height: 1.5;">
                 ${p.descripcion}
               </p>
 
-              <div style="background: #f8fafc; border-radius: 8px; padding: 0.75rem; margin-bottom: 1.25rem; font-size: 0.82rem; color: #475569; display: flex; flex-direction: column; gap: 4px;">
+              <div class="catalogo-card-info" style="background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 8px; padding: 0.75rem; margin-bottom: 1.25rem; font-size: 0.82rem; color: var(--text-main); display: flex; flex-direction: column; gap: 4px;">
                 <div style="display: flex; align-items: center; gap: 6px;">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; color: #0284c7;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                   <span>${p.direccion}</span>
