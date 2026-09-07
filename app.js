@@ -17,11 +17,11 @@ const PRODUCTORES_SAN_JOSE = [
     tagClass: "tag-licores",
     pinColor: "#7c3aed",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h8"/><path d="M10 2v5l-4 5.5v7.5a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-7.5L14 7V2"/></svg>`,
-    coords: [-32.202, -58.215],
-    direccion: "Entre Ríos 1046, San José",
-    telefono: "+54 9 3447 47-0108",
-    whatsapp: "5493447470108",
-    horario: "Lun a Sáb: 08:30 a 12:30 y 16:30 a 20:30 hs",
+    coords: [-32.20780, -58.22510],
+    direccion: "Entre Ríos 1046 (e/ 3 de Febrero y Caseros), San José",
+    telefono: "+54 9 3447 40-5163",
+    whatsapp: "5493447405163",
+    horario: "Lun a Sáb: 08:30 a 12:30 y 17:00 a 21:00 hs",
     descripcion: "Fábrica centenaria fundada en 1908. Elaboran licores artesanales tradicionales de yatay, miel de eucalipto, naranja y hierbas sin aditivos ni conservantes químicos.",
     destacado: true
   },
@@ -34,12 +34,12 @@ const PRODUCTORES_SAN_JOSE = [
     tagClass: "tag-pecan",
     pinColor: "#059669",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`,
-    coords: [-32.207, -58.260],
-    direccion: "Ruta 26 Km. 7, San José",
-    telefono: "+54 9 3447 43-8555",
-    whatsapp: "5493447438555",
+    coords: [-32.20350, -58.20320],
+    direccion: "Ruta 26 (RP 130) Km. 7, San José",
+    telefono: "+54 9 3447 43-3929",
+    whatsapp: "5493447433929",
     horario: "Mié a Dom: 10:00 a 20:00 hs",
-    descripcion: "Boutique de la nuez pecán, casa de té y patio cervecero campestre. Visitas guiadas al monte frutal, degustación de nueces saborizadas y productos regionales.",
+    descripcion: "Plantación pionera de nogales pecán, casa de té y patio cervecero campestre. Visitas guiadas al monte frutal, degustación de nueces y productos regionales.",
     destacado: true
   },
   {
@@ -51,12 +51,12 @@ const PRODUCTORES_SAN_JOSE = [
     tagClass: "tag-artesania",
     pinColor: "#be123c",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 18 3 22 9 12 22 2 9 6 3"></polygon><line x1="2" y1="9" x2="22" y2="9"></line><line x1="12" y1="22" x2="16" y2="9"></line><line x1="12" y1="22" x2="8" y2="9"></line></svg>`,
-    coords: [-32.209, -58.235],
-    direccion: "Ruta Provincial Nº 26, Km. 3,5",
-    telefono: "+54 9 3447 45-2311",
-    whatsapp: "5493447452311",
-    horario: "Todos los días: 09:00 a 19:00 hs",
-    descripcion: "Exposición permanente y venta de maderas petrificadas y piedras semipreciosas (ágatas, amatistas y cuarzos) extraídas y pulidas de las orillas del río Uruguay.",
+    coords: [-32.19801, -58.15484],
+    direccion: "Ruta Prov. 26 Km. 3,5 (Barrio Troncos Petrificados), San José",
+    telefono: "+54 9 3447 46-4775",
+    whatsapp: "5493447464775",
+    horario: "Todos los días: 10:00 a 19:00 hs",
+    descripcion: "Reservorio de Selva Gayol. Exposición permanente y venta de maderas petrificadas y piedras semipreciosas (ágatas, amatistas y cuarzos) de las orillas del río Uruguay.",
     destacado: false
   },
   {
@@ -68,12 +68,12 @@ const PRODUCTORES_SAN_JOSE = [
     tagClass: "tag-artesania",
     pinColor: "#e54260",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`,
-    coords: [-32.190, -58.250],
-    direccion: "Colonia San José",
-    telefono: "+54 9 3447 41-7788",
-    whatsapp: "5493447417788",
-    horario: "Lun a Sáb: 09:30 a 18:30 hs",
-    descripcion: "Artesanos locales que exponen la creatividad de sus obras tradicionales: cestería en fibra de palma yatay, tallados en maderas nativas y piezas tejidas a telar.",
+    coords: [-32.19409, -58.23921],
+    direccion: "Ruta Nacional 14 Km. 158,5, Colonia San José",
+    telefono: "+54 9 3447 45-5239",
+    whatsapp: "5493447455239",
+    horario: "Lun a Sáb: 10:00 a 18:00 hs",
+    descripcion: "Establecimiento tradicional con plantación de mates orgánicos, cestería en fibra de palma yatay, tallados en maderas nativas y piezas criollas tejidas.",
     destacado: false
   },
   {
@@ -102,8 +102,8 @@ const PRODUCTORES_SAN_JOSE = [
     tagClass: "tag-miel",
     pinColor: "#d97706",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h8"/><rect width="14" height="15" x="5" y="5" rx="3"/><path d="M5 10h14"/><path d="M12 13v4"/></svg>`,
-    coords: [-32.2052, -58.2190],
-    direccion: "Centenario 1580, San José",
+    coords: [-32.20860, -58.22050],
+    direccion: "Centenario 1580 (e/ Ituzaingó y Yrigoyen), San José",
     telefono: "+54 9 3447 52-1144",
     whatsapp: "5493447521144",
     horario: "Lun a Vie: 08:30 a 12:30 y 16:30 a 20:00 hs",
@@ -119,12 +119,12 @@ const PRODUCTORES_SAN_JOSE = [
     tagClass: "tag-quesos",
     pinColor: "#0284c7",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>`,
-    coords: [-32.1965, -58.2310],
-    direccion: "Acceso Bastían s/n, Colonia San José",
+    coords: [-32.21947, -58.19212],
+    direccion: "Camino de los Primeros Colonos s/n (Junto al Molino Forclaz), Colonia San José",
     telefono: "+54 9 3447 47-0220",
     whatsapp: "5493447470220",
     horario: "Mar a Dom: 09:30 a 19:00 hs",
-    descripcion: "Predio histórico de la colonización de 1857. Elaboración artesanal de quesos gouda y sardo, ricota fresca de campo y degustación de tablas coloniales.",
+    descripcion: "Predio histórico de la colonización de 1857 y antigua administración de Alejo Peyret. Quesos artesanales gouda y sardo, ricota fresca de campo y picadas coloniales.",
     destacado: true
   },
   {
@@ -136,8 +136,8 @@ const PRODUCTORES_SAN_JOSE = [
     tagClass: "tag-dulces",
     pinColor: "#ea580c",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10v3H7z"/><rect x="5" y="6" width="14" height="15" rx="3"/><circle cx="12" cy="13" r="3"/></svg>`,
-    coords: [-32.2038, -58.2210],
-    direccion: "Urquiza 1127, San José",
+    coords: [-32.21240, -58.22000],
+    direccion: "Urquiza 1127 (Frente a Plaza Urquiza / Museo), San José",
     telefono: "+54 9 3447 44-3322",
     whatsapp: "5493447443322",
     horario: "Lun a Sáb: 09:00 a 13:00 y 17:00 a 20:30 hs",
@@ -153,11 +153,11 @@ const PRODUCTORES_SAN_JOSE = [
     tagClass: "tag-vinos",
     pinColor: "#991b1b",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h4v4H8z"/><path d="M7 6h6l2 4v11a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V10l2-4z"/><circle cx="10" cy="14" r="2"/><path d="M18 10v7a2 2 0 0 1-2 2h0a2 2 0 0 1-2-2v-7h4z"/><path d="M16 19v3"/></svg>`,
-    coords: [-32.2150, -58.1880],
-    direccion: "RN 135 Km 8 (Circuito Enoturístico San José - Colón)",
-    telefono: "+54 9 3447 42-1811",
-    whatsapp: "5493447421811",
-    horario: "Visitas guiadas diarias a las 11:00 y 16:30 hs",
+    coords: [-32.23824, -58.15890],
+    direccion: "Ruta Nacional 135 Km 8 (Circuito San José - Colón)",
+    telefono: "+54 9 3447 50-5095",
+    whatsapp: "5493447505095",
+    horario: "Visitas guiadas y degustaciones diarias a las 11:00 y 16:30 hs",
     descripcion: "Pioneros del renacer vitivinícola entrerriano. Viñedos históricos, cavas centenarias y elaboración de varietales Tannat, Malbec, Chardonnay y espumantes.",
     destacado: true
   },
@@ -170,12 +170,12 @@ const PRODUCTORES_SAN_JOSE = [
     tagClass: "tag-cerveza",
     pinColor: "#b45309",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 11h1a3 3 0 0 1 0 6h-1"/><path d="M9 12v6"/><path d="M13 12v6"/><path d="M5 8v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8"/></svg>`,
-    coords: [-32.2045, -58.2225],
-    direccion: "Urquiza y Centenario, San José",
+    coords: [-32.21020, -58.21980],
+    direccion: "Centenario 1361 (Zona Céntrica), San José",
     telefono: "+54 9 3447 48-3344",
     whatsapp: "5493447483344",
     horario: "Mié a Dom: 18:00 a 01:00 hs",
-    descripcion: "Microcervecería local con maltas entrerrianas y aguas puras de la cuenca. Estilos propios premiados: Dorada Pampeana, Honey con miel isleña y Red Ale.",
+    descripcion: "Punto cervecero artesanal en el centro de San José con maltas entrerrianas y aguas puras de la cuenca. Estilos propios premiados: Dorada Pampeana, Honey con miel isleña y Red Ale.",
     destacado: true
   },
   {
@@ -187,8 +187,8 @@ const PRODUCTORES_SAN_JOSE = [
     tagClass: "tag-artesania",
     pinColor: "#e54260",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>`,
-    coords: [-32.2018, -58.2260],
-    direccion: "Mitre 1150 (Frente a Plaza Urquiza)",
+    coords: [-32.21215, -58.21715],
+    direccion: "Mitre 1150 (Frente a Plaza Urquiza), San José",
     telefono: "+54 9 3447 43-9911",
     whatsapp: "5493447439911",
     horario: "Lun a Sáb: 09:00 a 13:00 y 17:00 a 20:30 hs",
@@ -222,8 +222,8 @@ function initMap() {
   const mapElement = document.getElementById('map');
   if (!mapElement) return;
 
-  // Coordenadas céntricas de San José, Entre Ríos (Plaza Gral. Urquiza / Zona Urbana)
-  const SAN_JOSE_CENTER = [-32.2025, -58.2215];
+  // Coordenadas céntricas de San José, Entre Ríos (Plaza Gral. Urquiza / Casco Urbano)
+  const SAN_JOSE_CENTER = [-32.2123, -58.2191];
   const INITIAL_ZOOM = 14;
 
   // Instanciar mapa

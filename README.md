@@ -52,7 +52,7 @@ productores-sanjose/
 - **Nuevo Recuadro Destacado:** *"Mapa productivo de la ciudad de San José"* con distintivo animado `¡NUEVO!`, microanimación hover e interactividad accesible.
 
 ### 2. Visor Cartográfico Interactivo (`mapa.html` & `app.js`)
-- **Centro geográfico:** San José, Entre Ríos (`-32.2025, -58.2215`).
+- **Centro geográfico:** San José, Entre Ríos (`-32.2123, -58.2191` &bull; Plaza General Urquiza).
 - **Pines personalizados:** Iconografía SVG temática con color según rubro.
 - **Popups interactivos:** Información detallada del productor, horarios, botón directo de WhatsApp y trazado de ruta en Google Maps.
 - **Sincronización:** Hacer clic en un productor de la lista enfoca suavemente el mapa (`flyTo`) y despliega su popup.
@@ -64,19 +64,19 @@ productores-sanjose/
 ## 🌰 Productores Locales Georreferenciados (11 Establecimientos)
 
 ### Solicitados:
-1. **Licores Bard** &bull; *Licores Artesanales desde 1908* (Entre Ríos 1046, San José)
-2. **Establecimiento Los Pecanes** &bull; *Boutique de la Nuez Pecán, Casa de Té y Patio Cervecero* (Ruta 26 Km. 7)
-3. **De los Troncos Petrificados** &bull; *Piedras Semipreciosas del Río Uruguay y Maderas Petrificadas* (Ruta Prov. 26 Km. 3,5)
-4. **Artesanías El Palmar** &bull; *Cestería en fibra de palma yatay y obras tradicionales* (Colonia San José)
+1. **Licores Bard** &bull; *Licores Artesanales desde 1908* (Entre Ríos 1046 e/ 3 de Febrero y Caseros)
+2. **Establecimiento Los Pecanes** &bull; *Plantación, Casa de Té y Patio Cervecero* (Ruta 26 / RP 130 Km. 7)
+3. **De los Troncos Petrificados** &bull; *Piedras Semipreciosas del Río Uruguay y Maderas Petrificadas* (Ruta Prov. 26 Km. 3,5, Barrio Troncos Petrificados)
+4. **Artesanías El Palmar** &bull; *Cestería en fibra de palma yatay, mates orgánicos y obras tradicionales* (Ruta Nacional 14 Km. 158,5, Colonia San José)
 
 ### Investigados e Incorporados del Ecosistema Turístico:
 5. **Nuez Pecán La Reina** &bull; *Establecimiento Los Pecanes - La Boutique de la Nuez Pecán, Sello de Turismo Industrial y Productivo* (Doctor Luis Cettour)
-6. **Apícola La Sanjosesina** &bull; *Miel pura de monte nativo, polen y propóleo artesanal* (Centenario 1580)
-7. **Granja y Museo Histórico La Administración** &bull; *Quesería tradicional, chacinados y picadas coloniales* (Acceso Bastían s/n)
-8. **Dulces Caseros La Juanita** &bull; *Mermeladas de higo, naranja amarga y yatay en paila de cobre* (Urquiza 1127)
-9. **Viñedos & Bodega Vulliez Sermet** &bull; *Enoturismo, viñedos históricos y vinos varietales* (RN 135 Km 8)
-10. **Cervecería Artesanal El Molino** &bull; *Microcervecería con maltas entrerrianas y estilos premiados* (Urquiza y Centenario)
-11. **Cuchillería & Talabartería Sanjo Tradición** &bull; *Cuchillos forjados a mano en acero y platería criolla* (Mitre 1150)
+6. **Apícola La Sanjosesina** &bull; *Miel pura de monte nativo, polen y propóleo artesanal* (Centenario 1580 e/ Ituzaingó y Yrigoyen)
+7. **Granja y Museo Histórico La Administración** &bull; *Quesería tradicional, chacinados y picadas coloniales* (Camino de los Primeros Colonos s/n, junto al Molino Forclaz)
+8. **Dulces Caseros La Juanita** &bull; *Mermeladas de higo, naranja amarga y yatay en paila de cobre* (Urquiza 1127, frente a Plaza Urquiza / Museo)
+9. **Viñedos & Bodega Vulliez Sermet** &bull; *Enoturismo, viñedos históricos y vinos varietales* (Ruta Nacional 135 Km 8)
+10. **Cervecería Artesanal El Molino** &bull; *Microcervecería con maltas entrerrianas y estilos premiados* (Centenario 1361, Zona Céntrica)
+11. **Cuchillería & Talabartería Sanjo Tradición** &bull; *Cuchillos forjados a mano en acero y platería criolla* (Mitre 1150, frente a Plaza Urquiza)
 
 ---
 
