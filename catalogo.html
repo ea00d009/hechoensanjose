@@ -275,47 +275,52 @@
           const wa = `https://wa.me/${p.whatsapp}?text=${waMsg}`;
 
           return `
-            <article class="grid-card" style="padding: 1.8rem; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-light); display: flex; flex-direction: column;">
-              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
-                <div class="card-icon-container" style="width: 48px; height: 48px; margin-bottom: 0; background: ${p.pinColor}18; color: ${p.pinColor};">
-                  ${p.iconoSvg}
+            <article class="grid-card catalog-producer-card" style="padding: 0; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-light); display: flex; flex-direction: column; overflow: hidden;">
+              <div class="catalog-card-img-wrap" style="position: relative; width: 100%; height: 185px; overflow: hidden; background: #1e293b;">
+                <img src="${p.imagen}" alt="${p.nombre}" class="catalog-card-img" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" loading="lazy" onerror="this.parentElement.style.display='none'">
+                <div style="position: absolute; top: 12px; left: 12px;">
+                  <div class="card-icon-container" style="width: 38px; height: 38px; margin-bottom: 0; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); color: ${p.pinColor}; display: flex; align-items: center; justify-content: center; border-radius: 9px; box-shadow: 0 4px 10px rgba(0,0,0,0.25);">
+                    ${p.iconoSvg}
+                  </div>
                 </div>
-                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px;">
-                  <span class="category-tag ${p.tagClass}">${p.tagLabel}</span>
-                  ${p.destacado ? '<span style="font-size: 0.68rem; font-weight: 800; color: var(--color-amber); background: var(--color-amber-light); padding: 2px 8px; border-radius: 9999px;">★ Sello Destacado</span>' : ''}
-                </div>
-              </div>
-
-              <h3 class="card-title" style="font-size: 1.25rem; margin-bottom: 0.35rem;">${p.nombre}</h3>
-              <div style="font-size: 0.8rem; font-weight: 700; color: #0284c7; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">${p.rubro}</div>
-              
-              <p class="card-description" style="font-size: 0.9rem; margin-bottom: 1.25rem; color: var(--text-muted); line-height: 1.5;">
-                ${p.descripcion}
-              </p>
-
-              <div class="catalogo-card-info" style="background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 8px; padding: 0.75rem; margin-bottom: 1.25rem; font-size: 0.82rem; color: var(--text-main); display: flex; flex-direction: column; gap: 4px;">
-                <div style="display: flex; align-items: center; gap: 6px;">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; color: #0284c7;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                  <span>${p.direccion}</span>
-                </div>
-                <div style="display: flex; align-items: center; gap: 6px;">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; color: #0284c7;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                  <span>${p.horario}</span>
+                <div style="position: absolute; top: 12px; right: 12px; display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
+                  <span class="category-tag ${p.tagClass}" style="box-shadow: 0 2px 6px rgba(0,0,0,0.2);">${p.tagLabel}</span>
+                  ${p.destacado ? '<span style="font-size: 0.68rem; font-weight: 800; color: #fff; background: rgba(217, 119, 6, 0.95); backdrop-filter: blur(4px); padding: 2px 8px; border-radius: 9999px; box-shadow: 0 2px 6px rgba(0,0,0,0.3);">★ Sello Destacado</span>' : ''}
                 </div>
               </div>
 
-              <div style="display: flex; gap: 8px; margin-top: auto;">
-                <a href="${wa}" target="_blank" rel="noopener" class="btn btn-primary" style="flex: 1; padding: 8px 10px; font-size: 0.8rem; background: #25d366; border-color: #25d366;">
-                  <span>Contactar</span>
-                </a>
-                <a href="mapa.html" class="btn btn-outline" style="padding: 8px 10px; font-size: 0.8rem;" title="Ver en Mapa Interactivo">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
-                    <line x1="9" y1="3" x2="9" y2="18"></line>
-                    <line x1="15" y1="6" x2="15" y2="21"></line>
-                  </svg>
-                  <span>Mapa</span>
-                </a>
+              <div style="padding: 1.5rem; display: flex; flex-direction: column; flex: 1;">
+                <h3 class="card-title" style="font-size: 1.25rem; margin-bottom: 0.35rem;">${p.nombre}</h3>
+                <div style="font-size: 0.8rem; font-weight: 700; color: #0284c7; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">${p.rubro}</div>
+                
+                <p class="card-description" style="font-size: 0.9rem; margin-bottom: 1.25rem; color: var(--text-muted); line-height: 1.5;">
+                  ${p.descripcion}
+                </p>
+
+                <div class="catalogo-card-info" style="background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 8px; padding: 0.75rem; margin-bottom: 1.25rem; font-size: 0.82rem; color: var(--text-main); display: flex; flex-direction: column; gap: 4px;">
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; color: #0284c7;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span>${p.direccion}</span>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; color: #0284c7;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span>${p.horario}</span>
+                  </div>
+                </div>
+
+                <div style="display: flex; gap: 8px; margin-top: auto;">
+                  <a href="${wa}" target="_blank" rel="noopener" class="btn btn-primary" style="flex: 1; padding: 8px 10px; font-size: 0.8rem; background: #25d366; border-color: #25d366;">
+                    <span>Contactar</span>
+                  </a>
+                  <a href="mapa.html" class="btn btn-outline" style="padding: 8px 10px; font-size: 0.8rem;" title="Ver en Mapa Interactivo">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
+                      <line x1="9" y1="3" x2="9" y2="18"></line>
+                      <line x1="15" y1="6" x2="15" y2="21"></line>
+                    </svg>
+                    <span>Mapa</span>
+                  </a>
+                </div>
               </div>
             </article>
           `;

@@ -16,6 +16,7 @@ const PRODUCTORES_SAN_JOSE = [
     tagLabel: "Licores desde 1908",
     tagClass: "tag-licores",
     pinColor: "#7c3aed",
+    imagen: "assets/productores/licores-bard.jpg",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h8"/><path d="M10 2v5l-4 5.5v7.5a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-7.5L14 7V2"/></svg>`,
     coords: [-32.20780, -58.22510],
     direccion: "Entre Ríos 1046 (e/ 3 de Febrero y Caseros), San José",
@@ -33,6 +34,7 @@ const PRODUCTORES_SAN_JOSE = [
     tagLabel: "Pecán & Casa de Té",
     tagClass: "tag-pecan",
     pinColor: "#059669",
+    imagen: "assets/productores/establecimiento-los-pecanes.jpg",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>`,
     coords: [-32.20350, -58.20320],
     direccion: "Ruta 26 (RP 130) Km. 7, San José",
@@ -50,6 +52,7 @@ const PRODUCTORES_SAN_JOSE = [
     tagLabel: "Piedras & Minerales",
     tagClass: "tag-artesania",
     pinColor: "#be123c",
+    imagen: "assets/productores/troncos-petrificados.jpg",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 18 3 22 9 12 22 2 9 6 3"></polygon><line x1="2" y1="9" x2="22" y2="9"></line><line x1="12" y1="22" x2="16" y2="9"></line><line x1="12" y1="22" x2="8" y2="9"></line></svg>`,
     coords: [-32.19801, -58.15484],
     direccion: "Ruta Prov. 26 Km. 3,5 (Barrio Troncos Petrificados), San José",
@@ -67,6 +70,7 @@ const PRODUCTORES_SAN_JOSE = [
     tagLabel: "Artesanías & Fibras",
     tagClass: "tag-artesania",
     pinColor: "#e54260",
+    imagen: "assets/productores/artesanias-el-palmar.jpg",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>`,
     coords: [-32.19409, -58.23921],
     direccion: "Ruta Nacional 14 Km. 158,5, Colonia San José",
@@ -84,6 +88,7 @@ const PRODUCTORES_SAN_JOSE = [
     tagLabel: "Pecán Premiado",
     tagClass: "tag-pecan",
     pinColor: "#059669",
+    imagen: "assets/productores/nuez-pecan-la-reina.jpg",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3c3 4 3 14 0 18"/><path d="M3 12c4-3 14-3 18 0"/></svg>`,
     coords: [-32.202766, -58.202412],
     direccion: "Doctor Luis Cettour, San José, Entre Ríos",
@@ -101,6 +106,7 @@ const PRODUCTORES_SAN_JOSE = [
     tagLabel: "Miel Pura de Monte",
     tagClass: "tag-miel",
     pinColor: "#d97706",
+    imagen: "assets/productores/apicola-la-sanjosesina.jpg",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h8"/><rect width="14" height="15" x="5" y="5" rx="3"/><path d="M5 10h14"/><path d="M12 13v4"/></svg>`,
     coords: [-32.20860, -58.22050],
     direccion: "Centenario 1580 (e/ Ituzaingó y Yrigoyen), San José",
@@ -118,6 +124,7 @@ const PRODUCTORES_SAN_JOSE = [
     tagLabel: "Quesos & Campo",
     tagClass: "tag-quesos",
     pinColor: "#0284c7",
+    imagen: "assets/productores/granja-la-administracion.jpg",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>`,
     coords: [-32.21947, -58.19212],
     direccion: "Camino de los Primeros Colonos s/n (Junto al Molino Forclaz), Colonia San José",
@@ -135,6 +142,7 @@ const PRODUCTORES_SAN_JOSE = [
     tagLabel: "Dulces & Mermeladas",
     tagClass: "tag-dulces",
     pinColor: "#ea580c",
+    imagen: "assets/productores/dulces-la-juanita.jpg",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10v3H7z"/><rect x="5" y="6" width="14" height="15" rx="3"/><circle cx="12" cy="13" r="3"/></svg>`,
     coords: [-32.21240, -58.22000],
     direccion: "Urquiza 1127 (Frente a Plaza Urquiza / Museo), San José",
@@ -152,6 +160,7 @@ const PRODUCTORES_SAN_JOSE = [
     tagLabel: "Vinos & Enoturismo",
     tagClass: "tag-vinos",
     pinColor: "#991b1b",
+    imagen: "assets/productores/bodega-vulliez-sermet.jpg",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h4v4H8z"/><path d="M7 6h6l2 4v11a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V10l2-4z"/><circle cx="10" cy="14" r="2"/><path d="M18 10v7a2 2 0 0 1-2 2h0a2 2 0 0 1-2-2v-7h4z"/><path d="M16 19v3"/></svg>`,
     coords: [-32.23824, -58.15890],
     direccion: "Ruta Nacional 135 Km 8 (Circuito San José - Colón)",
@@ -169,6 +178,7 @@ const PRODUCTORES_SAN_JOSE = [
     tagLabel: "Cerveza Artesanal",
     tagClass: "tag-cerveza",
     pinColor: "#b45309",
+    imagen: "assets/productores/cerveceria-el-molino.jpg",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 11h1a3 3 0 0 1 0 6h-1"/><path d="M9 12v6"/><path d="M13 12v6"/><path d="M5 8v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8"/></svg>`,
     coords: [-32.21020, -58.21980],
     direccion: "Centenario 1361 (Zona Céntrica), San José",
@@ -186,6 +196,7 @@ const PRODUCTORES_SAN_JOSE = [
     tagLabel: "Cuchillos & Cuero",
     tagClass: "tag-artesania",
     pinColor: "#e54260",
+    imagen: "assets/productores/sanjo-tradicion-cuchilleria.jpg",
     iconoSvg: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>`,
     coords: [-32.21215, -58.21715],
     direccion: "Mitre 1150 (Frente a Plaza Urquiza), San José",
@@ -276,42 +287,58 @@ function createPopupContent(p) {
   const whatsappMsg = encodeURIComponent(`Hola! Los contacto a través del Mapa Productivo "Hecho en San José" (Turismo). Me gustaría consultar sobre sus productos.`);
   const whatsappUrl = `https://wa.me/${p.whatsapp}?text=${whatsappMsg}`;
 
-  return `
-    <div class="popup-card">
-      <div class="popup-header">
+  const imageHtml = p.imagen ? `
+    <div class="popup-cover">
+      <img src="${p.imagen}" alt="${p.nombre}" class="popup-cover-img" loading="lazy" onerror="this.parentElement.style.display='none'">
+      <div class="popup-cover-overlay">
         <span class="category-tag ${p.tagClass}">${p.tagLabel}</span>
+        ${p.destacado ? '<span class="tag-destacado-badge">★ Destacado</span>' : ''}
       </div>
-      <h4 class="popup-title">${p.nombre}</h4>
-      <p class="popup-desc">${p.descripcion}</p>
-      
-      <div class="popup-details">
-        <div class="detail-row">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
-          </svg>
-          <span><strong>Dirección:</strong> ${p.direccion}</span>
-        </div>
-        <div class="detail-row">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-          </svg>
-          <span>${p.horario}</span>
-        </div>
-      </div>
+    </div>
+  ` : `
+    <div class="popup-header">
+      <span class="category-tag ${p.tagClass}">${p.tagLabel}</span>
+      ${p.destacado ? '<span class="tag-destacado-badge">★ Destacado</span>' : ''}
+    </div>
+  `;
 
-      <div class="popup-actions">
-        <a href="${whatsappUrl}" target="_blank" rel="noopener" class="btn-popup-action btn-whatsapp">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-          </svg>
-          <span>WhatsApp</span>
-        </a>
-        <a href="${googleMapsUrl}" target="_blank" rel="noopener" class="btn-popup-action btn-directions">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="3 11 22 2 13 21 11 13 3 11"/>
-          </svg>
-          <span>Cómo llegar</span>
-        </a>
+  return `
+    <div class="popup-card has-cover">
+      ${imageHtml}
+      <div class="popup-body">
+        <h4 class="popup-title">${p.nombre}</h4>
+        <div class="popup-rubro">${p.rubro}</div>
+        <p class="popup-desc">${p.descripcion}</p>
+        
+        <div class="popup-details">
+          <div class="detail-row">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            <span><strong>Dirección:</strong> ${p.direccion}</span>
+          </div>
+          <div class="detail-row">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            <span>${p.horario}</span>
+          </div>
+        </div>
+
+        <div class="popup-actions">
+          <a href="${whatsappUrl}" target="_blank" rel="noopener" class="btn-popup-action btn-whatsapp">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            <span>WhatsApp</span>
+          </a>
+          <a href="${googleMapsUrl}" target="_blank" rel="noopener" class="btn-popup-action btn-directions">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+            </svg>
+            <span>Cómo llegar</span>
+          </a>
+        </div>
       </div>
     </div>
   `;
@@ -353,6 +380,8 @@ function updateMarkers() {
     // Popup
     marker.bindPopup(createPopupContent(productor), {
       maxWidth: 320,
+      autoPan: true,
+      autoPanPadding: [50, 50],
       className: 'custom-leaflet-popup'
     });
 
@@ -406,18 +435,24 @@ function renderProducersList() {
   }
 
   container.innerHTML = filtered.map(p => `
-    <article class="producer-item-card" data-id="${p.id}" id="card-item-${p.id}" onclick="focusProducer(${p.id})">
-      <div class="item-badge-row">
-        <span class="category-tag ${p.tagClass}">${p.tagLabel}</span>
-        ${p.destacado ? '<span style="font-size: 0.7rem; font-weight: 700; color: #d97706;">★ Destacado</span>' : ''}
+    <article class="producer-item-card has-cover" data-id="${p.id}" id="card-item-${p.id}" onclick="focusProducer(${p.id})">
+      <div class="producer-card-cover">
+        <img src="${p.imagen}" alt="${p.nombre}" class="producer-cover-img" loading="lazy" onerror="this.parentElement.style.display='none'">
+        <div class="cover-badge-overlay">
+          <span class="category-tag ${p.tagClass}">${p.tagLabel}</span>
+          ${p.destacado ? '<span class="tag-destacado-badge">★ Destacado</span>' : ''}
+        </div>
       </div>
-      <h4 class="producer-name">${p.nombre}</h4>
-      <p class="producer-desc">${p.descripcion}</p>
-      <div class="producer-address">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
-        </svg>
-        <span>${p.direccion}</span>
+      <div class="producer-card-body">
+        <h4 class="producer-name">${p.nombre}</h4>
+        <div class="producer-rubro-sub">${p.rubro}</div>
+        <p class="producer-desc">${p.descripcion}</p>
+        <div class="producer-address">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+          <span>${p.direccion}</span>
+        </div>
       </div>
     </article>
   `).join('');
@@ -438,14 +473,15 @@ function focusProducer(id) {
   const productor = PRODUCTORES_SAN_JOSE.find(p => p.id === id);
 
   if (marker && productor && mapInstance) {
-    mapInstance.flyTo(productor.coords, 16, {
+    const centerCoords = [productor.coords[0] + 0.0028, productor.coords[1]];
+    mapInstance.flyTo(centerCoords, 16, {
       animate: true,
-      duration: 1.0
+      duration: 0.8
     });
 
     setTimeout(() => {
       marker.openPopup();
-    }, 400);
+    }, 450);
   }
 }
 
