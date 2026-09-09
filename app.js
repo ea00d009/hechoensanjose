@@ -685,3 +685,128 @@ window.switchMapTab = switchMapTab;
 window.initMobileNav = initMobileNav;
 window.toggleTheme = toggleTheme;
 window.initThemeToggle = initThemeToggle;
+
+/**
+ * ==========================================================================
+ * ACCESO ADMINISTRATIVO / INFORME HCD CON PIN (2706)
+ * ==========================================================================
+ */
+const SANJOSE_ADMIN_PIN = '2706';
+const SANJOSE_AUTH_KEY = 'sanjose_admin_auth';
+
+function abrirModalAdminPin() {
+  // Si ya está autenticado en la sesión, ingresar directamente
+  if (sessionStorage.getItem(SANJOSE_AUTH_KEY) === SANJOSE_ADMIN_PIN) {
+    window.location.href = 'informe.html';
+    return;
+  }
+
+  let modal = document.getElementById('admin-pin-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'admin-pin-modal';
+    modal.className = 'admin-modal-backdrop';
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-labelledby', 'admin-modal-title');
+    modal.innerHTML = `
+      <div class="admin-modal-card">
+        <div class="admin-modal-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <h3 class="admin-modal-title" id="admin-modal-title">Acceso Administrativo HCD</h3>
+        <p class="admin-modal-subtitle">Módulo reservado para concejales, autoridades y gestión municipal. Ingrese el PIN de seguridad de 4 dígitos para continuar.</p>
+        
+        <form id="admin-pin-form" onsubmit="return false;">
+          <div class="admin-pin-field-wrap">
+            <input 
+              type="password" 
+              inputmode="numeric" 
+              pattern="[0-9]*" 
+              maxlength="4" 
+              class="admin-pin-input" 
+              id="admin-pin-input" 
+              placeholder="••••" 
+              autocomplete="off"
+              aria-label="PIN de seguridad de 4 dígitos"
+            >
+          </div>
+          <div class="admin-pin-error" id="admin-pin-error" role="alert"></div>
+
+          <div class="admin-pin-actions">
+            <button type="button" class="admin-pin-btn-cancel" id="btn-admin-cancel">Cancelar</button>
+            <button type="submit" class="admin-pin-btn-submit" id="btn-admin-submit">Ingresar</button>
+          </div>
+        </form>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    const input = modal.querySelector('#admin-pin-input');
+    const form = modal.querySelector('#admin-pin-form');
+    const errorEl = modal.querySelector('#admin-pin-error');
+    const cancelBtn = modal.querySelector('#btn-admin-cancel');
+    const card = modal.querySelector('.admin-modal-card');
+
+    const cerrarModal = () => {
+      modal.classList.remove('is-active');
+      errorEl.textContent = '';
+      input.value = '';
+    };
+
+    const validarPin = () => {
+      const valor = input.value.trim();
+      if (valor === SANJOSE_ADMIN_PIN) {
+        sessionStorage.setItem(SANJOSE_AUTH_KEY, SANJOSE_ADMIN_PIN);
+        errorEl.style.color = '#10b981';
+        errorEl.textContent = 'Acceso autorizado. Abriendo informe...';
+        setTimeout(() => {
+          window.location.href = 'informe.html';
+        }, 300);
+      } else {
+        errorEl.style.color = '#ef4444';
+        errorEl.textContent = 'PIN incorrecto. Reintente.';
+        card.classList.remove('shake-animation');
+        void card.offsetWidth; // Forzar reflow para reiniciar animación
+        card.classList.add('shake-animation');
+        input.value = '';
+        input.focus();
+      }
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      validarPin();
+    });
+
+    cancelBtn.addEventListener('click', cerrarModal);
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        cerrarModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-active')) {
+        cerrarModal();
+      }
+    });
+  }
+
+  // Abrir y enfocar campo PIN
+  modal.classList.add('is-active');
+  const pinInput = modal.querySelector('#admin-pin-input');
+  const err = modal.querySelector('#admin-pin-error');
+  if (err) err.textContent = '';
+  if (pinInput) {
+    pinInput.value = '';
+    setTimeout(() => pinInput.focus(), 120);
+  }
+}
+
+window.abrirModalAdminPin = abrirModalAdminPin;
+

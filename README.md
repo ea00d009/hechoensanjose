@@ -17,7 +17,7 @@ El proyecto se encuentra desplegado de forma continua mediante integración cont
 | 🛍️ **Catálogo de Negocios** | Directorio de productores con filtros y enlace a mapa | [ea00d009.github.io/productores-sanjose/catalogo.html](https://ea00d009.github.io/productores-sanjose/catalogo.html) |
 | 🛒 **Encontrá la Góndola** | Red de comercialización en comercios y supermercados | [ea00d009.github.io/productores-sanjose/gondola.html](https://ea00d009.github.io/productores-sanjose/gondola.html) |
 | 📝 **Inscribí tu Negocio** | Formulario digital en 4 pasos para registro continuo | [ea00d009.github.io/productores-sanjose/inscribir.html](https://ea00d009.github.io/productores-sanjose/inscribir.html) |
-| 📄 **Informe Oficial HCD** | Documento técnico-legislativo con salida membretada A4/PDF | [ea00d009.github.io/productores-sanjose/informe.html](https://ea00d009.github.io/productores-sanjose/informe.html) |
+| 🔒 **Informe Oficial HCD** *(Restringido)* | Documento técnico-legislativo para autoridades (acceso vía botón discreto en pie de página con **PIN: 2706**) | Protegido con PIN de seguridad |
 
 ---
 
@@ -72,14 +72,13 @@ productores-sanjose/
 
 ### 1. Portal Principal (`index.html`)
 - **Cabecera Institucional:** Isologotipo oficial municipal, enlaces minimalistas a redes (Instagram y Facebook) y conmutador de modo oscuro con efecto cero parpadeo (Zero FOUC).
-- **Hero de Impacto Turístico:** Métricas en tiempo real (+45 productores relevados, 4 góndolas activas, 100% identidad local).
-- **Tarjeta de Elevación HCD:** Recuadro institucional exclusivo para los integrantes del Concejo Deliberante con botón de acción directo hacia `informe.html`.
+- **Hero de Impacto Turístico:** Métricas en tiempo real (+45 productores relevados, 4 góndolas activas, 100% identidad local) y síntesis del programa.
 - **Grilla de Navegación de Servicios:**
   - *Catálogo de Negocios* (acceso al padrón con filtros).
   - *Encontrá la Góndola* (localización de puntos de venta urbanos).
   - *Inscribí tu Negocio* (formulario de adhesión municipal).
   - *Mapa Productivo* (**Recuadro destacado** con distintivo animado `¡NUEVO!`).
-- **Pie de Página Institucional:** Respaldo de la Secretaría de Educación, Cultura y Turismo y datos de contacto oficiales.
+- **Pie de Página Institucional:** Respaldo de la Secretaría de Educación, Cultura y Turismo, datos de contacto oficiales y botón discreto de **Acceso HCD** con protección de PIN.
 
 ---
 
@@ -136,7 +135,13 @@ productores-sanjose/
 
 ---
 
-### 6. Módulo de Informe para el Concejo Deliberante (`informe.html`)
+### 6. Módulo Restringido de Informe para el Concejo Deliberante (`informe.html`)
+- **Seguridad y Control de Acceso por PIN (2706):**
+  - Oculto de la navegación pública y menús generales para preservar la discreción institucional.
+  - Accesible únicamente para autoridades y administradores mediante un botón discreto en el pie de página (`Acceso HCD`).
+  - Validación con modal dinámico con teclado numérico, verificación del PIN (`2706`), animaciones de error por shake y sesión persistente (`sessionStorage`).
+  - Pantalla de bloqueo dedicada (`#admin-lockscreen`) que impide el acceso directo por URL si no se ha validado el PIN.
+  - Botón de **Bloquear / Salir** en la barra de herramientas para cerrar sesión inmediatamente.
 - **Diseño Editorial Gubernamental:** Aspecto de expediente formal con membrete del Municipio de San José y distinción del *Honorable Concejo Deliberante (Período Legislativo 2026)*.
 - **Cuadro de Metadatos Legislativos:** Número de expediente (`2026-PSJ-044-PROD`), iniciador, destinatario, fecha de elevación y estado en comisión.
 - **Diagnóstico y Balance Cuantitativo:** Síntesis del impacto territorial, fomento del arraigo y soberanía tecnológica.
