@@ -6,7 +6,8 @@ Plataforma interactiva y maqueta funcional para la integración del sector produ
 📍 **Mapa Productivo Interactivo:** [https://ea00d009.github.io/productores-sanjose/mapa.html](https://ea00d009.github.io/productores-sanjose/mapa.html)  
 🛍️ **Catálogo de Negocios:** [https://ea00d009.github.io/productores-sanjose/catalogo.html](https://ea00d009.github.io/productores-sanjose/catalogo.html)  
 🛒 **Encontrá la Góndola:** [https://ea00d009.github.io/productores-sanjose/gondola.html](https://ea00d009.github.io/productores-sanjose/gondola.html)  
-📝 **Inscribí tu Negocio:** [https://ea00d009.github.io/productores-sanjose/inscribir.html](https://ea00d009.github.io/productores-sanjose/inscribir.html)
+📝 **Inscribí tu Negocio:** [https://ea00d009.github.io/productores-sanjose/inscribir.html](https://ea00d009.github.io/productores-sanjose/inscribir.html)  
+🏛️ **Informe Oficial HCD (PDF A4):** [https://ea00d009.github.io/productores-sanjose/informe.html](https://ea00d009.github.io/productores-sanjose/informe.html)
 
 ---
 
@@ -16,6 +17,7 @@ Plataforma interactiva y maqueta funcional para la integración del sector produ
 - **Georreferenciación Precisa:** Ubicación en tiempo real de cada establecimiento en el plano de la ciudad y colonias aledañas.
 - **Contacto Directo:** Enlace inmediato a WhatsApp para consultar disponibilidad y botón "Cómo llegar" integrado con el GPS de Google Maps.
 - **Soberanía y Ahorro Tecnológico:** Construido con tecnologías libres (**Leaflet.js** y **OpenStreetMap**), sin costos de suscripción ni consumo de cuotas de APIs pagas.
+- **Elevación Institucional:** Generación automática de informe técnico-legislativo membretado y exportable en formato A4 / PDF para el Honorable Concejo Deliberante.
 
 ---
 
@@ -29,11 +31,14 @@ productores-sanjose/
 ├── catalogo.html       # Catálogo completo de productores con buscador y filtros
 ├── gondola.html        # Puntos de venta del programa "Góndolas Hecho en San José"
 ├── inscribir.html      # Formulario interactivo en 4 pasos para registro de productores
+├── informe.html        # Documento técnico-legislativo HCD con salida membretada A4/PDF
 ├── mapa.html           # Subpágina interactiva con mapa Leaflet.js y panel lateral
-├── style.css           # Sistema de diseño integral, variables y estilos responsivos
+├── style.css           # Sistema de diseño integral, variables y estilos de impresión A4
 ├── app.js              # Lógica del mapa Leaflet, datos de productores y filtros
 ├── assets/
-│   └── logo-sanjose.png # Isologotipo oficial de la Municipalidad de San José
+│   ├── logo-sanjose.png # Isologotipo oficial de la Municipalidad de San José
+│   ├── qr-plataforma.svg # Código QR vectorial para escaneo en sesión del HCD
+│   └── productores/    # Fotografías auténticas de los 11 productores locales
 ├── .github/
 │   └── workflows/
 │       └── deploy.yml  # Automatización de despliegue continuo en GitHub Pages (gh-pages)

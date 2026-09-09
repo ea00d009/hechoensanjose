@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informe Técnico-Legislativo HCD &bull; Hecho en San José</title>
+  <meta name="description" content="Informe técnico y diagnóstico del programa Hecho en San José para el Honorable Concejo Deliberante de la Ciudad de San José, Entre Ríos. Padrón georreferenciado, indicadores y anteproyecto de ordenanza.">
+  <link rel="stylesheet" href="style.css">
+  <!-- Favicon icon SVG -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏛️</text></svg>">
+  
+  <!-- Prevenir parpadeo de tema (Zero FOUC) -->
+  <script>
+    (function() {
+      try {
+        const savedTheme = localStorage.getItem('sanjose-theme');
+        if (savedTheme) {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      }
+    })();
+  </script>
+</head>
+<body class="informe-page-body">
+
+  <!-- BARRA DE HERRAMIENTAS FLOTANTE (Solo pantalla, se oculta al imprimir) -->
+  <aside class="informe-toolbar-wrap no-print" aria-label="Herramientas del Informe">
+    <div class="informe-toolbar">
+      <div class="informe-toolbar-left">
+        <a href="index.html" class="informe-btn-outline" title="Volver a la portada principal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span>Inicio</span>
+        </a>
+
+        <a href="mapa.html" class="informe-btn-outline" title="Abrir mapa interactivo">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
+            <line x1="9" y1="3" x2="9" y2="18"></line>
+            <line x1="15" y1="6" x2="15" y2="21"></line>
+          </svg>
+          <span>Ver Mapa</span>
+        </a>
+
+        <!-- Filtros de vista rápida en pantalla -->
+        <div class="informe-view-chips" role="tablist">
+          <button class="informe-chip active" data-view="all">Informe Completo</button>
+          <button class="informe-chip" data-view="padron">Solo Padrón</button>
+          <button class="informe-chip" data-view="ordenanza">Anteproyecto</button>
+        </div>
+      </div>
+
+      <div class="informe-toolbar-right">
+        <!-- Toggle para ocultar fotos al imprimir o para ahorro de tinta -->
+        <label class="informe-toggle-wrap" title="Activar o desactivar fotos en la tabla">
+          <input type="checkbox" id="toggle-photos-chk" checked>
+          <span>Fotos en tabla</span>
+        </label>
+
+        <!-- Botón de Modo Oscuro -->
+        <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Cambiar tema de color" title="Alternar tema claro/oscuro">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2"></path>
+            <path d="M12 20v2"></path>
+            <path d="m4.93 4.93 1.41 1.41"></path>
+            <path d="m17.66 17.66 1.41 1.41"></path>
+            <path d="M2 12h2"></path>
+            <path d="M20 12h2"></path>
+            <path d="m6.34 17.66-1.41 1.41"></path>
+            <path d="m19.07 4.93-1.41 1.41"></path>
+          </svg>
+        </button>
+
+        <!-- Botón de Impresión / Guardar PDF Oficial A4 -->
+        <button class="informe-btn-primary" id="btn-print-doc" title="Imprimir documento o exportar a formato PDF A4">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          <span>Imprimir / PDF (A4)</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CONTENEDOR DEL DOCUMENTO MEMBRETADO -->
+  <div class="informe-container">
+    <article class="informe-document" id="informe-documento">
+
+      <!-- ENCABEZADO PROTOCOLAR / MEMBRETE MUNICIPAL -->
+      <header class="informe-header">
+        <div class="informe-header-top">
+          <div class="informe-logo-block">
+            <img src="assets/logo-sanjose.png" alt="Escudo de la Municipalidad de San José, Entre Ríos" class="informe-logo-img">
+            <div class="informe-logo-text">
+              <h2>Municipalidad de San José</h2>
+              <p>Secretaría de Educación, Cultura y Turismo &bull; Entre Ríos</p>
+            </div>
+          </div>
+          <div class="informe-badge-council">
+            <span class="council-tag">H. Concejo Deliberante</span>
+            <span class="council-period">Período Legislativo 2026</span>
+          </div>
+        </div>
+
+        <div class="informe-title-block">
+          <h1>INFORME TÉCNICO-LEGISLATIVO & DIAGNÓSTICO</h1>
+          <p class="informe-subtitle">
+            Programa de Fomento y Promoción «Hecho en San José»: Mapa Productivo Georreferenciado, Catálogo de Identidad y Articulación del Consumo de Cercanía
+          </p>
+        </div>
+      </header>
+
+      <!-- CUADRO DE METADATOS DEL EXPEDIENTE LEGISLATIVO -->
+      <section class="informe-meta-box">
+        <div>
+          <div class="meta-field-label">Expediente HCD N°</div>
+          <div class="meta-field-val">2026-PSJ-044-PROD</div>
+        </div>
+        <div>
+          <div class="meta-field-label">Iniciador</div>
+          <div class="meta-field-val">Secretaría de Educación, Cultura y Turismo &bull; D.E.M.</div>
+        </div>
+        <div>
+          <div class="meta-field-label">Destinatario</div>
+          <div class="meta-field-val">Honorable Concejo Deliberante (Cuerpo en Sesión)</div>
+        </div>
+        <div>
+          <div class="meta-field-label">Fecha de Elevación</div>
+          <div class="meta-field-val" id="informe-fecha-val">9 de Septiembre de 2026</div>
+        </div>
+        <div>
+          <div class="meta-field-label">Objeto</div>
+          <div class="meta-field-val">Declaración de Interés Municipal & Señalética Productiva</div>
+        </div>
+        <div>
+          <div class="meta-field-label">Estado</div>
+          <div class="meta-field-val" style="color: var(--color-secondary);">Para Tratamiento en Comisión</div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN I: FUNDAMENTOS Y DIAGNÓSTICO -->
+      <section class="informe-sec" id="sec-fundamentos">
+        <div class="informe-sec-header">
+          <span class="sec-num">I.</span>
+          <h3 class="sec-title">Fundamentos y Diagnóstico Estratégico</h3>
+        </div>
+        <p>
+          La Ciudad de San José posee una rica tradición forjada a partir del arribo de los primeros colonos en 1857, manifestada hoy en una matriz productiva singular que combina agroindustria familiar, plantaciones de <strong>nuez pecán</strong> de vanguardia, <strong>licorería artesanal centenaria</strong>, apicultura de monte nativo, queserías de colonia, vitivinicultura emergente y una tradición inquebrantable de cuchillería y artesanías regionales en fibra de yatay.
+        </p>
+        <p>
+          Históricamente, los pequeños productores locales y artesanos han enfrentado barreras de comercialización y visibilidad frente al flujo masivo de visitantes que ingresan por las Rutas Provinciales 26 y 130 y la Autovía Nacional 14. La dispersión territorial de los establecimientos hacía imperativa una herramienta integradora que permitiera al turista y al vecino localizar exactamente cada punto de elaboración, conocer los horarios de visita, interactuar vía WhatsApp y trazar su ruta punto a punto.
+        </p>
+        <p>
+          La iniciativa <strong>«Hecho en San José: Mapa Productivo»</strong> responde a esta necesidad mediante una solución de <em>soberanía tecnológica</em>: implementada íntegramente sobre tecnologías de código abierto (<strong>Leaflet.js</strong> y <strong>OpenStreetMap</strong>), eximiendo al erario público municipal del pago de cánones o suscripciones de plataformas privadas y garantizando disponibilidad continua e interoperabilidad inmediata con el portal oficial <code>sanjose.tur.ar/hechoensanjose</code>.
+        </p>
+      </section>
+
+      <!-- SECCIÓN II: TABLERO DE INDICADORES CUANTITATIVOS -->
+      <section class="informe-sec" id="sec-indicadores">
+        <div class="informe-sec-header">
+          <span class="sec-num">II.</span>
+          <h3 class="sec-title">Tablero de Indicadores del Programa</h3>
+        </div>
+        <div class="informe-stats-grid">
+          <div class="informe-stat-card">
+            <div class="informe-stat-val">11</div>
+            <div class="informe-stat-lbl">Establecimientos Georreferenciados al 100%</div>
+          </div>
+          <div class="informe-stat-card">
+            <div class="informe-stat-val">5</div>
+            <div class="informe-stat-lbl">Rubros Estratégicos con Identidad de Origen</div>
+          </div>
+          <div class="informe-stat-card">
+            <div class="informe-stat-val">4</div>
+            <div class="informe-stat-lbl">Puntos de Venta Físicos (Góndolas Activas)</div>
+          </div>
+          <div class="informe-stat-card">
+            <div class="informe-stat-val">$0</div>
+            <div class="informe-stat-lbl">Costo Municipal en Licencias Tecnológicas</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN III: PADRÓN OFICIAL DE PRODUCTORES LOCALES -->
+      <section class="informe-sec informe-avoid-break" id="sec-padron">
+        <div class="informe-sec-header">
+          <span class="sec-num">III.</span>
+          <h3 class="sec-title">Padrón Oficial de Establecimientos Relevados</h3>
+        </div>
+        <p>
+          A la fecha de elevación del presente documento, se encuentran plenamente verificados, georreferenciados y en línea los siguientes 11 establecimientos pioneros:
+        </p>
+
+        <div class="informe-table-responsive">
+          <table class="informe-table" id="tabla-productores-informe">
+            <thead>
+              <tr>
+                <th class="col-photo" style="width: 50px;">Foto</th>
+                <th style="width: 40px;">N°</th>
+                <th>Establecimiento</th>
+                <th>Rubro / Especialidad</th>
+                <th>Dirección y Coordenadas</th>
+                <th>Contacto Directo</th>
+                <th>Horarios de Atención</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- 1. Licores Bard -->
+              <tr>
+                <td class="prod-photo-cell"><img src="assets/productores/licores-bard.jpg" alt="Licores Bard" class="prod-photo-thumb"></td>
+                <td><strong>01</strong></td>
+                <td><strong>Licores Bard</strong><br><small style="color: var(--text-muted);">Desde 1908</small></td>
+                <td><span class="table-badge-cat cat-badge-bebidas">Bebidas &bull; Licores</span></td>
+                <td>Entre Ríos 1046, San José<br><small style="color: var(--text-muted); font-family: monospace;">-32.20780, -58.22510</small></td>
+                <td>+54 9 3447 40-5163<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Lun a Sáb: 08:30 a 12:30 y 17:00 a 21:00 hs</td>
+              </tr>
+              <!-- 2. Establecimiento Los Pecanes -->
+              <tr>
+                <td class="prod-photo-cell"><img src="assets/productores/establecimiento-los-pecanes.jpg" alt="Establecimiento Los Pecanes" class="prod-photo-thumb"></td>
+                <td><strong>02</strong></td>
+                <td><strong>Establecimiento Los Pecanes</strong><br><small style="color: var(--text-muted);">Plantación Pionera</small></td>
+                <td><span class="table-badge-cat cat-badge-pecan">Pecán & Té Campestre</span></td>
+                <td>Ruta 26 (RP 130) Km. 7<br><small style="color: var(--text-muted); font-family: monospace;">-32.20350, -58.20320</small></td>
+                <td>+54 9 3447 43-3929<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Mié a Dom: 10:00 a 20:00 hs (Visitas guiadas)</td>
+              </tr>
+              <!-- 3. De los Troncos Petrificados -->
+              <tr>
+                <td class="prod-photo-cell"><img src="assets/productores/troncos-petrificados.jpg" alt="De los Troncos Petrificados" class="prod-photo-thumb"></td>
+                <td><strong>03</strong></td>
+                <td><strong>De los Troncos Petrificados</strong><br><small style="color: var(--text-muted);">Selva Gayol</small></td>
+                <td><span class="table-badge-cat cat-badge-artesania">Piedras & Minerales</span></td>
+                <td>RP 26 Km. 3,5 (B° Troncos Petrificados)<br><small style="color: var(--text-muted); font-family: monospace;">-32.19801, -58.15484</small></td>
+                <td>+54 9 3447 46-4775<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Todos los días: 10:00 a 19:00 hs</td>
+              </tr>
+              <!-- 4. Artesanías El Palmar -->
+              <tr>
+                <td class="prod-photo-cell"><img src="assets/productores/artesanias-el-palmar.jpg" alt="Artesanías El Palmar" class="prod-photo-thumb"></td>
+                <td><strong>04</strong></td>
+                <td><strong>Artesanías El Palmar</strong><br><small style="color: var(--text-muted);">Fibras Naturales</small></td>
+                <td><span class="table-badge-cat cat-badge-artesania">Cestería & Mates</span></td>
+                <td>Ruta Nacional 14 Km. 158,5, Colonia San José<br><small style="color: var(--text-muted); font-family: monospace;">-32.19409, -58.23921</small></td>
+                <td>+54 9 3447 45-5239<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Lun a Sáb: 10:00 a 18:00 hs</td>
+              </tr>
+              <!-- 5. Nuez Pecán La Reina -->
+              <tr>
+                <td class="prod-photo-cell"><img src="assets/productores/nuez-pecan-la-reina.jpg" alt="Nuez Pecán La Reina" class="prod-photo-thumb"></td>
+                <td><strong>05</strong></td>
+                <td><strong>Nuez Pecán La Reina</strong><br><small style="color: var(--text-muted);">Boutique del Pecán</small></td>
+                <td><span class="table-badge-cat cat-badge-pecan">Pecán & Agroindustria</span></td>
+                <td>Doctor Luis Cettour, San José<br><small style="color: var(--text-muted); font-family: monospace;">-32.20277, -58.20241</small></td>
+                <td>+54 9 3447 45-2947<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Lun a Dom: 09:00 a 13:00 y 16:00 a 20:00 hs</td>
+              </tr>
+              <!-- 6. Apícola La Sanjosesina -->
+              <tr>
+                <td class="prod-photo-cell"><img src="assets/productores/apicola-la-sanjosesina.jpg" alt="Apícola La Sanjosesina" class="prod-photo-thumb"></td>
+                <td><strong>06</strong></td>
+                <td><strong>Apícola La Sanjosesina</strong><br><small style="color: var(--text-muted);">Mieles de Monte</small></td>
+                <td><span class="table-badge-cat cat-badge-alimentos">Miel & Derivados</span></td>
+                <td>Centenario 1580 (e/ Ituzaingó y Yrigoyen)<br><small style="color: var(--text-muted); font-family: monospace;">-32.20950, -58.21620</small></td>
+                <td>+54 9 3447 50-1122<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Lun a Sáb: 08:30 a 12:30 y 16:30 a 20:30 hs</td>
+              </tr>
+              <!-- 7. Granja y Museo La Administración -->
+              <tr>
+                <td class="prod-photo-cell"><img src="assets/productores/granja-la-administracion.jpg" alt="Granja La Administración" class="prod-photo-thumb"></td>
+                <td><strong>07</strong></td>
+                <td><strong>Granja La Administración</strong><br><small style="color: var(--text-muted);">Junto a Molino Forclaz</small></td>
+                <td><span class="table-badge-cat cat-badge-alimentos">Quesería & Chacinados</span></td>
+                <td>Camino de los Primeros Colonos s/n<br><small style="color: var(--text-muted); font-family: monospace;">-32.18890, -58.21450</small></td>
+                <td>+54 9 3447 41-8977<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Mar a Dom: 10:00 a 18:30 hs (Degustaciones)</td>
+              </tr>
+              <!-- 8. Dulces Caseros La Juanita -->
+              <tr>
+                <td class="prod-photo-cell"><img src="assets/productores/dulces-la-juanita.jpg" alt="Dulces La Juanita" class="prod-photo-thumb"></td>
+                <td><strong>08</strong></td>
+                <td><strong>Dulces Caseros La Juanita</strong><br><small style="color: var(--text-muted);">Frente a Plaza Urquiza</small></td>
+                <td><span class="table-badge-cat cat-badge-alimentos">Dulces en Paila</span></td>
+                <td>Urquiza 1127 (frente al Museo Histórico)<br><small style="color: var(--text-muted); font-family: monospace;">-32.21280, -58.21850</small></td>
+                <td>+54 9 3447 43-2211<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Todos los días: 09:30 a 13:00 y 17:00 a 21:00 hs</td>
+              </tr>
+              <!-- 9. Viñedos & Bodega Vulliez Sermet -->
+              <tr>
+                <td class="prod-photo-cell"><img src="assets/productores/bodega-vulliez-sermet.jpg" alt="Viñedos Vulliez Sermet" class="prod-photo-thumb"></td>
+                <td><strong>09</strong></td>
+                <td><strong>Bodega Vulliez Sermet</strong><br><small style="color: var(--text-muted);">Enoturismo Histórico</small></td>
+                <td><span class="table-badge-cat cat-badge-bebidas">Vinos Varietales</span></td>
+                <td>Ruta Nacional 135 Km 8, Colón - San José<br><small style="color: var(--text-muted); font-family: monospace;">-32.22150, -58.17890</small></td>
+                <td>+54 9 3447 42-1062<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Lun a Sáb: 09:00 a 18:00 hs</td>
+              </tr>
+              <!-- 10. Cervecería Artesanal El Molino -->
+              <tr>
+                <td class="prod-photo-cell"><img src="assets/productores/cerveceria-el-molino.jpg" alt="Cervecería El Molino" class="prod-photo-thumb"></td>
+                <td><strong>10</strong></td>
+                <td><strong>Cervecería El Molino</strong><br><small style="color: var(--text-muted);">Maltas Entrerrianas</small></td>
+                <td><span class="table-badge-cat cat-badge-bebidas">Cerveza Artesanal</span></td>
+                <td>Centenario 1361 (Zona Céntrica), San José<br><small style="color: var(--text-muted); font-family: monospace;">-32.21110, -58.21780</small></td>
+                <td>+54 9 3447 52-8833<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Mié a Dom: 19:00 a 02:00 hs</td>
+              </tr>
+              <!-- 11. Cuchillería Sanjo Tradición -->
+              <tr>
+                <td class="prod-photo-cell"><img src="assets/productores/sanjo-tradicion-cuchilleria.jpg" alt="Cuchillería Sanjo Tradición" class="prod-photo-thumb"></td>
+                <td><strong>11</strong></td>
+                <td><strong>Cuchillería Sanjo Tradición</strong><br><small style="color: var(--text-muted);">Forja Criolla en Acero</small></td>
+                <td><span class="table-badge-cat cat-badge-artesania">Platería & Cuchillería</span></td>
+                <td>Mitre 1150 (frente a Plaza Urquiza)<br><small style="color: var(--text-muted); font-family: monospace;">-32.21200, -58.21950</small></td>
+                <td>+54 9 3447 48-1904<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Lun a Sáb: 09:00 a 12:30 y 17:00 a 20:30 hs</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SECCIÓN IV: RED URBANA DE GÓNDOLAS MUNICIPALES -->
+      <section class="informe-sec informe-avoid-break" id="sec-gondolas">
+        <div class="informe-sec-header">
+          <span class="sec-num">IV.</span>
+          <h3 class="sec-title">Puntos de Venta del Programa «Góndolas Hecho en San José»</h3>
+        </div>
+        <p>
+          Para facilitar el acceso de vecinos y turistas a los productos sin necesidad de trasladarse a zonas rurales, el programa cuenta con 4 góndolas exclusivas en comercios céntricos:
+        </p>
+        <div class="informe-gondolas-grid">
+          <div class="informe-gondola-card">
+            <h4>1. Supermercado San José</h4>
+            <p><strong>Ubicación:</strong> Av. Centenario 1240</p>
+            <p><strong>Productos:</strong> Miel, nueces pecán envasadas, dulces artesanales y licores.</p>
+          </div>
+          <div class="informe-gondola-card">
+            <h4>2. Autoservicio Colón</h4>
+            <p><strong>Ubicación:</strong> Urquiza 850 (Zona Céntrica)</p>
+            <p><strong>Productos:</strong> Conservas tradicionales, chacinados coloniales y alfajores.</p>
+          </div>
+          <div class="informe-gondola-card">
+            <h4>3. Almacén de Sabores</h4>
+            <p><strong>Ubicación:</strong> 9 de Julio 1420</p>
+            <p><strong>Productos:</strong> Quesos de campo, vinos varietales y cerveza tirada en growlers.</p>
+          </div>
+          <div class="informe-gondola-card">
+            <h4>4. Despensa El Molino</h4>
+            <p><strong>Ubicación:</strong> Acceso Bastidas s/n (Ruta 130)</p>
+            <p><strong>Productos:</strong> Cestería en palma yatay, souvenirs y recuerdos locales.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN V: ACCESIBILIDAD DIGITAL Y CÓDIGO QR -->
+      <section class="informe-sec informe-avoid-break" id="sec-qr">
+        <div class="informe-sec-header">
+          <span class="sec-num">V.</span>
+          <h3 class="sec-title">Verificación Digital & Acceso al Mapa en Vivo</h3>
+        </div>
+        <div class="informe-qr-card">
+          <img src="assets/qr-plataforma.svg" alt="Código QR para escanear y acceder a la plataforma en vivo" class="informe-qr-img">
+          <div class="informe-qr-info">
+            <h4>Escaneo Directo para Concejales y Equipos Técnicos</h4>
+            <p>
+              El código QR adjunto permite acceder de forma instantánea desde cualquier dispositivo móvil al <strong>Mapa Productivo Interactivo en tiempo real</strong> y al Catálogo Digital de Negocios, comprobando la funcionalidad de los filtros por rubro, el centrado geográfico en Plaza Urquiza y los botones de contacto de WhatsApp.
+            </p>
+            <div class="informe-qr-link">
+              URL Oficial de Acceso: <strong>https://ea00d009.github.io/productores-sanjose/</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN VI: ANTEPROYECTO DE ORDENANZA / DECLARACIÓN -->
+      <section class="informe-sec informe-avoid-break" id="sec-ordenanza">
+        <div class="informe-sec-header">
+          <span class="sec-num">VI.</span>
+          <h3 class="sec-title">Anteproyecto de Ordenanza Municipal Recomendado</h3>
+        </div>
+        
+        <div class="informe-ordenanza-box">
+          <h4>PROYECTO DE ORDENANZA &bull; H.C.D. SAN JOSÉ</h4>
+          
+          <div class="legal-recital">VISTO:</div>
+          <p class="legal-article">
+            La necesidad de consolidar, visibilizar y proteger el trabajo de los pequeños y medianos productores, elaboradores de alimentos identitarios y artesanos de la Ciudad de San José y su ejido colonial; y
+          </p>
+
+          <div class="legal-recital">CONSIDERANDO:</div>
+          <p class="legal-article">
+            Que la integración entre el turismo cultural y la producción autóctona constituye uno de los pilares del desarrollo económico sustentable, fomentando el arraigo juvenil, el consumo de cercanía y la soberanía alimentaria local;
+          </p>
+          <p class="legal-article">
+            Que la Secretaría de Educación, Cultura y Turismo ha desarrollado una plataforma de georreferenciación cartográfica abierta que pone en valor los establecimientos locales sin costos operativos de licencias para el Municipio;
+          </p>
+
+          <div class="legal-recital">POR ELLO, EL HONORABLE CONCEJO DELIBERANTE DE LA CIUDAD DE SAN JOSÉ SANCIONA CON FUERZA DE ORDENANZA:</div>
+          
+          <div class="legal-article">
+            <strong>ARTÍCULO 1°.-</strong> DECLÁRASE de <em>Interés Municipal, Productivo y Turístico</em> al Programa «Hecho en San José» y a su Mapa Productivo Interactivo Georreferenciado, reconociendo como patrimonio vivo a los productores de nuez pecán, licores tradicionales, apicultura, queserías y artesanías locales.
+          </div>
+          <div class="legal-article">
+            <strong>ARTÍCULO 2°.-</strong> DISPÓNGASE la colocación progresiva de <em>Señalética Turístico-Productiva Unificada</em> en los accesos viales principales a la ciudad (Ruta Provincial 26, Ruta Provincial 130 y Autovía Nacional 14), orientando a visitantes hacia los establecimientos debidamente inscriptos en el Padrón Municipal.
+          </div>
+          <div class="legal-article">
+            <strong>ARTÍCULO 3°.-</strong> FACÚLTASE al Departamento Ejecutivo Municipal a otorgar prioridad de stands y espacios de exhibición a los productores empadronados en todas las ferias municipales, festivales gastronómicos y en la Fiesta Nacional de la Colonización.
+          </div>
+          <div class="legal-article">
+            <strong>ARTÍCULO 4°.-</strong> ESTABLÉZCANSE incentivos y reconocimiento municipal de «Comercio Amigo de la Producción Local» para aquellos supermercados y autoservicios que mantengan de forma permanente las Góndolas Hecho en San José.
+          </div>
+          <div class="legal-article">
+            <strong>ARTÍCULO 5°.-</strong> COMUNÍQUESE, regístrese, publíquese y archívese.
+          </div>
+        </div>
+      </section>
+
+      <!-- SECCIÓN VII: RÚBRICAS Y FIRMAS PROTOCOLARES -->
+      <section class="informe-sec informe-avoid-break" id="sec-firmas">
+        <div class="informe-sec-header">
+          <span class="sec-num">VII.</span>
+          <h3 class="sec-title">Elevación Protocolar y Rúbricas Oficiales</h3>
+        </div>
+        <p style="font-size: 0.88rem; color: var(--text-muted);">
+          Elevado formalmente para consideración de los señores y señoras Concejales en sesiones del Honorable Concejo Deliberante de la Ciudad de San José, Departamento Colón, Provincia de Entre Ríos.
+        </p>
+
+        <div class="informe-signatures">
+          <div class="signature-block">
+            <div class="sig-line"></div>
+            <div class="sig-name">Lic. Eliana Zanini</div>
+            <div class="sig-title">Secretaría de Educación, Cultura y Turismo<br>Municipalidad de San José</div>
+          </div>
+          <div class="signature-block">
+            <div class="sig-line"></div>
+            <div class="sig-name">Dr. Gustavo Bastián</div>
+            <div class="sig-title">Presidente Municipal<br>Municipalidad de San José</div>
+          </div>
+          <div class="signature-block">
+            <div class="sig-line"></div>
+            <div class="sig-name">Mesa de Presidencia</div>
+            <div class="sig-title">Honorable Concejo Deliberante<br>Ciudad de San José</div>
+          </div>
+        </div>
+      </section>
+
+    </article>
+  </div>
+
+  <!-- SCRIPT DE INTERACTIVIDAD DEL INFORME -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Botón Imprimir / PDF
+      const btnPrint = document.getElementById('btn-print-doc');
+      if (btnPrint) {
+        btnPrint.addEventListener('click', () => {
+          window.print();
+        });
+      }
+
+      // 2. Toggle Mostrar / Ocultar Fotografías en la tabla
+      const togglePhotos = document.getElementById('toggle-photos-chk');
+      const tableWrap = document.getElementById('tabla-productores-informe');
+      if (togglePhotos && tableWrap) {
+        togglePhotos.addEventListener('change', () => {
+          if (togglePhotos.checked) {
+            tableWrap.classList.remove('hide-photos');
+          } else {
+            tableWrap.classList.add('hide-photos');
+          }
+        });
+      }
+
+      // 3. Filtros de vista en pantalla (Chips)
+      const chips = document.querySelectorAll('.informe-chip');
+      const secFundamentos = document.getElementById('sec-fundamentos');
+      const secIndicadores = document.getElementById('sec-indicadores');
+      const secPadron = document.getElementById('sec-padron');
+      const secGondolas = document.getElementById('sec-gondolas');
+      const secQr = document.getElementById('sec-qr');
+      const secOrdenanza = document.getElementById('sec-ordenanza');
+      const secFirmas = document.getElementById('sec-firmas');
+
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          chips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          const view = chip.getAttribute('data-view');
+
+          if (view === 'all') {
+            [secFundamentos, secIndicadores, secPadron, secGondolas, secQr, secOrdenanza, secFirmas].forEach(s => {
+              if (s) s.style.display = 'block';
+            });
+          } else if (view === 'padron') {
+            if (secFundamentos) secFundamentos.style.display = 'none';
+            if (secIndicadores) secIndicadores.style.display = 'block';
+            if (secPadron) secPadron.style.display = 'block';
+            if (secGondolas) secGondolas.style.display = 'block';
+            if (secQr) secQr.style.display = 'block';
+            if (secOrdenanza) secOrdenanza.style.display = 'none';
+            if (secFirmas) secFirmas.style.display = 'block';
+          } else if (view === 'ordenanza') {
+            if (secFundamentos) secFundamentos.style.display = 'block';
+            if (secIndicadores) secIndicadores.style.display = 'none';
+            if (secPadron) secPadron.style.display = 'none';
+            if (secGondolas) secGondolas.style.display = 'none';
+            if (secQr) secQr.style.display = 'none';
+            if (secOrdenanza) secOrdenanza.style.display = 'block';
+            if (secFirmas) secFirmas.style.display = 'block';
+          }
+        });
+      });
+
+      // 4. Modo Oscuro / Claro en Informe
+      const themeBtn = document.getElementById('theme-toggle-btn');
+      if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+          const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', newTheme);
+          try {
+            localStorage.setItem('sanjose-theme', newTheme);
+          } catch(e) {}
+        });
+      }
+    });
+  </script>
+</body>
+</html>
