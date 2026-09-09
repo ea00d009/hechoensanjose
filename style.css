@@ -3026,3 +3026,41 @@ a {
     justify-content: space-between;
   }
 }
+
+/* ==========================================================================
+   SISTEMA DE ACCESIBILIDAD & FOCO VISIBLE (WCAG 2.1 AA)
+   ========================================================================== */
+
+/* Foco de teclado accesible universal */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2.5px solid var(--color-primary) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 4px rgba(0, 150, 199, 0.25) !important;
+}
+
+/* Áreas mínimas táctiles para pantallas móviles (44px) */
+@media (pointer: coarse) {
+  .btn,
+  .filter-chip,
+  .social-btn-minimal,
+  .theme-toggle-btn,
+  .map-tab-btn {
+    min-height: 44px;
+  }
+}
+
+/* Respeto a usuarios con preferencia de reducción de movimiento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

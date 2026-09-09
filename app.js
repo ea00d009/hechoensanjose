@@ -224,6 +224,15 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProducersList();
   setupFilterListeners();
   setupSearchListener();
+
+  // Soporte de enlace directo con query param ?id=X (ej. desde el catálogo o QR)
+  const urlParams = new URLSearchParams(window.location.search);
+  const targetId = parseInt(urlParams.get('id'), 10);
+  if (targetId) {
+    setTimeout(() => {
+      focusProducer(targetId);
+    }, 450);
+  }
 });
 
 /**
