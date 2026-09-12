@@ -20,7 +20,7 @@ $currentPage = 'manual.php';
   <div class="admin-content-grid" style="grid-template-columns: 1fr; max-width: 900px; margin: 0 auto;">
     
     <!-- Seguridad del Sistema -->
-    <div class="admin-card" style="border-left: 4px solid var(--color-primary);">
+    <div class="admin-card">
       <h3 class="admin-card-title" style="display: flex; align-items: center; gap: 8px;">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-primary);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         Seguridad de la Plataforma
