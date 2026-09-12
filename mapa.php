@@ -207,11 +207,11 @@
       <div class="sidebar-admin-footer" style="padding: 0.65rem 1rem; border-top: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; background: var(--bg-surface);">
         <span style="color: var(--text-light);">&copy; 2026 San José</span>
         <div style="display: flex; gap: 6px; align-items: center;">
-          <a href="admin/login.php" class="btn-admin-access" title="Acceso al Panel de Gestión ABM" style="text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <a href="admin/login.php" class="btn-admin-access" title="Acceso al Panel de Gestión" style="text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
             </svg>
-            <span>Panel ABM</span>
+            <span>Panel de Gestión</span>
           </a>
           <button type="button" class="btn-admin-access" onclick="window.abrirModalAdminPin()" title="Acceso Administrativo HCD / Gestión" aria-label="Acceso Administrativo">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">

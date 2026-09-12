@@ -1,7 +1,7 @@
 <?php
 /**
  * ==============================================================================
- * HECHO EN SAN JOSÉ • LISTADO Y GESTIÓN GENERAL DE PRODUCTORES (ABM)
+ * HECHO EN SAN JOSÉ • LISTADO Y GESTIÓN GENERAL DE PRODUCTORES
  * ==============================================================================
  */
 
