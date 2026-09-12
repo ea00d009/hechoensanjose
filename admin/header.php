@@ -210,6 +210,10 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
       <div class="header-right-group">
         <nav class="admin-nav-pills">
+          <a href="manual.php" class="admin-nav-item <?= $currentPage === 'manual.php' ? 'active' : '' ?>" style="border-left: 3px solid var(--color-primary); background: rgba(0, 150, 199, 0.05); color: var(--color-primary); font-weight: 600; margin-bottom: 0.5rem;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            Manual de Usuario
+          </a>
           <a href="index.php" class="admin-nav-item <?= $currentPage === 'index.php' ? 'active' : '' ?>">
             Dashboard
           </a>
@@ -229,10 +233,6 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <?php if ($solicitudesPendientesCount > 0): ?>
               <span class="badge-pill"><?= $solicitudesPendientesCount ?></span>
             <?php endif; ?>
-          </a>
-          <a href="manual.php" class="admin-nav-item <?= $currentPage === 'manual.php' ? 'active' : '' ?>">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-            Manual de Usuario
           </a>
           <a href="../index.php" target="_blank" class="admin-nav-item" style="color: #059669;" title="Abrir sitio web público en nueva pestaña">
             Sitio Web &nearr;
