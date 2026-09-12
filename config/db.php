@@ -5,30 +5,14 @@
  * ==============================================================================
  */
 
-// Intentar cargar env.php primero (más amigable con servidores FTP que bloquean archivos ocultos)
+// Cargar archivo env.php (Reemplazo seguro del .env)
 $envPhpFile = __DIR__ . '/env.php';
-$envFile = __DIR__ . '/.env';
 
 if (file_exists($envPhpFile)) {
     $envData = require $envPhpFile;
     if (is_array($envData)) {
         foreach ($envData as $key => $val) {
             $_ENV[$key] = $val;
-        }
-    }
-} elseif (file_exists($envFile)) {
-    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    foreach ($lines as $line) {
-        $line = trim($line);
-        if ($line === '' || strpos($line, '#') === 0) continue;
-        if (strpos($line, '=') !== false) {
-            list($key, $val) = explode('=', $line, 2);
-            $key = trim($key);
-            $val = trim($val, " \t\n\r\0\x0B\"'");
-            if (!getenv($key)) {
-                putenv("{$key}={$val}");
-                $_ENV[$key] = $val;
-            }
         }
     }
 }
