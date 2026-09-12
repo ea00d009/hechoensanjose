@@ -1,7 +1,7 @@
 <?php
 /**
  * ==============================================================================
- * HECHO EN SAN JOSÉ • FORMULARIO DE ALTA Y EDICIÓN DE PRODUCTOR (ABM)
+ * HECHO EN SAN JOSÉ • FORMULARIO DE ALTA Y EDICIÓN DE PRODUCTOR
  * ==============================================================================
  * Incluye selector interactivo de coordenadas sobre mapa Leaflet de San José
  * y gestor de subida de imágenes.
@@ -246,7 +246,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
 
         } catch (Throwable $e) {
-            error_log("Error ABM Productor: " . $e->getMessage());
+            error_log("Error Gestión Productor: " . $e->getMessage());
             $errores[] = 'Error interno al guardar en la base de datos. Intentá más tarde.';
         }
     } else {

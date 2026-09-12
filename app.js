@@ -763,8 +763,8 @@ function abrirModalAdminPin() {
             <button type="submit" class="admin-pin-btn-submit" id="btn-admin-submit">Ingresar</button>
           </div>
           <div style="margin-top: 1.25rem; border-top: 1px dashed var(--border-light, rgba(150, 150, 150, 0.25)); padding-top: 0.85rem; text-align: center;">
-            <a href="admin/login.php" style="color: #0284c7; font-size: 0.82rem; font-weight: 600; text-decoration: underline;">
-              Ingresar al Panel de Gestión (ABM Productores) &rarr;
+            <a href="admin/login.php" style="display: block; width: 100%; text-align: center; padding: 0.8rem; background: rgba(0, 150, 199, 0.1); color: var(--color-primary); border-radius: var(--radius-sm); text-decoration: none; font-weight: 600; margin-top: 0.5rem; transition: background 0.2s ease;">
+              Ingresar al Panel de Gestión &rarr;
             </a>
           </div>
         </form>
