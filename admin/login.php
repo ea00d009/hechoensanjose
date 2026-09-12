@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } catch (Throwable $e) {
             error_log("Error en login.php: " . $e->getMessage());
-            $error = 'Error interno del servidor. Por favor, intentá más tarde.';
+            $error = 'Error de Servidor/Base de Datos: ' . $e->getMessage();
         }
     }
     }

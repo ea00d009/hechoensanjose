@@ -25,11 +25,18 @@ if (file_exists($envFile)) {
 }
 
 // Parámetros de conexión con valores predeterminados (compatibles con XAMPP / MySQL local)
-define('DB_HOST', getenv('DB_HOST') ?: '127.0.0.1');
-define('DB_PORT', getenv('DB_PORT') ?: '3306');
-define('DB_NAME', getenv('DB_NAME') ?: 'productores_sanjose');
-define('DB_USER', getenv('DB_USER') ?: 'root');
-define('DB_PASS', getenv('DB_PASS') !== false ? getenv('DB_PASS') : '');
+// Usar directamente $_ENV si putenv está bloqueado en hosting compartido
+$host = $_ENV['DB_HOST'] ?? getenv('DB_HOST');
+$port = $_ENV['DB_PORT'] ?? getenv('DB_PORT');
+$dbname = $_ENV['DB_NAME'] ?? getenv('DB_NAME');
+$user = $_ENV['DB_USER'] ?? getenv('DB_USER');
+$pass = $_ENV['DB_PASS'] ?? getenv('DB_PASS');
+
+define('DB_HOST', $host ?: '127.0.0.1');
+define('DB_PORT', $port ?: '3306');
+define('DB_NAME', $dbname ?: 'productores_sanjose');
+define('DB_USER', $user ?: 'root');
+define('DB_PASS', $pass !== false && $pass !== null ? $pass : '');
 define('DB_CHARSET', 'utf8mb4');
 
 /**
