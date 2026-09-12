@@ -10,17 +10,21 @@ $currentPage = 'manual.php';
 <?php include 'header.php'; ?>
 
 <main class="admin-main">
-  <div class="admin-topbar">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
     <div>
-      <h2 class="admin-page-title">Manual de Usuario y Seguridad</h2>
-      <p class="admin-page-desc">Documentación oficial del sistema de gestión turística y productiva de la Municipalidad de San José.</p>
+      <h2 style="font-size: 1.7rem; color: var(--text-main, #0f172a); margin: 0 0 0.35rem 0; font-weight: 800;">
+        Manual de Usuario y Seguridad
+      </h2>
+      <p style="color: var(--text-muted, #64748b); margin: 0; font-size: 0.95rem;">
+        Documentación oficial del sistema de gestión turística y productiva de la Municipalidad de San José.
+      </p>
     </div>
   </div>
 
-  <div class="admin-content-grid" style="grid-template-columns: 1fr; max-width: 900px; margin: 0 auto;">
+  <div class="admin-content-grid" style="grid-template-columns: 1fr; max-width: 900px; margin: 0 auto; gap: 1.5rem;">
     
     <!-- Seguridad del Sistema -->
-    <div class="admin-card">
+    <div class="card-admin">
       <h3 class="admin-card-title" style="display: flex; align-items: center; gap: 8px;">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-primary);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         Seguridad de la Plataforma
@@ -58,7 +62,7 @@ $currentPage = 'manual.php';
     </div>
 
     <!-- Gestión del Mapa y Catálogo -->
-    <div class="admin-card" style="margin-top: 1.5rem;">
+    <div class="card-admin">
       <h3 class="admin-card-title">Gestión de Productores (Mapa y Catálogo)</h3>
       <div class="admin-card-body" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-muted);">
         <p>El módulo de Gestión de Productores permite mantener actualizada la cartografía interactiva y el catálogo digital de la ciudad.</p>
@@ -71,7 +75,7 @@ $currentPage = 'manual.php';
     </div>
 
     <!-- Gestión de Categorías -->
-    <div class="admin-card" style="margin-top: 1.5rem;">
+    <div class="card-admin">
       <h3 class="admin-card-title">Categorías y Simbología Geográfica</h3>
       <div class="admin-card-body" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-muted);">
         <p>Las categorías dictaminan cómo se representa cada productor tanto visual como lógicamente.</p>
@@ -84,7 +88,7 @@ $currentPage = 'manual.php';
     </div>
 
     <!-- Gestión de Solicitudes -->
-    <div class="admin-card" style="margin-top: 1.5rem; margin-bottom: 3rem;">
+    <div class="card-admin">
       <h3 class="admin-card-title">Solicitudes de Inscripción Ciudadana</h3>
       <div class="admin-card-body" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-muted);">
         <p>Bandeja de entrada para las postulaciones provenientes del formulario público de "Inscribí tu Negocio".</p>
