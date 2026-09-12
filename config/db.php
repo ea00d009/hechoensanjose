@@ -5,9 +5,18 @@
  * ==============================================================================
  */
 
-// Si existe archivo .env local, cargarlo para no hardcodear contraseñas
+// Intentar cargar env.php primero (más amigable con servidores FTP que bloquean archivos ocultos)
+$envPhpFile = __DIR__ . '/env.php';
 $envFile = __DIR__ . '/.env';
-if (file_exists($envFile)) {
+
+if (file_exists($envPhpFile)) {
+    $envData = require $envPhpFile;
+    if (is_array($envData)) {
+        foreach ($envData as $key => $val) {
+            $_ENV[$key] = $val;
+        }
+    }
+} elseif (file_exists($envFile)) {
     $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($lines as $line) {
         $line = trim($line);
