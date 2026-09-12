@@ -190,6 +190,10 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <span>Panel de Control Municipal &bull; San José, Entre Ríos</span>
       </div>
       <div class="topbar-extra" style="display: flex; gap: 1rem; align-items: center;">
+        <a href="manual.php" style="display: flex; align-items: center; gap: 5px; color: #fff; text-decoration: none; font-size: 0.78rem; background: rgba(255,255,255,0.15); padding: 4px 10px; border-radius: 20px; font-weight: 600; transition: background 0.2s;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          Manual de Usuario
+        </a>
         <span style="font-size: 0.78rem; opacity: 0.9;">Sesión activa: <strong><?= htmlspecialchars($_SESSION['admin_nombre'] ?? 'Administrador') ?></strong></span>
         <a href="logout.php" style="color: #fff; text-decoration: underline; font-size: 0.78rem;">Cerrar Sesión</a>
       </div>
@@ -210,10 +214,6 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
       <div class="header-right-group">
         <nav class="admin-nav-pills">
-          <a href="manual.php" class="admin-nav-item <?= $currentPage === 'manual.php' ? 'active' : '' ?>" style="border-left: 3px solid var(--color-primary); background: rgba(0, 150, 199, 0.05); color: var(--color-primary); font-weight: 600; margin-bottom: 0.5rem;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-            Manual de Usuario
-          </a>
           <a href="index.php" class="admin-nav-item <?= $currentPage === 'index.php' ? 'active' : '' ?>">
             Dashboard
           </a>
