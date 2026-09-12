@@ -42,7 +42,7 @@
     <!-- Navegación Principal -->
     <div class="header-main">
       <div class="logo-group">
-        <a href="index.html" class="logo-link-wrap" title="Municipalidad de San José, Entre Ríos">
+        <a href="index.php" class="logo-link-wrap" title="Municipalidad de San José, Entre Ríos">
           <img src="assets/logo-sanjose.png" alt="Municipalidad de San José, Entre Ríos" class="municipal-logo">
         </a>
         <div class="logo-divider"></div>
@@ -55,10 +55,10 @@
       <div class="header-right-group">
         <nav class="nav-actions" id="main-nav-actions">
           <div style="display: flex; gap: 8px; align-items: center;" class="nav-subpages-links">
-            <a href="index.html" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Inicio</a>
-            <a href="catalogo.html" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Catálogo</a>
-            <a href="inscribir.html" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Inscribirse</a>
-            <a href="mapa.html" class="btn btn-accent" style="padding: 0.5rem 1rem; font-size: 0.82rem;">
+            <a href="index.php" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Inicio</a>
+            <a href="catalogo.php" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Catálogo</a>
+            <a href="inscribir.php" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Inscribirse</a>
+            <a href="mapa.php" class="btn btn-accent" style="padding: 0.5rem 1rem; font-size: 0.82rem;">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
                 <line x1="9" y1="3" x2="9" y2="18"></line>
@@ -167,7 +167,7 @@
         <p>
           Nueces pecán en mitades y caramelizadas, miel pura de monte nativo, licores centenarios Bard, mermeladas artesanales La Juanita, cuchillos criollos y artesanías en fibra yatay.
         </p>
-        <a href="catalogo.html" class="btn btn-outline" style="border-color: #059669; color: var(--text-main); font-size: 0.85rem;">
+        <a href="catalogo.php" class="btn btn-outline" style="border-color: #059669; color: var(--text-main); font-size: 0.85rem;">
           Ver todos los productos del catálogo
         </a>
       </div>
@@ -303,7 +303,7 @@
           El municipio provee el mueble exhibidor sin costo, material de difusión y vinculación directa con los productores registrados del programa.
         </p>
       </div>
-      <a href="inscribir.html" class="btn btn-accent" style="padding: 0.85rem 1.6rem; font-size: 0.95rem;">
+      <a href="inscribir.php" class="btn btn-accent" style="padding: 0.85rem 1.6rem; font-size: 0.95rem;">
         <span>Solicitar Góndola para mi local &rarr;</span>
       </a>
     </div>
@@ -335,11 +335,11 @@
       <div class="footer-col">
         <h5>Módulos del Programa</h5>
         <ul class="footer-links">
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="catalogo.html">Catálogo de Negocios</a></li>
-          <li><a href="gondola.html">Encontrá la Góndola</a></li>
-          <li><a href="inscribir.html">Inscribí tu Negocio</a></li>
-          <li><a href="mapa.html">Mapa Productivo Interactivo</a></li>
+          <li><a href="index.php">Inicio</a></li>
+          <li><a href="catalogo.php">Catálogo de Negocios</a></li>
+          <li><a href="gondola.php">Encontrá la Góndola</a></li>
+          <li><a href="inscribir.php">Inscribí tu Negocio</a></li>
+          <li><a href="mapa.php">Mapa Productivo Interactivo</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -355,7 +355,13 @@
     <div class="footer-bottom">
       <div>&copy; 2026 Municipalidad de San José, Entre Ríos. Todos los derechos reservados.</div>
       <div style="display: flex; align-items: center; gap: 10px;">
-        <span style="color: var(--text-light);">Maqueta para presentación institucional</span>
+        <span style="color: var(--text-light);">Gestión Municipal</span>
+        <a href="admin/login.php" class="btn-admin-access" title="Acceso al Panel de Gestión ABM" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+          </svg>
+          <span>Panel ABM</span>
+        </a>
         <button type="button" class="btn-admin-access" onclick="window.abrirModalAdminPin()" title="Acceso Administrativo HCD / Gestión" aria-label="Acceso Administrativo">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>

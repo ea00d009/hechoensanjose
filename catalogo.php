@@ -42,7 +42,7 @@
     <!-- Navegación Principal -->
     <div class="header-main">
       <div class="logo-group">
-        <a href="index.html" class="logo-link-wrap" title="Municipalidad de San José, Entre Ríos">
+        <a href="index.php" class="logo-link-wrap" title="Municipalidad de San José, Entre Ríos">
           <img src="assets/logo-sanjose.png" alt="Municipalidad de San José, Entre Ríos" class="municipal-logo">
         </a>
         <div class="logo-divider"></div>
@@ -56,10 +56,10 @@
         <nav class="nav-actions" id="main-nav-actions">
           <!-- Enlaces a otros módulos -->
           <div style="display: flex; gap: 8px; align-items: center;" class="nav-subpages-links">
-            <a href="index.html" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Inicio</a>
-            <a href="gondola.html" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Góndolas</a>
-            <a href="inscribir.html" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Inscribirse</a>
-            <a href="mapa.html" class="btn btn-accent" style="padding: 0.5rem 1rem; font-size: 0.82rem;">
+            <a href="index.php" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Inicio</a>
+            <a href="gondola.php" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Góndolas</a>
+            <a href="inscribir.php" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Inscribirse</a>
+            <a href="mapa.php" class="btn btn-accent" style="padding: 0.5rem 1rem; font-size: 0.82rem;">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
                 <line x1="9" y1="3" x2="9" y2="18"></line>
@@ -160,7 +160,7 @@
   <main style="max-width: 1280px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
       <h2 style="font-size: 1.3rem; color: var(--text-main);" id="catalogo-title-counter">Mostrando 11 emprendimientos adheridos</h2>
-      <a href="inscribir.html" class="btn btn-outline" style="font-size: 0.82rem; padding: 6px 14px;">
+      <a href="inscribir.php" class="btn btn-outline" style="font-size: 0.82rem; padding: 6px 14px;">
         <span>+ Inscribir mi emprendimiento</span>
       </a>
     </div>
@@ -203,11 +203,11 @@
       <div class="footer-col">
         <h5>Módulos del Programa</h5>
         <ul class="footer-links">
-          <li><a href="index.html">Inicio</a></li>
-          <li><a href="catalogo.html">Catálogo de Negocios</a></li>
-          <li><a href="gondola.html">Encontrá la Góndola</a></li>
-          <li><a href="inscribir.html">Inscribí tu Negocio</a></li>
-          <li><a href="mapa.html">Mapa Productivo Interactivo</a></li>
+          <li><a href="index.php">Inicio</a></li>
+          <li><a href="catalogo.php">Catálogo de Negocios</a></li>
+          <li><a href="gondola.php">Encontrá la Góndola</a></li>
+          <li><a href="inscribir.php">Inscribí tu Negocio</a></li>
+          <li><a href="mapa.php">Mapa Productivo Interactivo</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -223,7 +223,13 @@
     <div class="footer-bottom">
       <div>&copy; 2026 Municipalidad de San José, Entre Ríos. Todos los derechos reservados.</div>
       <div style="display: flex; align-items: center; gap: 10px;">
-        <span style="color: var(--text-light);">Maqueta para presentación institucional</span>
+        <span style="color: var(--text-light);">Gestión Municipal</span>
+        <a href="admin/login.php" class="btn-admin-access" title="Acceso al Panel de Gestión ABM" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+          </svg>
+          <span>Panel ABM</span>
+        </a>
         <button type="button" class="btn-admin-access" onclick="window.abrirModalAdminPin()" title="Acceso Administrativo HCD / Gestión" aria-label="Acceso Administrativo">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -239,7 +245,10 @@
   <script src="app.js"></script>
   <script>
     // Lógica específica para la vista de cuadrícula del catálogo
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (window.loadProducersPromise) {
+        await window.loadProducersPromise;
+      }
       const container = document.getElementById('catalogo-cards-container');
       const searchInput = document.getElementById('catalogo-search');
       const filterChips = document.querySelectorAll('#catalogo-filters .filter-chip');
@@ -321,7 +330,7 @@
                   <a href="${wa}" target="_blank" rel="noopener" class="btn btn-primary" style="flex: 1; padding: 8px 10px; font-size: 0.8rem; background: #25d366; border-color: #25d366;">
                     <span>Contactar</span>
                   </a>
-                  <a href="mapa.html?id=${p.id}" class="btn btn-outline" style="padding: 8px 10px; font-size: 0.8rem;" title="Ver ubicación exacta en el Mapa Interactivo">
+                  <a href="mapa.php?id=${p.id}" class="btn btn-outline" style="padding: 8px 10px; font-size: 0.8rem;" title="Ver ubicación exacta en el Mapa Interactivo">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
                       <line x1="9" y1="3" x2="9" y2="18"></line>

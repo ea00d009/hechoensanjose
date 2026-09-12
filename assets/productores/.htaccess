@@ -1,0 +1,17 @@
+# Prevenir la ejecución de scripts (PHP, CGI, etc.) en este directorio
+<FilesMatch "\.(php|php[0-9]|phtml|pl|py|jsp|asp|htm|html|shtml|sh|cgi)$">
+    SetHandler default-handler
+</FilesMatch>
+
+# Opcional: Forzar a que solo sirvan imágenes si Apache lo permite
+# <FilesMatch "\.(?i:pdf|jpe?g|gif|png|webp|csv)$">
+#     Header set Content-Disposition attachment
+# </FilesMatch>
+
+# Deshabilitar el motor PHP completamente por seguridad
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>

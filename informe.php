@@ -58,7 +58,7 @@
         <div class="admin-pin-error" id="lockscreen-pin-error"></div>
 
         <div style="display: flex; gap: 0.75rem; justify-content: center; margin-top: 0.5rem;">
-          <a href="index.html" class="admin-pin-btn-cancel" style="text-decoration: none; display: inline-flex; align-items: center;">Volver al Portal</a>
+          <a href="index.php" class="admin-pin-btn-cancel" style="text-decoration: none; display: inline-flex; align-items: center;">Volver al Portal</a>
           <button type="submit" class="admin-pin-btn-submit" id="btn-lockscreen-submit">Desbloquear</button>
         </div>
       </form>
@@ -69,7 +69,7 @@
   <aside class="informe-toolbar-wrap no-print" aria-label="Herramientas del Informe">
     <div class="informe-toolbar">
       <div class="informe-toolbar-left">
-        <a href="index.html" class="informe-btn-outline" title="Volver a la portada principal">
+        <a href="index.php" class="informe-btn-outline" title="Volver a la portada principal">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
@@ -77,7 +77,7 @@
           <span>Inicio</span>
         </a>
 
-        <a href="mapa.html" class="informe-btn-outline" title="Abrir mapa interactivo">
+        <a href="mapa.php" class="informe-btn-outline" title="Abrir mapa interactivo">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
             <line x1="9" y1="3" x2="9" y2="18"></line>
@@ -649,7 +649,7 @@
       if (btnLogout) {
         btnLogout.addEventListener('click', () => {
           sessionStorage.removeItem(SANJOSE_AUTH_KEY);
-          window.location.href = 'index.html';
+          window.location.href = 'index.php';
         });
       }
     });

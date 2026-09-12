@@ -39,7 +39,7 @@
   <header class="site-header">
     <div class="header-main" style="padding: 0.65rem 1.5rem;">
       <div class="logo-group">
-        <a href="index.html" class="btn-back" title="Regresar a Hecho en San José">
+        <a href="index.php" class="btn-back" title="Regresar a Hecho en San José">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
@@ -47,7 +47,7 @@
           <span>Inicio</span>
         </a>
         <div style="height: 24px; width: 1px; background: var(--border-light); margin: 0 4px;"></div>
-        <a href="index.html" class="logo-link-wrap" title="Municipalidad de San José, Entre Ríos">
+        <a href="index.php" class="logo-link-wrap" title="Municipalidad de San José, Entre Ríos">
           <img src="assets/logo-sanjose.png" alt="Municipalidad de San José, Entre Ríos" class="municipal-logo" style="height: 38px;">
         </a>
         <div class="logo-divider" style="height: 28px;"></div>
@@ -61,9 +61,9 @@
         <div class="nav-actions" id="main-nav-actions">
           <!-- Enlaces a subpáginas (sin duplicar Inicio que ya está en el extremo izquierdo) -->
           <div style="display: flex; gap: 6px; align-items: center;" class="nav-subpages-links">
-            <a href="catalogo.html" class="btn btn-outline" style="padding: 0.45rem 0.8rem; font-size: 0.78rem; white-space: nowrap;">Catálogo</a>
-            <a href="gondola.html" class="btn btn-outline" style="padding: 0.45rem 0.8rem; font-size: 0.78rem; white-space: nowrap;">Góndolas</a>
-            <a href="inscribir.html" class="btn btn-outline" style="padding: 0.45rem 0.8rem; font-size: 0.78rem; white-space: nowrap;">Inscribirse</a>
+            <a href="catalogo.php" class="btn btn-outline" style="padding: 0.45rem 0.8rem; font-size: 0.78rem; white-space: nowrap;">Catálogo</a>
+            <a href="gondola.php" class="btn btn-outline" style="padding: 0.45rem 0.8rem; font-size: 0.78rem; white-space: nowrap;">Góndolas</a>
+            <a href="inscribir.php" class="btn btn-outline" style="padding: 0.45rem 0.8rem; font-size: 0.78rem; white-space: nowrap;">Inscribirse</a>
           </div>
 
           <button class="btn btn-outline" onclick="window.resetMapBounds()" style="padding: 0.45rem 0.85rem; font-size: 0.78rem; white-space: nowrap;" title="Restablecer vista a todos los productores">
@@ -206,13 +206,21 @@
       <!-- Pie discreto de la barra lateral con acceso administrativo -->
       <div class="sidebar-admin-footer" style="padding: 0.65rem 1rem; border-top: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; background: var(--bg-surface);">
         <span style="color: var(--text-light);">&copy; 2026 San José</span>
-        <button type="button" class="btn-admin-access" onclick="window.abrirModalAdminPin()" title="Acceso Administrativo HCD / Gestión" aria-label="Acceso Administrativo">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-          <span>Acceso HCD</span>
-        </button>
+        <div style="display: flex; gap: 6px; align-items: center;">
+          <a href="admin/login.php" class="btn-admin-access" title="Acceso al Panel de Gestión ABM" style="text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+            </svg>
+            <span>Panel ABM</span>
+          </a>
+          <button type="button" class="btn-admin-access" onclick="window.abrirModalAdminPin()" title="Acceso Administrativo HCD / Gestión" aria-label="Acceso Administrativo">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <span>Acceso HCD</span>
+          </button>
+        </div>
       </div>
     </aside>
 

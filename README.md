@@ -6,21 +6,6 @@ Desarrollada como propuesta de desarrollo socioeconómico, fomento del consumo d
 
 ---
 
-## 🌐 Accesos Directos a la Plataforma en Vivo
-
-El proyecto se encuentra desplegado de forma continua mediante integración continua (GitHub Actions) en **GitHub Pages**:
-
-| Módulo / Sección | Descripción | Enlace en Vivo |
-| :--- | :--- | :--- |
-| 🏛️ **Portal Principal** | Grilla institucional, presentación y propuesta HCD | [ea00d009.github.io/productores-sanjose/](https://ea00d009.github.io/productores-sanjose/) |
-| 📍 **Mapa Productivo** | Visor cartográfico georreferenciado con Leaflet.js | [ea00d009.github.io/productores-sanjose/mapa.html](https://ea00d009.github.io/productores-sanjose/mapa.html) |
-| 🛍️ **Catálogo de Negocios** | Directorio de productores con filtros y enlace a mapa | [ea00d009.github.io/productores-sanjose/catalogo.html](https://ea00d009.github.io/productores-sanjose/catalogo.html) |
-| 🛒 **Encontrá la Góndola** | Red de comercialización en comercios y supermercados | [ea00d009.github.io/productores-sanjose/gondola.html](https://ea00d009.github.io/productores-sanjose/gondola.html) |
-| 📝 **Inscribí tu Negocio** | Formulario digital en 4 pasos para registro continuo | [ea00d009.github.io/productores-sanjose/inscribir.html](https://ea00d009.github.io/productores-sanjose/inscribir.html) |
-| 🔒 **Informe Oficial HCD** *(Restringido)* | Documento técnico-legislativo para autoridades (acceso vía botón discreto en pie de página con **PIN: 2706**) | Protegido con PIN de seguridad |
-
----
-
 ## 🎯 Objetivos Estratégicos del Programa
 
 1. **Articulación Turismo + Producción Autóctona:** Visibilizar a micro y medianos productores (agroecología, nuez pecán, licores artesanales centenarios, apicultura nativa, queserías de colonia y cuchillería entrerriana) para que turistas y vecinos accedan a productos con sello de identidad de origen.
@@ -60,9 +45,7 @@ productores-sanjose/
 │       ├── nuez-pecan-la-reina.jpg
 │       ├── sanjo-tradicion-cuchilleria.jpg
 │       └── troncos-petrificados.jpg
-├── .github/
-│   └── workflows/
-│       └── deploy.yml    # Pipeline CI/CD automático de despliegue a GitHub Pages (gh-pages)
+
 └── README.md             # Documentación exhaustiva del proyecto en español
 ```
 

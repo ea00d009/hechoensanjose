@@ -7,7 +7,7 @@
  */
 
 // 1. Datos Georreferenciados de Productores Locales de San José (11 Establecimientos Auténticos)
-const PRODUCTORES_SAN_JOSE = [
+let PRODUCTORES_SAN_JOSE = [
   {
     id: 1,
     nombre: "Licores Bard",
@@ -216,10 +216,32 @@ let currentFilter = 'todos';
 let searchQuery = '';
 const markerMap = new Map(); // id -> L.marker
 
+// Carga asíncrona desde la API PHP/MySQL con fallback automático
+async function loadProducersFromApi() {
+  try {
+    const res = await fetch('api/productores.php');
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.success && Array.isArray(data.productores) && data.productores.length > 0) {
+        PRODUCTORES_SAN_JOSE = data.productores;
+        window.PRODUCTORES_SAN_JOSE = PRODUCTORES_SAN_JOSE;
+      }
+    }
+  } catch (e) {
+    console.warn('Cargando productores locales estáticos (modo estático o sin servidor PHP):', e);
+  }
+}
+
+window.loadProducersPromise = loadProducersFromApi();
+window.PRODUCTORES_SAN_JOSE = PRODUCTORES_SAN_JOSE;
+
 // 3. Inicialización cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   initThemeToggle();
   initMobileNav();
+  if (window.loadProducersPromise) {
+    await window.loadProducersPromise;
+  }
   initMap();
   renderProducersList();
   setupFilterListeners();
@@ -697,7 +719,7 @@ const SANJOSE_AUTH_KEY = 'sanjose_admin_auth';
 function abrirModalAdminPin() {
   // Si ya está autenticado en la sesión, ingresar directamente
   if (sessionStorage.getItem(SANJOSE_AUTH_KEY) === SANJOSE_ADMIN_PIN) {
-    window.location.href = 'informe.html';
+    window.location.href = 'informe.php';
     return;
   }
 
@@ -740,6 +762,11 @@ function abrirModalAdminPin() {
             <button type="button" class="admin-pin-btn-cancel" id="btn-admin-cancel">Cancelar</button>
             <button type="submit" class="admin-pin-btn-submit" id="btn-admin-submit">Ingresar</button>
           </div>
+          <div style="margin-top: 1.25rem; border-top: 1px dashed var(--border-light, rgba(150, 150, 150, 0.25)); padding-top: 0.85rem; text-align: center;">
+            <a href="admin/login.php" style="color: #0284c7; font-size: 0.82rem; font-weight: 600; text-decoration: underline;">
+              Ingresar al Panel de Gestión (ABM Productores) &rarr;
+            </a>
+          </div>
         </form>
       </div>
     `;
@@ -764,7 +791,7 @@ function abrirModalAdminPin() {
         errorEl.style.color = '#10b981';
         errorEl.textContent = 'Acceso autorizado. Abriendo informe...';
         setTimeout(() => {
-          window.location.href = 'informe.html';
+          window.location.href = 'informe.php';
         }, 300);
       } else {
         errorEl.style.color = '#ef4444';

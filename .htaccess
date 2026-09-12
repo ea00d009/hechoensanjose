@@ -1,0 +1,19 @@
+# Ocultar archivos y directorios sensibles
+<FilesMatch "^\.env|^\.env\.example">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Ocultar acceso al directorio .git/
+RedirectMatch 404 /\.git
+
+# Desactivar el listado de directorios
+Options -Indexes
+
+# Security Headers (Protección avanzada del lado del cliente)
+<IfModule mod_headers.c>
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
