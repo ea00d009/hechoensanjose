@@ -1,105 +1,540 @@
 <?php
 /**
  * ==============================================================================
- * HECHO EN SAN JOSÉ • MANUAL DE USUARIO INSTITUCIONAL
+ * HECHO EN SAN JOSÉ • MANUAL DE USUARIO Y OPERACIONES INSTITUCIONALES
  * ==============================================================================
+ * Documentación oficial para operadores de la Secretaría de Educación,
+ * Cultura y Turismo de la Municipalidad de San José, Entre Ríos.
  */
-require_once 'auth.php';
-$currentPage = 'manual.php';
+
+require_once __DIR__ . '/auth.php';
+requireAdmin();
+
+$pageTitle = 'Manual de Usuario y Operaciones';
+require_once __DIR__ . '/header.php';
 ?>
-<?php include 'header.php'; ?>
 
-<main class="admin-main">
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
-    <div>
-      <h2 style="font-size: 1.7rem; color: var(--text-main, #0f172a); margin: 0 0 0.35rem 0; font-weight: 800;">
-        Manual de Usuario y Seguridad
-      </h2>
-      <p style="color: var(--text-muted, #64748b); margin: 0; font-size: 0.95rem;">
-        Documentación oficial del sistema de gestión turística y productiva de la Municipalidad de San José.
-      </p>
+<div style="max-width: 1000px; margin: 0 auto; padding-bottom: 3rem;">
+
+  <!-- Encabezado del Manual -->
+  <div style="margin-bottom: 2rem; border-bottom: 1px solid var(--border-light); padding-bottom: 1.5rem;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 150, 199, 0.1); color: var(--color-primary, #0096c7); font-size: 0.78rem; font-weight: 700; padding: 4px 10px; border-radius: 20px; margin-bottom: 0.5rem; text-transform: uppercase;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          Documentación Oficial &bull; Versión 2.0 (MVC &amp; Cartografía Satelital)
+        </div>
+        <h2 style="font-size: 1.85rem; color: var(--text-main, #0f172a); margin: 0 0 0.4rem 0; font-weight: 800; letter-spacing: -0.02em;">
+          Manual de Usuario y Operaciones
+        </h2>
+        <p style="color: var(--text-muted, #64748b); margin: 0; font-size: 0.98rem; max-width: 750px; line-height: 1.5;">
+          Guía operativa integral del sistema municipal <strong>Hecho en San José</strong> para la gestión del padrón productivo, cartografía interactiva, homologación de solicitudes y seguridad institucional.
+        </p>
+      </div>
+
+      <div style="display: flex; gap: 0.5rem;">
+        <a href="exportar-csv.php" class="btn btn-outline btn-sm" style="display: inline-flex; align-items: center; gap: 6px; color: #059669; border-color: #059669;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Exportar Padrón CSV
+        </a>
+        <button onclick="window.print()" class="btn btn-outline btn-sm" style="display: inline-flex; align-items: center; gap: 6px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          Imprimir / Guardar PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- Barra de Accesos Rápidos (Índice) -->
+    <div style="margin-top: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+      <a href="#ecosistema" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">🌐 1. Ecosistema Público</a>
+      <a href="#padron" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">👨‍🌾 2. Padrón y Mapa</a>
+      <a href="#solicitudes" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">📬 3. Solicitudes de Vecinos</a>
+      <a href="#qr-urls" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">📱 4. URLs Amigables y QR</a>
+      <a href="#categorias" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">🏷️ 5. Categorías y Simbología</a>
+      <a href="#informe-hcd" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">🏛️ 6. Dossier HCD (PIN 2706)</a>
+      <a href="#seguridad" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">🛡️ 7. Seguridad y Resguardo</a>
+      <a href="#faq" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">❓ 8. Preguntas Frecuentes</a>
     </div>
   </div>
 
-  <div class="admin-content-grid" style="grid-template-columns: 1fr; max-width: 900px; margin: 0 auto; gap: 1.5rem;">
-    
-    <!-- Seguridad del Sistema -->
-    <div class="card-admin">
-      <h3 class="admin-card-title" style="display: flex; align-items: center; gap: 8px;">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-primary);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Seguridad de la Plataforma
-      </h3>
-      <div class="admin-card-body" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-muted);">
-        <p style="margin-bottom: 1rem;">El sistema <strong>Hecho en San José</strong> cuenta con múltiples capas de seguridad de nivel empresarial para garantizar la integridad de los datos públicos y municipales:</p>
+  <div style="display: flex; flex-direction: column; gap: 1.75rem;">
+
+    <!-- ==========================================
+         SECCIÓN 1: ECOSISTEMA PÚBLICO
+         ========================================== -->
+    <section id="ecosistema" class="card-admin" style="scroll-margin-top: 2rem;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
+        <span style="font-size: 1.5rem;">🌐</span>
+        <div>
+          <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
+            1. Ecosistema Público y Navegación Turística
+          </h3>
+          <p style="margin: 2px 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
+            Vistas públicas optimizadas para turistas, vecinos y consumidores de cercanía.
+          </p>
+        </div>
+      </div>
+
+      <div style="font-size: 0.92rem; line-height: 1.6; color: var(--text-muted);">
+        <p style="margin-top: 0;">
+          El portal institucional fue refactorizado bajo arquitectura <strong>MVC (Modelo-Vista-Controlador)</strong> con enrutamiento limpio, eliminando extensiones obsoletas y garantizando velocidad de carga sin latencia (Zero Latency).
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+          <div style="background: var(--bg-hover, #f8fafc); padding: 1rem; border-radius: 10px; border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main); display: flex; align-items: center; gap: 6px;">
+              <code style="color: var(--color-primary); font-size: 0.85rem;">/</code> Portal de Bienvenida (Home)
+            </strong>
+            <p style="font-size: 0.85rem; margin: 0.5rem 0 0 0;">
+              Presentación institucional del programa municipal, estadísticas en vivo del padrón y vitrina de <strong>Productores Destacados</strong> seleccionados por la Secretaría.
+            </p>
+          </div>
+
+          <div style="background: var(--bg-hover, #f8fafc); padding: 1rem; border-radius: 10px; border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main); display: flex; align-items: center; gap: 6px;">
+              <code style="color: var(--color-primary); font-size: 0.85rem;">/mapa</code> y <code style="color: var(--color-primary); font-size: 0.85rem;">/mapa/{slug}</code>
+            </strong>
+            <p style="font-size: 0.85rem; margin: 0.5rem 0 0 0;">
+              Cartografía interactiva con tecnología <strong>Leaflet.js</strong>. Cada productor cuenta con su dirección semántica propia (ej. <code>/mapa/licores-bard</code>) con enfoque satelital automático (<code style="font-size: 0.8rem;">flyTo</code>), tarjeta interactiva, botón GPS «Cómo llegar» y contacto por WhatsApp.
+            </p>
+          </div>
+
+          <div style="background: var(--bg-hover, #f8fafc); padding: 1rem; border-radius: 10px; border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main); display: flex; align-items: center; gap: 6px;">
+              <code style="color: var(--color-primary); font-size: 0.85rem;">/catalogo</code> Catálogo Digital
+            </strong>
+            <p style="font-size: 0.85rem; margin: 0.5rem 0 0 0;">
+              Directorio con buscador en tiempo real y chips de filtrado temático por rubro. Los contadores de productores activos se calculan dinámicamente desde la base de datos.
+            </p>
+          </div>
+
+          <div style="background: var(--bg-hover, #f8fafc); padding: 1rem; border-radius: 10px; border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main); display: flex; align-items: center; gap: 6px;">
+              <code style="color: var(--color-primary); font-size: 0.85rem;">/gondola</code> Red de Góndolas
+            </strong>
+            <p style="font-size: 0.85rem; margin: 0.5rem 0 0 0;">
+              Puntos de venta físicos (vinotecas, almacenes y centros turísticos) que comercializan productos locales con la identificación oficial del programa.
+            </p>
+          </div>
+
+          <div style="background: var(--bg-hover, #f8fafc); padding: 1rem; border-radius: 10px; border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main); display: flex; align-items: center; gap: 6px;">
+              <code style="color: var(--color-primary); font-size: 0.85rem;">/inscribir</code> Postulación Ciudadana
+            </strong>
+            <p style="font-size: 0.85rem; margin: 0.5rem 0 0 0;">
+              Formulario guiado en 4 pasos para que nuevos emprendedores soliciten incorporarse al programa. Conecta directamente con la bandeja de solicitudes administrativas.
+            </p>
+          </div>
+
+          <div style="background: var(--bg-hover, #f8fafc); padding: 1rem; border-radius: 10px; border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main); display: flex; align-items: center; gap: 6px;">
+              <code style="color: var(--color-primary); font-size: 0.85rem;">/informe</code> Dossier Legislativo (HCD)
+            </strong>
+            <p style="font-size: 0.85rem; margin: 0.5rem 0 0 0;">
+              Informe técnico y proyecto de ordenanza institucional protegido mediante clave de acceso (PIN). Formato optimizado para impresión municipal membretada.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECCIÓN 2: PADRÓN DE PRODUCTORES Y MAPA
+         ========================================== -->
+    <section id="padron" class="card-admin" style="scroll-margin-top: 2rem;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
+        <span style="font-size: 1.5rem;">👨‍🌾</span>
+        <div>
+          <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
+            2. Padrón Oficial de Productores (Gestión Operativa)
+          </h3>
+          <p style="margin: 2px 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
+            Altas, modificaciones, geolocalización satelital y control de visibilidad pública.
+          </p>
+        </div>
+      </div>
+
+      <div style="font-size: 0.92rem; line-height: 1.6; color: var(--text-muted);">
+        <p>
+          Desde la sección <a href="productores" style="color: #0284c7; font-weight: 700;">Gestión de Productores</a>, el personal administrativo cuenta con las siguientes herramientas de control:
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+          
+          <div style="border-left: 4px solid #0284c7; padding-left: 1rem;">
+            <strong style="color: var(--text-main); font-size: 0.95rem;">👁️ Botón «Ver» (Previsualización Canónica):</strong>
+            <p style="margin: 0.25rem 0 0 0;">
+              Cada fila del padrón incluye un botón directo <strong>«Ver»</strong>. Al pulsarlo, el sistema abre la URL pública amigable (<code>/mapa/{slug}</code>) en una nueva pestaña. Esto permite al operador verificar en tiempo real que el marcador satelital, los horarios y las descripciones se vean impecables antes de difundirlos.
+            </p>
+          </div>
+
+          <div style="border-left: 4px solid #059669; padding-left: 1rem;">
+            <strong style="color: var(--text-main); font-size: 0.95rem;">📱 Botón «QR» (Generación Vectorial):</strong>
+            <p style="margin: 0.25rem 0 0 0;">
+              Abre una ventana modal con el código QR oficial de alta resolución del productor, enlazado directamente a su URL amigable (ej. <code>https://sanjose.tur.ar/mapa/licores-bard</code>). Este código se puede descargar e imprimir en etiquetas de packaging, folletos o carteles para comercios.
+            </p>
+          </div>
+
+          <div style="border-left: 4px solid #f59e0b; padding-left: 1rem;">
+            <strong style="color: var(--text-main); font-size: 0.95rem;">⭐ Toggle «Destacado» (1 Clic):</strong>
+            <p style="margin: 0.25rem 0 0 0;">
+              Permite rotar o destacar productores de temporada (ej. cosecha de nuez pecán, vendimia de bodegas o fiesta de la miel). El productor destacado recibe una insignia dorada y aparece al inicio del Catálogo y en la sección destacada del portal principal.
+            </p>
+          </div>
+
+          <div style="border-left: 4px solid #64748b; padding-left: 1rem;">
+            <strong style="color: var(--text-main); font-size: 0.95rem;">👁️‍🗨️ Toggle «Activo / Inactivo» (Pausa Temporal):</strong>
+            <p style="margin: 0.25rem 0 0 0;">
+              Si un productor cierra temporalmente por vacaciones, remodelación de su taller o falta de stock estacional, se puede ocultar del mapa y catálogo con un solo clic. Sus datos quedan perfectamente guardados en la base de datos sin necesidad de borrarlos.
+            </p>
+          </div>
+
+          <div style="border-left: 4px solid #10b981; padding-left: 1rem;">
+            <strong style="color: var(--text-main); font-size: 0.95rem;">📍 Selector Geográfico Interactivo en Formulario:</strong>
+            <p style="margin: 0.25rem 0 0 0;">
+              Al ingresar a <strong>+ Nueva Alta</strong> o <strong>Editar</strong>, se despliega un mapa satelital interactivo de San José. El operador puede:
+            </p>
+            <ul style="margin: 0.5rem 0 0 0; padding-left: 1.2rem;">
+              <li>Hacer clic en cualquier punto del ejido urbano o zonas rurales para colocar el pin.</li>
+              <li>Arrastrar el marcador directamente hasta la entrada del establecimiento o taller.</li>
+              <li>Las coordenadas de <strong>Latitud</strong> y <strong>Longitud</strong> se calculan y completan de forma 100% automática.</li>
+            </ul>
+          </div>
+
+          <div style="border-left: 4px solid #7c3aed; padding-left: 1rem;">
+            <strong style="color: var(--text-main); font-size: 0.95rem;">🖼️ Gestor de Imágenes y Seguridad MIME:</strong>
+            <p style="margin: 0.25rem 0 0 0;">
+              Permite subir imágenes directamente desde la computadora (formatos válidos: JPG, PNG o WebP, peso máximo: 5 MB). El servidor valida el tipo MIME real, genera un nombre seguro y almacena el archivo en <code>assets/productores/</code>. También se puede utilizar una URL web externa.
+            </p>
+          </div>
+
+          <div style="border-left: 4px solid #059669; padding-left: 1rem;">
+            <strong style="color: var(--text-main); font-size: 0.95rem;">💬 Configuración de WhatsApp Comercial:</strong>
+            <p style="margin: 0.25rem 0 0 0;">
+              Ingresar el número telefónico en formato internacional argentino sin guiones ni espacios (ej: <code>5493447123456</code>). La plataforma genera automáticamente el botón que abre el chat directo entre el turista y el productor.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECCIÓN 3: BANDEJA DE SOLICITUDES
+         ========================================== -->
+    <section id="solicitudes" class="card-admin" style="scroll-margin-top: 2rem;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
+        <span style="font-size: 1.5rem;">📬</span>
+        <div>
+          <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
+            3. Bandeja de Solicitudes y Homologación en 1 Clic
+          </h3>
+          <p style="margin: 2px 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
+            Circuito de postulación ciudadana, contacto institucional y conversión directa a productor.
+          </p>
+        </div>
+      </div>
+
+      <div style="font-size: 0.92rem; line-height: 1.6; color: var(--text-muted);">
+        <p>
+          Cuando un vecino completa el formulario de inscripción en <code>/inscribir</code>, la solicitud ingresa de forma inmediata en la base de datos municipal con estado <strong>«Pendiente»</strong> y se activa un badge numérico rojo en el menú superior del panel.
+        </p>
+
+        <div style="background: var(--bg-hover, #f8fafc); padding: 1.25rem; border-radius: 10px; border: 1px solid var(--border-light); margin: 1rem 0;">
+          <h4 style="margin: 0 0 0.75rem 0; color: var(--text-main); font-size: 1rem; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+            <span>⚡</span> Flujo de Homologación Digital en 1 Clic:
+          </h4>
+          <ol style="margin: 0; padding-left: 1.3rem; display: flex; flex-direction: column; gap: 0.65rem;">
+            <li>
+              <strong>Revisión de Antecedentes:</strong> En <a href="solicitudes.php" style="color: #0284c7; font-weight: 700;">Solicitudes de Inscripción</a>, revisar el nombre del titular, la dirección, la descripción de materias primas locales y el <strong>DNI / CUIT</strong> registrado en las notas de administración.
+            </li>
+            <li>
+              <strong>Contacto Previo por WhatsApp:</strong> Presionar el botón <em>«Enviar WhatsApp»</em> en la tarjeta de la solicitud para iniciar una conversación oficial con el emprendedor mediante un mensaje institucional prediseñado.
+            </li>
+            <li>
+              <strong>Conversión Automática:</strong> Hacer clic en el botón verde <strong>«✓ Aprobar y Convertir en Productor»</strong>.
+              <div style="background: #ecfdf5; color: #065f46; padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.84rem; margin-top: 0.4rem; border: 1px solid #a7f3d0;">
+                💡 <strong>Automatización:</strong> El sistema transfiere automáticamente el nombre del emprendimiento, rubro, WhatsApp, dirección y descripción al formulario de alta, y deduce de forma inteligente la categoría adecuada (Alimentos, Bebidas, Artesanías, etc.).
+              </div>
+            </li>
+            <li>
+              <strong>Georreferenciación y Publicación:</strong> El operador solo debe verificar la posición exacta del pin en el mapa satelital, asociar una fotografía representativa y pulsar <em>«Guardar Productor»</em>.
+            </li>
+            <li>
+              <strong>Cierre del Circuito:</strong> Al guardarse el productor, la solicitud cambia automáticamente su estado a <strong>«Aprobada»</strong> y el emprendimiento queda publicado de inmediato en el mapa y catálogo oficial.
+            </li>
+          </ol>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
+          <span style="font-size: 0.8rem; padding: 4px 10px; border-radius: 6px; background: #fef3c7; color: #b45309; font-weight: 700;">
+            🟡 Pendiente: Requiere análisis municipal
+          </span>
+          <span style="font-size: 0.8rem; padding: 4px 10px; border-radius: 6px; background: #ecfdf5; color: #059669; font-weight: 700;">
+            🟢 Aprobada: Homologado y activo en el padrón
+          </span>
+          <span style="font-size: 0.8rem; padding: 4px 10px; border-radius: 6px; background: #f1f5f9; color: #64748b; font-weight: 700;">
+            ⚪ Desestimada: No cumple requisitos o descartada
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECCIÓN 4: CÓDIGOS QR Y URLS AMIGABLES
+         ========================================== -->
+    <section id="qr-urls" class="card-admin" style="scroll-margin-top: 2rem;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
+        <span style="font-size: 1.5rem;">📱</span>
+        <div>
+          <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
+            4. URLs Semánticas y Códigos QR Oficiales
+          </h3>
+          <p style="margin: 2px 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
+            Integración de marketing territorial para packaging, folletería y cartelería turística.
+          </p>
+        </div>
+      </div>
+
+      <div style="font-size: 0.92rem; line-height: 1.6; color: var(--text-muted);">
+        <p>
+          Uno de los hitos tecnológicos de la plataforma es la implementación de <strong>URLs amigables y canónicas</strong> por productor. Esto permite crear códigos QR limpios que funcionan permanentemente sin depender de identificadores numéricos confusos.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1rem 0;">
+          <div style="padding: 1rem; border-radius: 8px; background: var(--bg-hover); border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main);">Etiquetas y Packaging de Productos:</strong>
+            <p style="font-size: 0.85rem; margin: 0.35rem 0 0 0;">
+              Impresión de códigos QR en botellas de licores artesanales, vinos locales, frascos de miel o bolsas de nuez pecán. El consumidor escanea el envase y visualiza de dónde provino la materia prima y su historia productiva.
+            </p>
+          </div>
+
+          <div style="padding: 1rem; border-radius: 8px; background: var(--bg-hover); border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main);">Cartelería en Tranqueras y Talleres:</strong>
+            <p style="font-size: 0.85rem; margin: 0.35rem 0 0 0;">
+              Identificación visual en el acceso de las chacras y talleres con el isologotipo de Hecho en San José y el código QR de ruta guiada GPS para turistas de paso.
+            </p>
+          </div>
+
+          <div style="padding: 1rem; border-radius: 8px; background: var(--bg-hover); border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main);">Oficinas de Información Turística:</strong>
+            <p style="font-size: 0.85rem; margin: 0.35rem 0 0 0;">
+              Folletería y carteles en los centros de atención al visitante (Plaza Urquiza, Balneario Camping, Termas San José) para que los turistas lleven la guía georreferenciada en sus celulares.
+            </p>
+          </div>
+        </div>
+
+        <div style="background: rgba(0, 150, 199, 0.08); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--color-primary);">
+          <strong style="color: var(--text-main);">¿Cómo descargar el QR de un productor?</strong>
+          <p style="margin: 0.3rem 0 0 0; font-size: 0.88rem;">
+            En <a href="productores" style="color: #0284c7; font-weight: 700;">Gestión de Productores</a>, hacé clic en el botón <strong>«QR»</strong> del productor deseado. Se abrirá la ventana emergente con el código en alta resolución listo para guardar como imagen o imprimir directamente.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECCIÓN 5: CATEGORÍAS Y SIMBOLOGÍA
+         ========================================== -->
+    <section id="categorias" class="card-admin" style="scroll-margin-top: 2rem;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
+        <span style="font-size: 1.5rem;">🏷️</span>
+        <div>
+          <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
+            5. Categorías y Simbología Cartográfica
+          </h3>
+          <p style="margin: 2px 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
+            Configuración de colores, íconos vectoriales y filtros temáticos.
+          </p>
+        </div>
+      </div>
+
+      <div style="font-size: 0.92rem; line-height: 1.6; color: var(--text-muted);">
+        <p>
+          En el módulo <a href="categorias" style="color: #0284c7; font-weight: 700;">Categorías</a>, la Secretaría puede administrar cómo se visualiza cada sector económico en la cartografía y en el catálogo digital.
+        </p>
+
+        <ul style="padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.6rem; margin-top: 0.5rem;">
+          <li>
+            <strong>Color del Pin (Hexadecimal):</strong> Determina el color cromático del marcador circular sobre el mapa satelital (ej. verde olivo para pecán, ámbar para miel, púrpura para viñedos).
+          </li>
+          <li>
+            <strong>Ícono SVG Vectorial:</strong> Código vectorial incrustado que se dibuja en el centro del marcador de Leaflet, garantizando nitidez perfecta en cualquier nivel de zoom.
+          </li>
+          <li>
+            <strong>Clase CSS de Etiqueta (Tag):</strong> Define el estilo del distintivo (pastilla de color) que acompaña al productor en las tarjetas del catálogo y góndolas.
+          </li>
+          <li>
+            <strong>Orden Numérico:</strong> Controla la posición relativa de la categoría en la barra de filtros del portal público.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECCIÓN 6: INFORME HCD (PIN 2706)
+         ========================================== -->
+    <section id="informe-hcd" class="card-admin" style="scroll-margin-top: 2rem;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
+        <span style="font-size: 1.5rem;">🏛️</span>
+        <div>
+          <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
+            6. Dossier Institucional para el Concejo Deliberante (HCD)
+          </h3>
+          <p style="margin: 2px 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
+            Acceso restringido, fundamentación técnico-jurídica y formato de impresión oficial.
+          </p>
+        </div>
+      </div>
+
+      <div style="font-size: 0.92rem; line-height: 1.6; color: var(--text-muted);">
+        <p>
+          Para fundamentar el respaldo legislativo y la creación del marco normativo del programa "Hecho en San José", la plataforma incluye un módulo especial en <code>/informe</code>.
+        </p>
+
+        <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 1rem; margin: 1rem 0; color: #92400e;">
+          <div style="display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 0.95rem; margin-bottom: 0.4rem;">
+            <span>🔒</span> Acceso Protegido por PIN Institucional:
+          </div>
+          <p style="margin: 0; font-size: 0.88rem;">
+            El acceso al informe no está abierto al público general para resguardar la estrategia legislativa. Requiere ingresar el <strong>PIN de Seguridad: <code style="background: #fef3c7; padding: 2px 8px; border-radius: 4px; font-size: 1.05rem; font-weight: 800; color: #b45309;">2706</code></strong>. El enlace se encuentra de forma discreta en el pie de página de la web (ícono de candado institucional).
+          </p>
+        </div>
+
+        <div style="border-left: 4px solid #0284c7; padding-left: 1rem; margin-top: 1rem;">
+          <strong style="color: var(--text-main);">Instrucciones para Impresión y Presentación en Expediente:</strong>
+          <p style="margin: 0.25rem 0 0 0; font-size: 0.88rem;">
+            Una vez ingresado el PIN en <code>/informe</code>, presionar <strong>Ctrl + P</strong> (o el botón Imprimir). La hoja de estilos CSS activa automáticamente el formato <code>@media print</code>, aplicando márgenes A4, tipografía ejecutiva, membrete municipal oficial y ocultando barras de navegación y elementos web innecesarios.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECCIÓN 7: SEGURIDAD Y RESGUARDO
+         ========================================== -->
+    <section id="seguridad" class="card-admin" style="scroll-margin-top: 2rem;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
+        <span style="font-size: 1.5rem;">🛡️</span>
+        <div>
+          <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
+            7. Arquitectura de Seguridad y Resguardo de Datos
+          </h3>
+          <p style="margin: 2px 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
+            Estándares empresariales implementados para proteger los sistemas de la Municipalidad.
+          </p>
+        </div>
+      </div>
+
+      <div style="font-size: 0.92rem; line-height: 1.6; color: var(--text-muted);">
+        <p>
+          La plataforma cuenta con 6 capas de seguridad diseñadas para operar con máxima estabilidad en servidores compartidos, VPS o infraestructura municipal:
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+          <div style="padding: 0.85rem; border-radius: 8px; background: var(--bg-hover); border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main);">1. Blindaje de Credenciales (env.php)</strong>
+            <p style="margin: 0.3rem 0 0 0; font-size: 0.83rem;">
+              Las credenciales de base de datos residen en archivos ejecutables protegidos contra lectura web mediante reglas <code>.htaccess</code>.
+            </p>
+          </div>
+
+          <div style="padding: 0.85rem; border-radius: 8px; background: var(--bg-hover); border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main);">2. Inmunidad SQLi (PDO Prepared)</strong>
+            <p style="margin: 0.3rem 0 0 0; font-size: 0.83rem;">
+              El 100% de las consultas utilizan sentencias preparadas con parámetros tipados. Ningún dato provisto por usuarios puede alterar la estructura SQL.
+            </p>
+          </div>
+
+          <div style="padding: 0.85rem; border-radius: 8px; background: var(--bg-hover); border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main);">3. Protección contra Ataques CSRF</strong>
+            <p style="margin: 0.3rem 0 0 0; font-size: 0.83rem;">
+              Tokens criptográficos de un solo uso en cada formulario POST impiden peticiones no autorizadas desde sitios de terceros.
+            </p>
+          </div>
+
+          <div style="padding: 0.85rem; border-radius: 8px; background: var(--bg-hover); border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main);">4. Mitigación de Cross-Site Scripting (XSS)</strong>
+            <p style="margin: 0.3rem 0 0 0; font-size: 0.83rem;">
+              Sanitización rigurosa de texto y atributos con <code>htmlspecialchars(..., ENT_QUOTES, 'UTF-8')</code> antes de cualquier renderizado HTML.
+            </p>
+          </div>
+
+          <div style="padding: 0.85rem; border-radius: 8px; background: var(--bg-hover); border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main);">5. Contraseñas Cifradas (Bcrypt)</strong>
+            <p style="margin: 0.3rem 0 0 0; font-size: 0.83rem;">
+              Las claves de administración se almacenan mediante <code>password_hash</code> con costos de derivación modernos. Son irrecuperables en texto plano.
+            </p>
+          </div>
+
+          <div style="padding: 0.85rem; border-radius: 8px; background: var(--bg-hover); border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main);">6. Aislamiento y Cabeceras HTTP</strong>
+            <p style="margin: 0.3rem 0 0 0; font-size: 0.83rem;">
+              Cabeceras <code>X-Frame-Options</code>, <code>X-Content-Type-Options</code> y cookies seguras (<code>HttpOnly</code>, <code>SameSite=Lax</code>).
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECCIÓN 8: PREGUNTAS FRECUENTES
+         ========================================== -->
+    <section id="faq" class="card-admin" style="scroll-margin-top: 2rem;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
+        <span style="font-size: 1.5rem;">❓</span>
+        <div>
+          <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
+            8. Preguntas Frecuentes y Guía Rápida de Soporte
+          </h3>
+          <p style="margin: 2px 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
+            Respuestas a las situaciones más comunes del día a día administrativo.
+          </p>
+        </div>
+      </div>
+
+      <div style="font-size: 0.92rem; line-height: 1.6; color: var(--text-muted); display: flex; flex-direction: column; gap: 1.2rem;">
         
-        <ul style="list-style-type: none; padding: 0; display: flex; flex-direction: column; gap: 1rem;">
-          <li>
-            <strong>1. Protección de Credenciales (Blindaje env.php):</strong><br>
-            Las contraseñas de la base de datos están alojadas en un archivo ejecutable (<code>env.php</code>) blindado contra accesos web directos. No pueden ser expuestas mediante errores de configuración del servidor.
-          </li>
-          <li>
-            <strong>2. Inmunidad contra Inyecciones SQL (SQLi):</strong><br>
-            Absolutamente todas las consultas utilizan <em>Consultas Preparadas (PDO)</em>. Cualquier intento de inyección de código malicioso en el buscador o formularios es bloqueado sistemáticamente, tratando los inputs como texto inofensivo.
-          </li>
-          <li>
-            <strong>3. Bloqueo contra Secuestro de Formularios (Protección CSRF):</strong><br>
-            Cada acción de modificación de datos utiliza tokens criptográficos de un solo uso. Esto imposibilita que agentes externos o sitios maliciosos realicen acciones en nombre de un administrador autenticado.
-          </li>
-          <li>
-            <strong>4. Protección Avanzada de Sesiones:</strong><br>
-            Se implementa mitigación contra fijación de sesiones mediante regeneración de ID (<code>session_regenerate_id</code>), y las cookies de autenticación están configuradas con banderas de estricta seguridad (<code>HttpOnly</code>, <code>SameSite=Lax</code>).
-          </li>
-          <li>
-            <strong>5. Contraseñas Cifradas (Hashing):</strong><br>
-            Las credenciales de los administradores se almacenan cifradas en un solo sentido con los algoritmos más modernos. Ningún administrador de sistemas puede conocer las contraseñas reales.
-          </li>
-          <li>
-            <strong>6. Defensa contra XSS (Cross-Site Scripting):</strong><br>
-            Toda la información proveniente de productores o usuarios es sanitizada rigurosamente con <code>htmlspecialchars()</code> antes de ser renderizada en el portal público, protegiendo a todos los visitantes.
-          </li>
-        </ul>
-      </div>
-    </div>
+        <div>
+          <strong style="color: var(--text-main);">¿Cómo cambio las coordenadas de un productor si se mudó de taller?</strong>
+          <p style="margin: 0.25rem 0 0 0;">
+            Ingresá a <a href="productores" style="color: #0284c7;">Gestión de Productores</a>, hacé clic en <strong>Editar</strong> en la fila del establecimiento. En el mapa interactivo del formulario, simplemente hacé clic sobre el nuevo domicilio o arrastrá el marcador hasta la ubicación exacta y guardá los cambios.
+          </p>
+        </div>
 
-    <!-- Gestión del Mapa y Catálogo -->
-    <div class="card-admin">
-      <h3 class="admin-card-title">Gestión de Productores (Mapa y Catálogo)</h3>
-      <div class="admin-card-body" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-muted);">
-        <p>El módulo de Gestión de Productores permite mantener actualizada la cartografía interactiva y el catálogo digital de la ciudad.</p>
-        <ul style="margin-top: 0.8rem; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;">
-          <li><strong>Alta de Productor:</strong> Permite ingresar los datos comerciales, ubicación geográfica (con un mapa interactivo para posicionar el pin) y subir una fotografía representativa que se escalará automáticamente.</li>
-          <li><strong>Destacar Productores:</strong> La opción "Productor Destacado" otorga prioridad visual en el Catálogo Digital, ubicando al productor al principio de la lista.</li>
-          <li><strong>Estado (Activo/Inactivo):</strong> Permite ocultar temporalmente un productor sin necesidad de eliminar sus datos permanentemente de la base.</li>
-        </ul>
-      </div>
-    </div>
+        <div>
+          <strong style="color: var(--text-main);">¿Puedo exportar el padrón a Excel para armar un informe de gestión?</strong>
+          <p style="margin: 0.25rem 0 0 0;">
+            Sí. Hacé clic en el botón verde <strong>«⬇️ Exportar CSV»</strong> ubicado en la esquina superior de la tabla de productores o de solicitudes. El archivo generado cuenta con codificación UTF-8 con BOM, lo que garantiza que abre directamente en Microsoft Excel o LibreOffice sin deformar tildes ni caracteres especiales.
+          </p>
+        </div>
 
-    <!-- Gestión de Categorías -->
-    <div class="card-admin">
-      <h3 class="admin-card-title">Categorías y Simbología Geográfica</h3>
-      <div class="admin-card-body" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-muted);">
-        <p>Las categorías dictaminan cómo se representa cada productor tanto visual como lógicamente.</p>
-        <ul style="margin-top: 0.8rem; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;">
-          <li><strong>Color del Pin:</strong> Código de color hexadecimal que definirá el marcador en el Mapa Interactivo.</li>
-          <li><strong>Ícono SVG:</strong> Código vectorial (HTML) que se renderiza dentro del marcador geográfico.</li>
-          <li><strong>Clase Etiqueta:</strong> Clase CSS utilizada para estilar los distintivos (tags) en la visualización del Catálogo y Góndolas.</li>
-        </ul>
-      </div>
-    </div>
+        <div>
+          <strong style="color: var(--text-main);">¿Por qué no puedo subir imágenes de más de 5 MB?</strong>
+          <p style="margin: 0.25rem 0 0 0;">
+            El límite de 5 MB protege la velocidad de carga de la plataforma en teléfonos celulares de turistas que navegan con datos móviles 4G. Si una foto es demasiado pesada, se recomienda reducir su resolución o comprimirla antes de subirla.
+          </p>
+        </div>
 
-    <!-- Gestión de Solicitudes -->
-    <div class="card-admin">
-      <h3 class="admin-card-title">Solicitudes de Inscripción Ciudadana</h3>
-      <div class="admin-card-body" style="font-size: 0.95rem; line-height: 1.6; color: var(--text-muted);">
-        <p>Bandeja de entrada para las postulaciones provenientes del formulario público de "Inscribí tu Negocio".</p>
-        <ul style="margin-top: 0.8rem; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.5rem;">
-          <li><strong>Revisión:</strong> Las solicitudes ingresan con estado "Pendiente". El personal municipal debe revisar los antecedentes antes de proceder a la homologación oficial.</li>
-          <li><strong>Transición:</strong> Una vez homologado, el administrador deberá dar de alta manualmente al productor utilizando los datos provistos en la solicitud. La plataforma no publica automáticamente sin mediación municipal.</li>
-        </ul>
+        <div>
+          <strong style="color: var(--text-main);">¿Qué ocurre si un productor no atiende al público en su taller?</strong>
+          <p style="margin: 0.25rem 0 0 0;">
+            Se puede aclarar en el campo <em>Horarios</em> («Atención con cita previa» o «Puntos de venta en Góndolas oficiales»), o bien activar únicamente su presencia en el Catálogo Web e indicar el número de WhatsApp para entregas o envíos a domicilio.
+          </p>
+        </div>
+
+        <div>
+          <strong style="color: var(--text-main);">¿Cómo cerrar sesión de forma segura al terminar el turno?</strong>
+          <p style="margin: 0.25rem 0 0 0;">
+            Hacé clic en el enlace <strong>«Cerrar Sesión»</strong> en la barra superior derecha. Esto destruye la sesión activa en el servidor y limpia las cookies de autenticación, protegiendo el sistema de accesos no autorizados en terminales compartidas.
+          </p>
+        </div>
+
       </div>
-    </div>
+    </section>
 
   </div>
-</main>
 
-<?php include 'footer.php'; ?>
+</div>
+
+<?php require_once __DIR__ . '/footer.php'; ?>
