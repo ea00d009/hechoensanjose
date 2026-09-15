@@ -198,7 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':id'           => $id
                 ];
                 $pdo->prepare($sql)->execute($params);
-                setFlash('success', '¡Productor "' . htmlspecialchars($nombre) . '" actualizado correctamente!');
+                setFlash('success', '¿Productor "' . htmlspecialchars($nombre) . '" actualizado correctamente!');
 
             } else {
                 $sql = "
@@ -239,7 +239,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $updSol->execute([':sid' => $fromSolicitudId]);
                 }
 
-                setFlash('success', '¡Productor "' . htmlspecialchars($nombre) . '" dado de alta exitosamente en la plataforma!');
+                setFlash('success', '¿Productor "' . htmlspecialchars($nombre) . '" dado de alta exitosamente en la plataforma!');
             }
 
             header('Location: productores.php');
@@ -271,7 +271,7 @@ $csrf = getCsrfToken();
       <?= $isEditing ? 'Editá la información, ubicación satelital y fotografías del establecimiento.' : 'Cargá los datos oficiales para integrarlo al mapa, catálogo y góndolas.' ?>
     </p>
   </div>
-  <a href="productores.php" class="btn btn-outline" style="padding: 9px 18px; font-size: 0.88rem;">
+  <a href="productores" class="btn btn-outline" style="padding: 9px 18px; font-size: 0.88rem;">
     &larr; Volver al Listado
   </a>
 </div>
@@ -421,7 +421,7 @@ $csrf = getCsrfToken();
       </button>
 
       <div style="border-top: 1px solid var(--border-light); padding-top: 1.5rem; display: flex; gap: 1rem; justify-content: flex-end;">
-        <a href="productores.php" class="btn btn-outline" style="padding: 12px 20px;">Cancelar</a>
+        <a href="productores" class="btn btn-outline" style="padding: 12px 20px;">Cancelar</a>
         <button type="submit" class="btn btn-accent" style="padding: 12px 28px; font-size: 1rem;">
           <?= $isEditing ? 'Guardar Cambios' : 'Registrar Productor' ?> &rarr;
         </button>

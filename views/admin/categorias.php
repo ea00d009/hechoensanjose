@@ -1,7 +1,7 @@
-<?php
+﻿<?php
 /**
  * ==============================================================================
- * HECHO EN SAN JOSÉ • GESTIÓN DE CATEGORÍAS
+ * HECHO EN SAN JOSÃ‰ â€¢ GESTIÃ“N DE CATEGORÍAS
  * ==============================================================================
  */
 
@@ -173,7 +173,7 @@ require_once __DIR__ . '/header.php';
             <?php endif; ?>
             
             <div class="form-group" style="margin-bottom: 1rem;">
-                <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem;">ID (Identificador Único)</label>
+                <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.35rem;">ID (Identificador Ãšnico)</label>
                 <input type="text" id="cat_id" name="id" value="<?= $isEditing ? htmlspecialchars($editCat['id']) : '' ?>" class="form-control" placeholder="ej: conservas, panaderia" required style="width: 100%; padding: 0.6rem; border-radius: 6px; border: 1px solid var(--border-light); background: var(--bg-body); color: var(--text-main);">
                 <small style="color: var(--text-muted); font-size: 0.75rem; display: block; margin-top: 4px;">Sin espacios ni caracteres especiales.</small>
             </div>
@@ -220,7 +220,7 @@ require_once __DIR__ . '/header.php';
                     <?= $isEditing ? 'Guardar Cambios' : 'Agregar Categoría' ?>
                 </button>
                 <?php if ($isEditing): ?>
-                    <a href="categorias.php" class="btn btn-outline" style="padding: 0.75rem; border-radius: 6px; font-weight: 600; text-align: center;">Cancelar</a>
+                    <a href="categorias" class="btn btn-outline" style="padding: 0.75rem; border-radius: 6px; font-weight: 600; text-align: center;">Cancelar</a>
                 <?php endif; ?>
             </div>
         </form>

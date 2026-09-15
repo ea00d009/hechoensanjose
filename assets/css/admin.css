@@ -1,0 +1,270 @@
+/* ==============================================================================
+ * HECHO EN SAN JOSÉ • ESTILOS ADMINISTRATIVOS Y SETUP
+ * ============================================================================== */
+
+/* --- Estilos de admin/header.php --- */
+.admin-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+.admin-nav-pills {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.admin-nav-item {
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--text-muted, #64748b);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.admin-nav-item:hover {
+  background: var(--bg-hover, #f1f5f9);
+  color: var(--text-main, #0f172a);
+}
+.admin-nav-item.active {
+  background: #0284c7;
+  color: #ffffff !important;
+}
+.badge-pill {
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 12px;
+}
+.alert-flash {
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.92rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.alert-flash.success {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+.alert-flash.danger {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+.card-admin {
+  background: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-light, #e2e8f0);
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  margin-bottom: 1.5rem;
+}
+.admin-table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid var(--border-light, #e2e8f0);
+}
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.88rem;
+}
+.admin-table th {
+  background: var(--bg-hover, #f8fafc);
+  padding: 12px 14px;
+  font-weight: 700;
+  color: var(--text-muted, #475569);
+  border-bottom: 1px solid var(--border-light, #e2e8f0);
+}
+.admin-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-light, #f1f5f9);
+  color: var(--text-main, #1e293b);
+  vertical-align: middle;
+}
+.admin-table tr:hover td {
+  background: var(--bg-hover, #f8fafc);
+}
+.thumb-mini {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid var(--border-light, #e2e8f0);
+}
+.badge-status {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.badge-activo {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+.badge-inactivo {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+}
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  border-radius: 6px;
+}
+.btn-danger-soft {
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+}
+.btn-danger-soft:hover {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+/* --- Estilos de admin/login.php --- */
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: var(--bg-body, #f8fafc);
+}
+.login-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--bg-card, #ffffff);
+  border: 1px solid var(--border-light, #e2e8f0);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.07);
+}
+.login-logo {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+.login-logo img {
+  height: 64px;
+  margin-bottom: 0.75rem;
+}
+.login-logo h2 {
+  font-size: 1.4rem;
+  color: var(--text-main, #0f172a);
+  margin: 0;
+  font-weight: 800;
+}
+.login-logo p {
+  color: var(--text-muted, #64748b);
+  font-size: 0.85rem;
+  margin-top: 0.35rem;
+}
+.form-group {
+  margin-bottom: 1.25rem;
+}
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main, #1e293b);
+  margin-bottom: 0.35rem;
+}
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-light, #cbd5e1);
+  font-size: 0.95rem;
+  background: var(--bg-card, #ffffff);
+  color: var(--text-main, #0f172a);
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+.form-input:focus {
+  outline: none;
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+.alert-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+}
+.login-hint {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed var(--border-light, #e2e8f0);
+  font-size: 0.8rem;
+  color: var(--text-muted, #64748b);
+  text-align: center;
+}
+
+/* --- Estilos de setup.php --- */
+.setup-container {
+  max-width: 650px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  background: var(--bg-card, #ffffff);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  border: 1px solid var(--border-light, #e2e8f0);
+}
+.setup-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.setup-header img {
+  height: 60px;
+  margin-bottom: 1rem;
+}
+.alert {
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.alert-success {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+.alert-danger {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+/* Reusing form-group from login, but setup had a slightly different font-weight and font-size for labels, 
+   we will keep them consolidated or allow specificity if needed. */
+.setup-container .form-group label {
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+.form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-light, #cbd5e1);
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  background: var(--bg-card, #fff);
+  color: var(--text-main, #1e293b);
+}

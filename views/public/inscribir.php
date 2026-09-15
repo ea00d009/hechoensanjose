@@ -6,6 +6,7 @@
   <title>Inscribí tu Negocio - Hecho en San José &bull; Registro de Productores</title>
   <meta name="description" content="Formulario de inscripción para emprendedores y productores de San José, Entre Ríos. Sumate al catálogo oficial, al mapa productivo y a las góndolas municipales.">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/css/normalized.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
   <!-- Script para prevenir parpadeo de modo oscuro (Zero FOUC) -->
   <script>
@@ -29,20 +30,11 @@
 
   <!-- Barra Superior Institucional -->
   <header class="site-header">
-    <div class="header-topbar">
-      <div class="topbar-badge">
-        <span>San José, Entre Ríos &bull; Registro Abierto para Productores y Emprendedores</span>
-      </div>
-      <div class="topbar-extra" style="display: flex; gap: 1rem; align-items: center;">
-        <span style="font-size: 0.78rem; opacity: 0.9;">Secretaría de Educación, Cultura y Turismo</span>
-        <a href="https://sanjose.tur.ar/hechoensanjose/" target="_blank" rel="noopener" style="color: #fff; text-decoration: underline; font-size: 0.78rem;">Sitio Oficial &nearr;</a>
-      </div>
-    </div>
 
     <!-- Navegación Principal -->
     <div class="header-main">
       <div class="logo-group">
-        <a href="index.php" class="logo-link-wrap" title="Municipalidad de San José, Entre Ríos">
+        <a href="./" class="logo-link-wrap" title="Municipalidad de San José, Entre Ríos">
           <img src="assets/logo-sanjose.png" alt="Municipalidad de San José, Entre Ríos" class="municipal-logo">
         </a>
         <div class="logo-divider"></div>
@@ -54,11 +46,11 @@
 
       <div class="header-right-group">
         <nav class="nav-actions" id="main-nav-actions">
-          <div style="display: flex; gap: 8px; align-items: center;" class="nav-subpages-links">
-            <a href="index.php" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Inicio</a>
-            <a href="catalogo.php" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Catálogo</a>
-            <a href="gondola.php" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Góndolas</a>
-            <a href="mapa.php" class="btn btn-accent" style="padding: 0.5rem 1rem; font-size: 0.82rem;">
+          <div class="s-b131259d nav-subpages-links">
+            <a href="./" class="btn btn-outline s-894fcfb8">Inicio</a>
+            <a href="catalogo" class="btn btn-outline s-894fcfb8">Catálogo</a>
+            <a href="gondola" class="btn btn-outline s-894fcfb8">Góndolas</a>
+            <a href="mapa" class="btn btn-accent s-cdd7a746">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
                 <line x1="9" y1="3" x2="9" y2="18"></line>
@@ -107,10 +99,10 @@
   </header>
 
   <!-- Hero de Inscripción -->
-  <section class="hero-section" style="padding: 2.8rem 1.5rem 2rem;">
-    <div class="hero-container" style="max-width: 1280px; margin: 0 auto; display: block;">
-      <div style="max-width: 820px; margin: 0 auto; text-align: center;">
-        <div class="hero-badge-initiative" style="background: var(--color-amber-light); color: var(--color-amber); border-color: rgba(217, 119, 6, 0.2);">
+  <section class="hero-section s-32f514d0">
+    <div class="hero-container s-7b1c691d">
+      <div class="s-e5ccebc6">
+        <div class="hero-badge-initiative s-703efecc">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M7 7h10"></path><path d="M7 12h10"></path><path d="M7 17h6"></path></svg>
           <span>Convocatoria Abierta Permanente</span>
         </div>
@@ -125,82 +117,82 @@
   </section>
 
   <!-- Contenedor Principal: Beneficios + Formulario -->
-  <main style="max-width: 1100px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem;">
+  <main class="s-869dbcd9">
     
     <!-- Cuadrícula de Beneficios -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.25rem; margin-bottom: 3rem;">
-      <div style="background: var(--bg-card); padding: 1.4rem; border-radius: var(--radius-md); border: 1px solid var(--border-light); text-align: center;">
-        <div style="font-size: 1.8rem; margin-bottom: 0.4rem;">🌐</div>
-        <h4 style="font-size: 1rem; color: var(--text-main); margin-bottom: 0.3rem;">Difusión Oficial</h4>
-        <p style="font-size: 0.82rem; color: var(--text-muted);">Presencia destacada en el portal de turismo y redes municipales sin costo.</p>
+    <div class="s-fb88b799">
+      <div class="s-c2f0f551">
+        <div class="s-365d1716">🌐</div>
+        <h4 class="s-a372f16a">Difusión Oficial</h4>
+        <p class="s-f7fea560">Presencia destacada en el portal de turismo y redes municipales sin costo.</p>
       </div>
-      <div style="background: var(--bg-card); padding: 1.4rem; border-radius: var(--radius-md); border: 1px solid var(--border-light); text-align: center;">
-        <div style="font-size: 1.8rem; margin-bottom: 0.4rem;">🗺️</div>
-        <h4 style="font-size: 1rem; color: var(--text-main); margin-bottom: 0.3rem;">Mapa Interactivo</h4>
-        <p style="font-size: 0.82rem; color: var(--text-muted);">Georreferenciación en el mapa con contacto directo a WhatsApp y GPS.</p>
+      <div class="s-c2f0f551">
+        <div class="s-365d1716">🗺️</div>
+        <h4 class="s-a372f16a">Mapa Interactivo</h4>
+        <p class="s-f7fea560">Georreferenciación en el mapa con contacto directo a WhatsApp y GPS.</p>
       </div>
-      <div style="background: var(--bg-card); padding: 1.4rem; border-radius: var(--radius-md); border: 1px solid var(--border-light); text-align: center;">
-        <div style="font-size: 1.8rem; margin-bottom: 0.4rem;">🛒</div>
-        <h4 style="font-size: 1rem; color: var(--text-main); margin-bottom: 0.3rem;">Góndolas Exclusivas</h4>
-        <p style="font-size: 0.82rem; color: var(--text-muted);">Acceso a espacios de venta en supermercados y centros turísticos.</p>
+      <div class="s-c2f0f551">
+        <div class="s-365d1716">🛒</div>
+        <h4 class="s-a372f16a">Góndolas Exclusivas</h4>
+        <p class="s-f7fea560">Acceso a espacios de venta en supermercados y centros turísticos.</p>
       </div>
-      <div style="background: var(--bg-card); padding: 1.4rem; border-radius: var(--radius-md); border: 1px solid var(--border-light); text-align: center;">
-        <div style="font-size: 1.8rem; margin-bottom: 0.4rem;">🏷️</div>
-        <h4 style="font-size: 1rem; color: var(--text-main); margin-bottom: 0.3rem;">Sello de Origen</h4>
-        <p style="font-size: 0.82rem; color: var(--text-muted);">Certificación oficial de calidad y producción autóctona sanjosesina.</p>
+      <div class="s-c2f0f551">
+        <div class="s-365d1716">🎗️</div>
+        <h4 class="s-a372f16a">Sello de Origen</h4>
+        <p class="s-f7fea560">Certificación oficial de calidad y producción autóctona sanjosesina.</p>
       </div>
     </div>
 
     <!-- Formulario de Adhesión -->
-    <div class="form-card-box" style="background: var(--bg-card); border-radius: var(--radius-lg); padding: 3rem 2.5rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-lg);" id="form-card-container">
+    <div class="form-card-box s-857c447c" id="form-card-container">
       
-      <div style="border-bottom: 1px solid var(--border-light); padding-bottom: 1.5rem; margin-bottom: 2rem;">
-        <h2 style="font-size: 1.6rem; color: var(--text-main); margin-bottom: 0.4rem;">Formulario de Registro y Adhesión</h2>
-        <p style="color: var(--text-muted); font-size: 0.92rem;">Completá los datos de tu emprendimiento para ser evaluado por el equipo técnico municipal.</p>
+      <div class="s-9ca62dfb">
+        <h2 class="s-d1273b10">Formulario de Registro y Adhesión</h2>
+        <p class="s-10a9a526">Completá los datos de tu emprendimiento para ser evaluado por el equipo técnico municipal.</p>
       </div>
 
       <form id="registro-form" onsubmit="handleFormSubmit(event)">
 
         <!-- Sección 1: Datos del Titular -->
-        <div style="margin-bottom: 2rem;">
-          <h3 style="font-size: 1.15rem; color: #0284c7; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;">
-            <span style="width: 24px; height: 24px; background: #e0f2fe; color: #0284c7; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800;">1</span>
+        <div class="s-2579959f">
+          <h3 class="s-94257d2d">
+            <span class="s-9c542b74">1</span>
             <span>Datos del Titular / Responsable</span>
           </h3>
-          <div class="form-two-col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+          <div class="form-two-col s-f76dfa49">
             <div>
-              <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">Nombre y Apellido *</label>
-              <input type="text" name="nombre_titular" required placeholder="Ej. Martina Baccón" class="search-input" style="border-radius: 8px; padding: 10px 14px;">
+              <label class="s-65bd4b79">Nombre y Apellido *</label>
+              <input type="text" name="nombre_titular" required placeholder="Ej. Martina Baccón" class="search-input s-50ca1596">
             </div>
             <div>
-              <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">DNI o CUIT *</label>
-              <input type="text" name="dni_cuit" required placeholder="Ej. 20-34567890-4" class="search-input" style="border-radius: 8px; padding: 10px 14px;">
+              <label class="s-65bd4b79">DNI o CUIT *</label>
+              <input type="text" name="dni_cuit" required placeholder="Ej. 20-34567890-4" class="search-input s-50ca1596">
             </div>
             <div>
-              <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">Teléfono Celular / WhatsApp *</label>
-              <input type="tel" name="whatsapp" required placeholder="Ej. +54 9 3447 45-1234" class="search-input" style="border-radius: 8px; padding: 10px 14px;">
+              <label class="s-65bd4b79">Teléfono Celular / WhatsApp *</label>
+              <input type="tel" name="whatsapp" required placeholder="Ej. +54 9 3447 45-1234" class="search-input s-50ca1596">
             </div>
             <div>
-              <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">Correo Electrónico</label>
-              <input type="email" name="email" placeholder="nombre@ejemplo.com" class="search-input" style="border-radius: 8px; padding: 10px 14px;">
+              <label class="s-65bd4b79">Correo Electrónico</label>
+              <input type="email" name="email" placeholder="nombre@ejemplo.com" class="search-input s-50ca1596">
             </div>
           </div>
         </div>
 
         <!-- Sección 2: Datos del Emprendimiento -->
-        <div style="margin-bottom: 2rem; border-top: 1px dashed var(--border-light); padding-top: 1.5rem;">
-          <h3 style="font-size: 1.15rem; color: #0284c7; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;">
-            <span style="width: 24px; height: 24px; background: #e0f2fe; color: #0284c7; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800;">2</span>
+        <div class="s-447af6b5">
+          <h3 class="s-94257d2d">
+            <span class="s-9c542b74">2</span>
             <span>Datos del Emprendimiento o Marca</span>
           </h3>
-          <div class="form-two-col" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+          <div class="form-two-col s-f76dfa49">
             <div>
-              <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">Nombre del Emprendimiento / Marca *</label>
-              <input type="text" name="nombre_emprendimiento" required placeholder="Ej. Alfajores y Dulces La Colonia" class="search-input" style="border-radius: 8px; padding: 10px 14px;">
+              <label class="s-65bd4b79">Nombre del Emprendimiento / Marca *</label>
+              <input type="text" name="nombre_emprendimiento" required placeholder="Ej. Alfajores y Dulces La Colonia" class="search-input s-50ca1596">
             </div>
             <div>
-              <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">Rubro Productivo *</label>
-              <select name="rubro" required class="search-input" style="border-radius: 8px; padding: 10px 14px; cursor: pointer;">
+              <label class="s-65bd4b79">Rubro Productivo *</label>
+              <select name="rubro" required class="search-input s-3e4d5f5d">
                 <option value="">Seleccioná un rubro...</option>
                 <option value="Agroecología & Nuez Pecán">Agroecología & Nuez Pecán</option>
                 <option value="Licores, Vinos & Cerveza Artesanal">Licores, Vinos & Cerveza Artesanal</option>
@@ -212,63 +204,63 @@
                 <option value="Otro rubro artesanal">Otro rubro artesanal</option>
               </select>
             </div>
-            <div style="grid-column: 1 / -1;">
-              <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">Dirección del Establecimiento / Taller en San José *</label>
-              <input type="text" name="direccion" required placeholder="Calle, número o camino rural de referencia" class="search-input" style="border-radius: 8px; padding: 10px 14px;">
+            <div class="s-e86cdd0b">
+              <label class="s-65bd4b79">Dirección del Establecimiento / Taller en San José *</label>
+              <input type="text" name="direccion" required placeholder="Calle, número o camino rural de referencia" class="search-input s-50ca1596">
             </div>
-            <div style="grid-column: 1 / -1;">
-              <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">Descripción de los Productos y Materias Primas Locales *</label>
-              <textarea name="descripcion" required rows="4" placeholder="Contanos qué producís, qué insumos utilizás de nuestra región y cómo elaborás tus productos..." class="search-input" style="border-radius: 8px; padding: 10px 14px; resize: vertical;"></textarea>
+            <div class="s-e86cdd0b">
+              <label class="s-65bd4b79">Descripción de los Productos y Materias Primas Locales *</label>
+              <textarea name="descripcion" required rows="4" placeholder="Contanos qué producís, qué insumos utilizás de nuestra región y cómo elaborás tus productos..." class="search-input s-1706339d"></textarea>
             </div>
           </div>
         </div>
 
         <!-- Sección 3: Interés en el Programa -->
-        <div style="margin-bottom: 2rem; border-top: 1px dashed var(--border-light); padding-top: 1.5rem;">
-          <h3 style="font-size: 1.15rem; color: #0284c7; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;">
-            <span style="width: 24px; height: 24px; background: #e0f2fe; color: #0284c7; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 800;">3</span>
+        <div class="s-447af6b5">
+          <h3 class="s-94257d2d">
+            <span class="s-9c542b74">3</span>
             <span>¿En qué módulos te interesa participar?</span>
           </h3>
-          <div style="display: flex; flex-direction: column; gap: 10px;">
-            <label class="form-interest-label" style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--text-main); cursor: pointer;">
-              <input type="checkbox" name="interes_catalogo" value="1" checked style="width: 18px; height: 18px; accent-color: #0096c7;">
+          <div class="s-e4b1745b">
+            <label class="form-interest-label s-0f0488e7">
+              <input type="checkbox" name="interes_catalogo" value="1" checked class="s-f595019a">
               <span>Publicación en el <strong>Catálogo Web Oficial</strong> con contacto directo a WhatsApp</span>
             </label>
-            <label class="form-interest-label" style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--text-main); cursor: pointer;">
-              <input type="checkbox" name="interes_mapa" value="1" checked style="width: 18px; height: 18px; accent-color: #0096c7;">
+            <label class="form-interest-label s-0f0488e7">
+              <input type="checkbox" name="interes_mapa" value="1" checked class="s-f595019a">
               <span>Georreferenciación en el <strong>Mapa Productivo Interactivo</strong> de Turismo</span>
             </label>
-            <label class="form-interest-label" style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--text-main); cursor: pointer;">
-              <input type="checkbox" name="interes_gondola" value="1" checked style="width: 18px; height: 18px; accent-color: #0096c7;">
+            <label class="form-interest-label s-0f0488e7">
+              <input type="checkbox" name="interes_gondola" value="1" checked class="s-f595019a">
               <span>Venta en las <strong>Góndolas Municipales</strong> en comercios y supermercados</span>
             </label>
-            <label class="form-interest-label" style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--text-main); cursor: pointer;">
-              <input type="checkbox" name="interes_ferias" value="1" style="width: 18px; height: 18px; accent-color: #0096c7;">
+            <label class="form-interest-label s-0f0488e7">
+              <input type="checkbox" name="interes_ferias" value="1" class="s-f595019a">
               <span>Participación en <strong>Ferias de Emprendedores y Fiestas Tradicionales</strong></span>
             </label>
           </div>
         </div>
 
         <!-- Botón de Envío -->
-        <div style="border-top: 1px solid var(--border-light); padding-top: 1.75rem; display: flex; justify-content: flex-end; align-items: center; gap: 1rem;">
-          <button type="submit" class="btn btn-accent" style="padding: 12px 28px; font-size: 1rem;">
+        <div class="s-545f76ce">
+          <button type="submit" class="btn btn-accent s-c711011d">
             <span>Enviar Solicitud de Registro &rarr;</span>
           </button>
         </div>
       </form>
 
-      <!-- Mensaje de Éxito Oculto por defecto -->
-      <div id="mensaje-exito" style="display: none; text-align: center; padding: 3rem 1rem;">
-        <div style="width: 72px; height: 72px; background: #ecfdf5; color: #059669; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;">
+      <!-- Mensaje de Ã‰xito Oculto por defecto -->
+      <div id="mensaje-exito" class="s-cf8b9e09">
+        <div class="s-c65b13db">
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
-        <h3 style="font-size: 1.8rem; color: var(--text-main); margin-bottom: 0.6rem;">¡Solicitud enviada con éxito!</h3>
-        <p style="color: var(--text-muted); max-width: 550px; margin: 0 auto 2rem; line-height: 1.6;">
+        <h3 class="s-7acbb626">¿Solicitud enviada con éxito!</h3>
+        <p class="s-df0fb330">
           Tu inscripción al programa <strong>«Hecho en San José»</strong> fue registrada. El equipo de la Secretaría de Educación, Cultura y Turismo revisará la información y se comunicará vía WhatsApp para coordinar la visita y validación del sello de origen.
         </p>
-        <div style="display: flex; gap: 1rem; justify-content: center;">
-          <a href="catalogo.php" class="btn btn-outline">Ver Catálogo de Negocios</a>
-          <a href="mapa.php" class="btn btn-primary">Ver Mapa Productivo</a>
+        <div class="s-d3e82f29">
+          <a href="catalogo" class="btn btn-outline">Ver Catálogo de Negocios</a>
+          <a href="mapa" class="btn btn-primary">Ver Mapa Productivo</a>
         </div>
       </div>
 
@@ -301,11 +293,11 @@
       <div class="footer-col">
         <h5>Módulos del Programa</h5>
         <ul class="footer-links">
-          <li><a href="index.php">Inicio</a></li>
-          <li><a href="catalogo.php">Catálogo de Negocios</a></li>
-          <li><a href="gondola.php">Encontrá la Góndola</a></li>
-          <li><a href="inscribir.php">Inscribí tu Negocio</a></li>
-          <li><a href="mapa.php">Mapa Productivo Interactivo</a></li>
+          <li><a href="./">Inicio</a></li>
+          <li><a href="catalogo">Catálogo de Negocios</a></li>
+          <li><a href="gondola">Encontrá la Góndola</a></li>
+          <li><a href="inscribir">Inscribí tu Negocio</a></li>
+          <li><a href="mapa">Mapa Productivo Interactivo</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -320,9 +312,9 @@
     </div>
     <div class="footer-bottom">
       <div>&copy; 2026 Municipalidad de San José, Entre Ríos. Todos los derechos reservados.</div>
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <span style="color: var(--text-light);">Gestión Municipal</span>
-        <a href="admin/login.php" class="btn-admin-access" title="Acceso al Panel de Gestión" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+      <div class="s-b512c985">
+        <span class="s-b32654dc">Gestión Municipal</span>
+        <a href="admin/login" class="btn-admin-access" title="Acceso al Panel de Gestión" class="s-de742dc8">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
           </svg>
@@ -353,26 +345,40 @@
       const formData = new FormData(form);
 
       try {
-        const res = await fetch('api/inscribir.php', {
+        let res = await fetch('api/inscribir', {
           method: 'POST',
           body: formData
         });
 
-        const data = await res.json();
+        // Fallback a api/inscribir.php si el servidor no tiene mod_rewrite activo
+        if (!res.ok && res.status === 404) {
+          res = await fetch('api/inscribir.php', {
+            method: 'POST',
+            body: formData
+          });
+        }
+
+        let data = {};
+        try {
+          data = await res.json();
+        } catch (jsonErr) {
+          throw new Error('Respuesta inválida del servidor.');
+        }
+
         if (res.ok && data.success) {
           document.getElementById('registro-form').style.display = 'none';
           document.getElementById('mensaje-exito').style.display = 'block';
           document.getElementById('mensaje-exito').scrollIntoView({ behavior: 'smooth' });
         } else {
-          alert(data.error || 'Hubo un inconveniente al enviar la solicitud. Por favor verificá los datos.');
+          alert(data.error || 'Hubo un inconveniente al enviar la solicitud. Por favor verificá los datos ingresados.');
           submitBtn.disabled = false;
           submitBtn.innerHTML = originalText;
         }
       } catch (err) {
-        console.warn('API local no disponible, procesando en modo cliente:', err);
-        document.getElementById('registro-form').style.display = 'none';
-        document.getElementById('mensaje-exito').style.display = 'block';
-        document.getElementById('mensaje-exito').scrollIntoView({ behavior: 'smooth' });
+        console.error('Error al enviar la solicitud de inscripción:', err);
+        alert('No se pudo completar el envío de la solicitud. Por favor verificá tu conexión a internet e intentalo nuevamente.');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
       }
     }
   </script>

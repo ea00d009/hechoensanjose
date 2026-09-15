@@ -142,6 +142,12 @@ require_once __DIR__ . '/header.php';
           </div>
         </div>
 
+        <?php if (!empty($sol['notas_admin'])): ?>
+          <div style="margin-bottom: 1.25rem; font-size: 0.85rem; padding: 6px 12px; background: #fef3c7; color: #92400e; border-radius: 6px; display: inline-block;">
+            📌 <strong>Identificación / Notas:</strong> <?= htmlspecialchars($sol['notas_admin']) ?>
+          </div>
+        <?php endif; ?>
+
         <!-- Módulos de Interés -->
         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem;">
           <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: flex; align-items: center; margin-right: 4px;">Le interesa:</span>

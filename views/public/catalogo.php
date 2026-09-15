@@ -1,11 +1,61 @@
+<?php
+// Función para generar slugs limpios y legibles
+if (!function_exists('generarSlug')) {
+    function generarSlug(string $texto): string {
+        $texto = mb_strtolower(trim($texto), 'UTF-8');
+        $reemplazos = [
+            'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ú'=>'u',
+            'à'=>'a', 'è'=>'e', 'ì'=>'i', 'ò'=>'o', 'ù'=>'u',
+            'ä'=>'a', 'ë'=>'e', 'ï'=>'i', 'ö'=>'o', 'ü'=>'u',
+            'ñ'=>'n', 'ç'=>'c', '&' => 'y'
+        ];
+        $texto = strtr($texto, $reemplazos);
+        $texto = preg_replace('/[^a-z0-9]+/i', '-', $texto);
+        return trim($texto, '-');
+    }
+}
+
+// Base URL dinámica para soporte de subcarpetas y URLs limpias
+$baseDir = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+$baseUrl = ($baseDir !== '' ? $baseDir : '') . '/';
+
+// Pre-procesar productores para paso directo a JavaScript (carga instantánea sin latencia)
+$totalProds = !empty($productores) ? count($productores) : 0;
+$jsonProductores = [];
+if (!empty($productores)) {
+    foreach ($productores as $row) {
+        $jsonProductores[] = [
+            'id'          => (int)$row['id'],
+            'slug'        => generarSlug($row['nombre'] ?? ''),
+            'nombre'      => htmlspecialchars($row['nombre'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'rubro'       => htmlspecialchars($row['rubro'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'categoria'   => htmlspecialchars($row['categoria'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'tagLabel'    => htmlspecialchars($row['tagLabel'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'tagClass'    => htmlspecialchars($row['tagClass'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'pinColor'    => htmlspecialchars($row['pinColor'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'imagen'      => htmlspecialchars($row['imagen'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'iconoSvg'    => $row['iconoSvg'],
+            'coords'      => [(float)$row['lat'], (float)$row['lng']],
+            'direccion'   => htmlspecialchars($row['direccion'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'telefono'    => htmlspecialchars($row['telefono'] ?: '', ENT_QUOTES, 'UTF-8'),
+            'whatsapp'    => htmlspecialchars($row['whatsapp'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'horario'     => htmlspecialchars($row['horario'] ?: '', ENT_QUOTES, 'UTF-8'),
+            'descripcion' => htmlspecialchars($row['descripcion'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'destacado'   => (bool)$row['destacado']
+        ];
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <base href="<?= htmlspecialchars($baseUrl) ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catálogo de Negocios - Hecho en San José &bull; Turismo Oficial</title>
   <meta name="description" content="Explorá el catálogo oficial de productores, emprendedores y artesanos de la ciudad de San José, Entre Ríos. Nuez pecán, licores centenarios, miel y creaciones con identidad local.">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/css/normalized.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛍️</text></svg>">
   <!-- Script para prevenir parpadeo de modo oscuro (Zero FOUC) -->
   <script>
@@ -29,20 +79,11 @@
 
   <!-- Barra Superior Institucional -->
   <header class="site-header">
-    <div class="header-topbar">
-      <div class="topbar-badge">
-        <span>San José, Entre Ríos &bull; Catálogo Oficial de Productores Locales</span>
-      </div>
-      <div class="topbar-extra" style="display: flex; gap: 1rem; align-items: center;">
-        <span style="font-size: 0.78rem; opacity: 0.9;">Programa Hecho en San José</span>
-        <a href="https://sanjose.tur.ar/hechoensanjose/" target="_blank" rel="noopener" style="color: #fff; text-decoration: underline; font-size: 0.78rem;">Sitio Oficial &nearr;</a>
-      </div>
-    </div>
 
     <!-- Navegación Principal -->
     <div class="header-main">
       <div class="logo-group">
-        <a href="index.php" class="logo-link-wrap" title="Municipalidad de San José, Entre Ríos">
+        <a href="./" class="logo-link-wrap" title="Municipalidad de San José, Entre Ríos">
           <img src="assets/logo-sanjose.png" alt="Municipalidad de San José, Entre Ríos" class="municipal-logo">
         </a>
         <div class="logo-divider"></div>
@@ -55,11 +96,11 @@
       <div class="header-right-group">
         <nav class="nav-actions" id="main-nav-actions">
           <!-- Enlaces a otros módulos -->
-          <div style="display: flex; gap: 8px; align-items: center;" class="nav-subpages-links">
-            <a href="index.php" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Inicio</a>
-            <a href="gondola.php" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Góndolas</a>
-            <a href="inscribir.php" class="btn btn-outline" style="padding: 0.5rem 0.9rem; font-size: 0.82rem;">Inscribirse</a>
-            <a href="mapa.php" class="btn btn-accent" style="padding: 0.5rem 1rem; font-size: 0.82rem;">
+          <div class="nav-subpages-links flex-center-gap-8px">
+            <a href="./" class="btn btn-outline btn-nav-sub">Inicio</a>
+            <a href="gondola" class="btn btn-outline btn-nav-sub">Góndolas</a>
+            <a href="inscribir" class="btn btn-outline btn-nav-sub">Inscribirse</a>
+            <a href="mapa" class="btn btn-accent btn-nav-map">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
                 <line x1="9" y1="3" x2="9" y2="18"></line>
@@ -115,9 +156,9 @@
   </header>
 
   <!-- Hero del Catálogo -->
-  <section class="hero-section" style="padding: 2.8rem 1.5rem 2rem;">
-    <div class="hero-container" style="max-width: 1280px; margin: 0 auto; display: block;">
-      <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+  <section class="hero-section hero-section-custom">
+    <div class="hero-container hero-container-custom">
+      <div class="hero-inner-custom">
         <div class="hero-badge-initiative">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
@@ -134,18 +175,18 @@
         </p>
 
         <!-- Barra de Búsqueda y Filtros en el Catálogo -->
-        <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; align-items: center;">
-          <div style="width: 100%; max-width: 500px; position: relative;">
-            <svg style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #94a3b8;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <div class="hero-search-wrapper">
+          <div class="hero-search-inner">
+            <svg class="search-icon-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-            <input type="text" id="catalogo-search" placeholder="Buscar por producto, negocio o ingrediente..." class="search-input" style="padding: 12px 18px 12px 46px; font-size: 0.95rem; border-radius: 9999px; box-shadow: var(--shadow-sm);">
+            <input type="text" id="catalogo-search" placeholder="Buscar por producto, negocio o ingrediente..." class="search-input search-input-custom">
           </div>
 
           <!-- Filtros de categoría -->
-          <div class="filter-categories-container" style="justify-content: center;" id="catalogo-filters">
-            <button class="filter-chip active" data-cat="todos">🌱 Todos (<span id="cat-count-todos">11</span>)</button>
+          <div class="filter-categories-container filter-container-center" id="catalogo-filters">
+            <button class="filter-chip active" data-cat="todos">🌱 Todos (<span id="cat-count-todos"><?= $totalProds > 0 ? $totalProds : '13' ?></span>)</button>
             <button class="filter-chip" data-cat="pecan">🌰 Pecán & Campo</button>
             <button class="filter-chip" data-cat="bebidas">🍷 Licores, Vinos & Cerveza</button>
             <button class="filter-chip" data-cat="alimentos">🧀 Miel, Quesos & Dulces</button>
@@ -157,10 +198,10 @@
   </section>
 
   <!-- Grilla del Catálogo -->
-  <main style="max-width: 1280px; margin: 0 auto; padding: 3rem 1.5rem 5rem;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
-      <h2 style="font-size: 1.3rem; color: var(--text-main);" id="catalogo-title-counter">Mostrando 11 emprendimientos adheridos</h2>
-      <a href="inscribir.php" class="btn btn-outline" style="font-size: 0.82rem; padding: 6px 14px;">
+  <main class="main-container-custom">
+    <div class="flex-between-wrap">
+      <h2 class="main-title-custom" id="catalogo-title-counter">Mostrando <?= $totalProds > 0 ? $totalProds : '13' ?> emprendimientos adheridos</h2>
+      <a href="inscribir" class="btn btn-outline btn-register-custom">
         <span>+ Inscribir mi emprendimiento</span>
       </a>
     </div>
@@ -203,11 +244,11 @@
       <div class="footer-col">
         <h5>Módulos del Programa</h5>
         <ul class="footer-links">
-          <li><a href="index.php">Inicio</a></li>
-          <li><a href="catalogo.php">Catálogo de Negocios</a></li>
-          <li><a href="gondola.php">Encontrá la Góndola</a></li>
-          <li><a href="inscribir.php">Inscribí tu Negocio</a></li>
-          <li><a href="mapa.php">Mapa Productivo Interactivo</a></li>
+          <li><a href="./">Inicio</a></li>
+          <li><a href="catalogo">Catálogo de Negocios</a></li>
+          <li><a href="gondola">Encontrá la Góndola</a></li>
+          <li><a href="inscribir">Inscribí tu Negocio</a></li>
+          <li><a href="mapa">Mapa Productivo Interactivo</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -222,9 +263,9 @@
     </div>
     <div class="footer-bottom">
       <div>&copy; 2026 Municipalidad de San José, Entre Ríos. Todos los derechos reservados.</div>
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <span style="color: var(--text-light);">Gestión Municipal</span>
-        <a href="admin/login.php" class="btn-admin-access" title="Acceso al Panel de Gestión" style="text-decoration: none; display: inline-flex; align-items: center; gap: 5px;">
+      <div class="flex-center-gap-10px">
+        <span class="footer-admin-text">Gestión Municipal</span>
+        <a href="admin/login" class="btn-admin-access btn-admin-access-custom" title="Acceso al Panel de Gestión">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
           </svg>
@@ -241,11 +282,20 @@
     </div>
   </footer>
 
+  <!-- Pre-carga de datos para renderizado instantáneo -->
+  <script>
+    window.INITIAL_PRODUCTORES = <?= json_encode($jsonProductores, JSON_UNESCAPED_UNICODE) ?>;
+  </script>
+
   <!-- Script del Catálogo Interactivo -->
   <script src="app.js"></script>
   <script>
     // Lógica específica para la vista de cuadrícula del catálogo
     document.addEventListener('DOMContentLoaded', async () => {
+      if (window.INITIAL_PRODUCTORES && window.INITIAL_PRODUCTORES.length > 0) {
+        PRODUCTORES_SAN_JOSE = window.INITIAL_PRODUCTORES;
+        window.PRODUCTORES_SAN_JOSE = PRODUCTORES_SAN_JOSE;
+      }
       if (window.loadProducersPromise) {
         await window.loadProducersPromise;
       }
@@ -253,11 +303,16 @@
       const searchInput = document.getElementById('catalogo-search');
       const filterChips = document.querySelectorAll('#catalogo-filters .filter-chip');
       const counterEl = document.getElementById('catalogo-title-counter');
+      const catCountTodosEl = document.getElementById('cat-count-todos');
 
       let currentCat = 'todos';
       let currentQuery = '';
 
       function renderCatalogo() {
+        if (catCountTodosEl && PRODUCTORES_SAN_JOSE.length > 0) {
+          catCountTodosEl.textContent = PRODUCTORES_SAN_JOSE.length;
+        }
+
         const filtered = PRODUCTORES_SAN_JOSE.filter(p => {
           const matchCat = currentCat === 'todos' || p.categoria === currentCat;
           const q = currentQuery.trim().toLowerCase();
@@ -275,13 +330,13 @@
 
         if (filtered.length === 0) {
           container.innerHTML = `
-            <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 1rem; color: #94a3b8;">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin-bottom: 1rem; opacity: 0.6;">
+            <div class="no-results-wrapper">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="no-results-icon">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
-              <h3 style="color: #475569; font-size: 1.2rem; margin-bottom: 0.5rem;">No se encontraron resultados</h3>
-              <p style="font-size: 0.9rem;">Probá buscando con otro término o seleccionando otra categoría.</p>
+              <h3 class="no-results-title">No se encontraron resultados</h3>
+              <p class="no-results-text">Probá buscando con otro término o seleccionando otra categoría.</p>
             </div>
           `;
           return;
@@ -293,44 +348,44 @@
           const wa = `https://wa.me/${p.whatsapp}?text=${waMsg}`;
 
           return `
-            <article class="grid-card catalog-producer-card" style="padding: 0; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border-light); display: flex; flex-direction: column; overflow: hidden;">
-              <div class="catalog-card-img-wrap" style="position: relative; width: 100%; height: 185px; overflow: hidden; background: #1e293b;">
-                <img src="${p.imagen}" alt="${p.nombre}" class="catalog-card-img" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease;" loading="lazy" onerror="this.parentElement.style.display='none'">
-                <div style="position: absolute; top: 12px; left: 12px;">
-                  <div class="card-icon-container" style="width: 38px; height: 38px; margin-bottom: 0; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.2); color: ${p.pinColor}; display: flex; align-items: center; justify-content: center; border-radius: 9px; box-shadow: 0 4px 10px rgba(0,0,0,0.25);">
+            <article class="grid-card catalog-producer-card catalog-card-custom">
+              <div class="catalog-card-img-wrap catalog-card-img-wrap-custom">
+                <img src="${p.imagen}" alt="${p.nombre}" class="catalog-card-img catalog-card-img-custom" loading="lazy" onerror="this.parentElement.style.display='none'">
+                <div class="card-icon-wrapper-abs">
+                  <div class="card-icon-container card-icon-container-custom s-eefcf430">
                     ${p.iconoSvg}
                   </div>
                 </div>
-                <div style="position: absolute; top: 12px; right: 12px; display: flex; flex-direction: column; align-items: flex-end; gap: 5px;">
-                  <span class="category-tag ${p.tagClass}" style="box-shadow: 0 2px 6px rgba(0,0,0,0.2);">${p.tagLabel}</span>
-                  ${p.destacado ? '<span style="font-size: 0.68rem; font-weight: 800; color: #fff; background: rgba(217, 119, 6, 0.95); backdrop-filter: blur(4px); padding: 2px 8px; border-radius: 9999px; box-shadow: 0 2px 6px rgba(0,0,0,0.3);">★ Sello Destacado</span>' : ''}
+                <div class="card-tags-wrapper">
+                  <span class="category-tag ${p.tagClass} category-tag-custom">${p.tagLabel}</span>
+                  ${p.destacado ? '<span class="sello-destacado">â˜… Sello Destacado</span>' : ''}
                 </div>
               </div>
 
-              <div style="padding: 1.5rem; display: flex; flex-direction: column; flex: 1;">
-                <h3 class="card-title" style="font-size: 1.25rem; margin-bottom: 0.35rem;">${p.nombre}</h3>
-                <div style="font-size: 0.8rem; font-weight: 700; color: #0284c7; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">${p.rubro}</div>
+              <div class="card-content-custom">
+                <h3 class="card-title card-title-custom">${p.nombre}</h3>
+                <div class="card-rubro">${p.rubro}</div>
                 
-                <p class="card-description" style="font-size: 0.9rem; margin-bottom: 1.25rem; color: var(--text-muted); line-height: 1.5;">
+                <p class="card-description card-desc-custom">
                   ${p.descripcion}
                 </p>
 
-                <div class="catalogo-card-info" style="background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 8px; padding: 0.75rem; margin-bottom: 1.25rem; font-size: 0.82rem; color: var(--text-main); display: flex; flex-direction: column; gap: 4px;">
-                  <div style="display: flex; align-items: center; gap: 6px;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; color: #0284c7;"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                <div class="catalogo-card-info card-info-box">
+                  <div class="card-info-row">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-info-icon"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                     <span>${p.direccion}</span>
                   </div>
-                  <div style="display: flex; align-items: center; gap: 6px;">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; color: #0284c7;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <div class="card-info-row">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="card-info-icon"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                     <span>${p.horario}</span>
                   </div>
                 </div>
 
-                <div style="display: flex; gap: 8px; margin-top: auto;">
-                  <a href="${wa}" target="_blank" rel="noopener" class="btn btn-primary" style="flex: 1; padding: 8px 10px; font-size: 0.8rem; background: #25d366; border-color: #25d366;">
+                <div class="card-actions">
+                  <a href="${wa}" target="_blank" rel="noopener" class="btn btn-primary btn-contact">
                     <span>Contactar</span>
                   </a>
-                  <a href="mapa.php?id=${p.id}" class="btn btn-outline" style="padding: 8px 10px; font-size: 0.8rem;" title="Ver ubicación exacta en el Mapa Interactivo">
+                  <a href="mapa/${p.slug || p.id}" class="btn btn-outline btn-map-custom" title="Ver ubicación exacta en el Mapa Interactivo">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
                       <line x1="9" y1="3" x2="9" y2="18"></line>

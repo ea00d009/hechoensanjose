@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hecho en San José - Portal Turístico & Productivo Oficial</title>
+  <meta name="description" content="Propuesta de integración del sector productivo local en la plataforma turística oficial 'Hecho en San José'. Maqueta funcional para el Honorable Concejo Deliberante.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/css/normalized.css">
+  <!-- Favicon icon SVG -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
+  <!-- Script para prevenir parpadeo de modo oscuro (Zero FOUC) -->
+  <script>
+    (function() {
+      try {
+        const savedTheme = localStorage.getItem('sanjose-theme');
+        if (savedTheme) {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Barra Superior Institucional -->
+  <header class="site-header">
+
+    <!-- Navegación Principal -->
+    <div class="header-main">
+      <div class="logo-group">
+        <a href="./" class="logo-link-wrap" title="Municipalidad de San José, Entre Ríos">
+          <img src="assets/logo-sanjose.png" alt="Municipalidad de San José, Entre Ríos" class="municipal-logo">
+        </a>
+        <div class="logo-divider"></div>
+        <div class="logo-titles">
+          <h1>Hecho en <span>San José</span></h1>
+          <div class="logo-subtitle">Secretaría de Educación, Cultura y Turismo</div>
+        </div>
+      </div>
+
+      <div class="header-right-group">
+        <nav class="nav-actions" id="main-nav-actions">
+          <!-- Enlaces a módulos -->
+          <div class="nav-subpages-links s-b131259d">
+            <a href="catalogo" class="btn btn-outline">Catálogo</a>
+            <a href="gondola" class="btn btn-outline">Góndolas</a>
+            <a href="inscribir" class="btn btn-outline">Inscribirse</a>
+          </div>
+
+          <a href="mapa" class="btn btn-accent" id="nav-btn-mapa">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
+              <line x1="9" y1="3" x2="9" y2="18"></line>
+              <line x1="15" y1="6" x2="15" y2="21"></line>
+            </svg>
+            <span>Ver Mapa Productivo</span>
+          </a>
+
+          <!-- Redes Sociales Oficiales -->
+          <div class="social-links-minimal">
+            <a href="https://www.instagram.com/turismosanjose/" target="_blank" rel="noopener" class="social-btn-minimal social-instagram" title="Instagram Oficial @turismosanjose" aria-label="Instagram de Turismo San José">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="http://www.facebook.com/turismosanjose" target="_blank" rel="noopener" class="social-btn-minimal social-facebook" title="Facebook Oficial @turismosanjose" aria-label="Facebook de Turismo San José">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+              </svg>
+            </a>
+          </div>
+        </nav>
+
+        <div class="header-ctrl-btns">
+          <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Cambiar entre modo claro y oscuro" title="Cambiar tema">
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+            </svg>
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+          </button>
+
+          <button class="mobile-menu-toggle" id="mobile-menu-btn" aria-label="Abrir menú de navegación" aria-expanded="false">
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero de Contexto Institucional para el Concejo Deliberante -->
+  <section class="hero-section">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge-initiative">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <span>Integración Productiva al Ecosistema Turístico</span>
+        </div>
+        <h2 class="hero-title">
+          Impulsando el valor del <br><span class="highlight">trabajo sanjosesino</span>
+        </h2>
+        <p class="hero-desc">
+          En esta plataforma vas a encontrar emprendedores y productores locales de distintos rubros. Conectamos la oferta productiva autóctona con visitantes y vecinos, promoviendo el consumo local, el arraigo y el turismo sustentable en toda la ciudad.
+        </p>
+
+        <!-- Indicadores de Impacto -->
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-number"><?= htmlspecialchars($displayCount) ?></div>
+            <div class="stat-label">Productores Registrados</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">4</div>
+            <div class="stat-label">Góndolas Exclusivas</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Identidad Local</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarjeta Resumen para el Concejo Deliberante -->
+      <div class="hero-card-concejales">
+        <span class="badge-council">H. Concejo Deliberante</span>
+        <h3>Propuesta de Innovación Turística</h3>
+        <p>
+          Integración de una cartografía interactiva que visibiliza la matriz productiva de San José en tiempo real.
+        </p>
+        <ul class="council-keypoints">
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Georreferenciación de productores de alimentos, pecanes y artesanías</span>
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Enlace directo a WhatsApp y localización con GPS</span>
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Tecnología abierta (Leaflet + OpenStreetMap), sin costo de licencias</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Componente UI: Grilla de Navegación Institucional -->
+  <main class="navigation-grid-section">
+    <div class="section-header">
+      <span class="section-subtitle-tag">Secciones de Navegación</span>
+      <h2 class="section-title">Servicios del Ecosistema Productivo</h2>
+      <p class="section-lead">
+        Accedé a los diferentes módulos de Hecho en San José para descubrir, adquirir o inscribir productos de nuestra ciudad.
+      </p>
+    </div>
+
+    <div class="portal-grid">
+
+      <!-- Botón 1: Catálogo de Negocios -->
+      <a href="catalogo" class="grid-card" id="card-catalogo">
+        <div class="card-icon-container icon-blue">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+            <path d="M3 6h18"></path>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+        </div>
+        <h3 class="card-title">Catálogo de negocios</h3>
+        <p class="card-description">
+          Explorá el listado completo de emprendedores de San José organizados por categorías: nuez pecán, dulces caseros, chacinados y creaciones únicas.
+        </p>
+        <div class="card-footer-action">
+          <span>Ver catálogo</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Botón 2: Encontrá la góndola -->
+      <a href="gondola" class="grid-card" id="card-gondola">
+        <div class="card-icon-container icon-emerald">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            <path d="m11 8 3 3-3 3"></path>
+          </svg>
+        </div>
+        <h3 class="card-title">Encontrá la góndola</h3>
+        <p class="card-description">
+          Localizá los comercios y supermercados adheridos que disponen de las góndolas exclusivas identificadas con el sello «Hecho en San José».
+        </p>
+        <div class="card-footer-action">
+          <span>Puntos de venta</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Botón 3: Inscribí tu negocio -->
+      <a href="inscribir" class="grid-card" id="card-inscribir">
+        <div class="card-icon-container icon-amber">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+            <path d="M7 7h10"></path>
+            <path d="M7 12h10"></path>
+            <path d="M7 17h6"></path>
+          </svg>
+        </div>
+        <h3 class="card-title">Inscribí tu negocio</h3>
+        <p class="card-description">
+          Si sos productor o artesano sanjosesino, sumate al programa municipal. Accedé a difusión oficial, ferias locales y góndolas del programa.
+        </p>
+        <div class="card-footer-action">
+          <span>Formulario de registro</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </div>
+      </a>
+
+      <!-- NUEVO RECUADRO DESTACADO: MAPA PRODUCTIVO DE LA CIUDAD DE SAN JOSÃ‰ -->
+      <a href="mapa" class="grid-card featured-card" id="card-mapa-productivo">
+        <span class="badge-new">¿NUEVO!</span>
+        <div class="card-icon-container icon-accent">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
+            <line x1="9" y1="3" x2="9" y2="18"></line>
+            <line x1="15" y1="6" x2="15" y2="21"></line>
+            <circle cx="12" cy="11" r="2" fill="currentColor"></circle>
+          </svg>
+        </div>
+        <h3 class="card-title">Mapa productivo de la ciudad de San José</h3>
+        <p class="card-description">
+          Recorré el mapa interactivo georreferenciado de nuestros productores. Conocé su ubicación, rubro, historia de elaboración y contactalos directamente.
+        </p>
+        <div class="card-footer-action">
+          <span>Abrir mapa interactivo</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- Pie de Página Institucional -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo-card">
+          <img src="assets/logo-sanjose.png" alt="Municipalidad de San José, Entre Ríos">
+        </div>
+        <h4>Turismo San José &bull; Hecho en San José</h4>
+        <p>
+          Iniciativa de la Municipalidad de San José, Entre Ríos. Programa de fomento del consumo de cercanía y fortalecimiento del sector productivo y artesanal en armonía con el desarrollo turístico.
+        </p>
+        <div class="footer-social-wrap">
+          <span class="footer-social-title">Redes Oficiales:</span>
+          <div class="social-links-minimal">
+            <a href="https://www.instagram.com/turismosanjose/" target="_blank" rel="noopener" class="social-btn-minimal social-btn-footer social-instagram" title="Instagram @turismosanjose" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="http://www.facebook.com/turismosanjose" target="_blank" rel="noopener" class="social-btn-minimal social-btn-footer social-facebook" title="Facebook @turismosanjose" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Módulos del Programa</h5>
+        <ul class="footer-links">
+          <li><a href="./">Inicio</a></li>
+          <li><a href="catalogo">Catálogo de Negocios</a></li>
+          <li><a href="gondola">Encontrá la Góndola</a></li>
+          <li><a href="inscribir">Inscribí tu Negocio</a></li>
+          <li><a href="mapa">Mapa Productivo Interactivo</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contacto Municipal</h5>
+        <ul class="footer-links">
+          <li><a href="#">Secretaría de Turismo</a></li>
+          <li><a href="#">Centenario y Entre Ríos</a></li>
+          <li><a href="#">turismo@sanjose.tur.ar</a></li>
+          <li><a href="#">San José, Entre Ríos (CP 3280)</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 Municipalidad de San José, Entre Ríos. Todos los derechos reservados.</div>
+      <div class="s-b512c985">
+        <span class="s-b32654dc">Gestión Municipal</span>
+        <a href="admin/login" class="btn-admin-access" title="Acceso al Panel de Gestión" class="s-de742dc8">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+          </svg>
+          <span>Panel de Gestión</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

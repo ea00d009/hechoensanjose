@@ -5,14 +5,37 @@
  * ==============================================================================
  */
 
-// Cargar archivo env.php (Reemplazo seguro del .env)
-$envPhpFile = __DIR__ . '/env.php';
+// Cargar archivo de credenciales (.env o env.php)
+$envFiles = [
+    __DIR__ . '/../.env',
+    __DIR__ . '/.env'
+];
 
-if (file_exists($envPhpFile)) {
-    $envData = require $envPhpFile;
-    if (is_array($envData)) {
-        foreach ($envData as $key => $val) {
-            $_ENV[$key] = $val;
+foreach ($envFiles as $envFile) {
+    if (file_exists($envFile)) {
+        $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        foreach ($lines as $line) {
+            $line = trim($line);
+            if (strpos($line, '#') === 0) continue; // Ignorar comentarios
+            
+            $parts = explode('=', $line, 2);
+            if (count($parts) === 2) {
+                $key = trim($parts[0]);
+                $val = trim($parts[1]);
+                // Quitar comillas si las hay
+                $val = trim($val, '"\'');
+                $_ENV[$key] = $val;
+            }
+        }
+    }
+}
+
+// Soporte para config/env.php (bypass 403 en cPanel/FTP)
+if (file_exists(__DIR__ . '/env.php')) {
+    $envPhp = require __DIR__ . '/env.php';
+    if (is_array($envPhp)) {
+        foreach ($envPhp as $k => $v) {
+            $_ENV[$k] = $v;
         }
     }
 }
@@ -54,6 +77,22 @@ function getDBConnection(): PDO {
         $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
         return $pdo;
     } catch (PDOException $e) {
+        // En entorno local (localhost / 127.0.0.1), si fallan credenciales de hosting remoto, intentar credenciales locales de desarrollo
+        if (DB_HOST === '127.0.0.1' || DB_HOST === 'localhost') {
+            $localConfigs = [
+                ['user' => 'root', 'pass' => 'root', 'db' => 'productores_sanjose'],
+                ['user' => 'root', 'pass' => '',     'db' => 'productores_sanjose']
+            ];
+            foreach ($localConfigs as $cfg) {
+                try {
+                    $localDsn = "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . $cfg['db'] . ";charset=" . DB_CHARSET;
+                    $pdo = new PDO($localDsn, $cfg['user'], $cfg['pass'], $options);
+                    return $pdo;
+                } catch (Throwable $eLocal) {
+                    continue;
+                }
+            }
+        }
         // Registrar error en log para depuración
         error_log("Error de conexión a la base de datos: " . $e->getMessage());
         throw $e;

@@ -6,6 +6,7 @@
   <title>Informe Técnico-Legislativo HCD &bull; Hecho en San José</title>
   <meta name="description" content="Informe técnico y diagnóstico del programa Hecho en San José para el Honorable Concejo Deliberante de la Ciudad de San José, Entre Ríos. Padrón georreferenciado, indicadores y anteproyecto de ordenanza.">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/css/normalized.css">
   <!-- Favicon icon SVG -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏛️</text></svg>">
   
@@ -30,14 +31,14 @@
 <body class="informe-page-body">
 
   <!-- PANTALLA DE BLOQUEO DE SEGURIDAD (PIN 2706) -->
-  <div class="lockscreen-overlay" id="admin-lockscreen" style="display: none;">
+  <div class="lockscreen-overlay" id="admin-lockscreen" class="s-224b51a7">
     <div class="lockscreen-card">
       <img src="assets/logo-sanjose.png" alt="Municipalidad de San José" class="lockscreen-logo">
-      <div style="display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: rgba(0, 150, 199, 0.12); border-radius: 9999px; color: var(--color-primary); font-size: 0.78rem; font-weight: 700; margin-bottom: 0.9rem;">
+      <div class="s-e57c1c40">
         <span>🏛️ MÓDULO LEGISLATIVO RESTRINGIDO</span>
       </div>
-      <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem; color: var(--text-main);">Informe HCD &bull; Autenticación</h2>
-      <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.5rem;">
+      <h2 class="s-07a28fb6">Informe HCD &bull; Autenticación</h2>
+      <p class="s-f966f621">
         Este documento de diagnóstico técnico está reservado a autoridades del Honorable Concejo Deliberante y administración municipal. Ingrese el PIN de seguridad para acceder.
       </p>
 
@@ -50,15 +51,15 @@
             maxlength="4" 
             class="admin-pin-input" 
             id="lockscreen-pin-input" 
-            placeholder="••••" 
+            placeholder="â€¢â€¢â€¢â€¢" 
             autocomplete="off"
             aria-label="PIN de seguridad de 4 dígitos"
           >
         </div>
         <div class="admin-pin-error" id="lockscreen-pin-error"></div>
 
-        <div style="display: flex; gap: 0.75rem; justify-content: center; margin-top: 0.5rem;">
-          <a href="index.php" class="admin-pin-btn-cancel" style="text-decoration: none; display: inline-flex; align-items: center;">Volver al Portal</a>
+        <div class="s-e981737f">
+          <a href="./" class="admin-pin-btn-cancel s-4a5b8998">Volver al Portal</a>
           <button type="submit" class="admin-pin-btn-submit" id="btn-lockscreen-submit">Desbloquear</button>
         </div>
       </form>
@@ -69,7 +70,7 @@
   <aside class="informe-toolbar-wrap no-print" aria-label="Herramientas del Informe">
     <div class="informe-toolbar">
       <div class="informe-toolbar-left">
-        <a href="index.php" class="informe-btn-outline" title="Volver a la portada principal">
+        <a href="./" class="informe-btn-outline" title="Volver a la portada principal">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
@@ -77,7 +78,7 @@
           <span>Inicio</span>
         </a>
 
-        <a href="mapa.php" class="informe-btn-outline" title="Abrir mapa interactivo">
+        <a href="mapa" class="informe-btn-outline" title="Abrir mapa interactivo">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
             <line x1="9" y1="3" x2="9" y2="18"></line>
@@ -130,7 +131,7 @@
         </button>
 
         <!-- Botón Bloquear / Salir -->
-        <button class="informe-btn-outline" id="btn-logout-admin" title="Cerrar sesión de administrador y volver al portal" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.4); padding: 0.5rem 0.85rem;">
+        <button class="informe-btn-outline" id="btn-logout-admin" title="Cerrar sesión de administrador y volver al portal" class="s-7c745dfc">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -162,7 +163,7 @@
         </div>
 
         <div class="informe-title-block">
-          <h1>INFORME TÉCNICO-LEGISLATIVO & DIAGNÓSTICO</h1>
+          <h1>INFORME TÃ‰CNICO-LEGISLATIVO & DIAGNÃ“STICO</h1>
           <p class="informe-subtitle">
             Programa de Fomento y Promoción «Hecho en San José»: Mapa Productivo Georreferenciado, Catálogo de Identidad y Articulación del Consumo de Cercanía
           </p>
@@ -193,11 +194,11 @@
         </div>
         <div>
           <div class="meta-field-label">Estado</div>
-          <div class="meta-field-val" style="color: var(--color-secondary);">Para Tratamiento en Comisión</div>
+          <div class="meta-field-val s-5d4377f6">Para Tratamiento en Comisión</div>
         </div>
       </section>
 
-      <!-- SECCIÓN I: FUNDAMENTOS Y DIAGNÓSTICO -->
+      <!-- SECCIÃ“N I: FUNDAMENTOS Y DIAGNÃ“STICO -->
       <section class="informe-sec" id="sec-fundamentos">
         <div class="informe-sec-header">
           <span class="sec-num">I.</span>
@@ -214,7 +215,7 @@
         </p>
       </section>
 
-      <!-- SECCIÓN II: TABLERO DE INDICADORES CUANTITATIVOS -->
+      <!-- SECCIÃ“N II: TABLERO DE INDICADORES CUANTITATIVOS -->
       <section class="informe-sec" id="sec-indicadores">
         <div class="informe-sec-header">
           <span class="sec-num">II.</span>
@@ -240,7 +241,7 @@
         </div>
       </section>
 
-      <!-- SECCIÓN III: PADRÓN OFICIAL DE PRODUCTORES LOCALES -->
+      <!-- SECCIÃ“N III: PADRÃ“N OFICIAL DE PRODUCTORES LOCALES -->
       <section class="informe-sec informe-avoid-break" id="sec-padron">
         <div class="informe-sec-header">
           <span class="sec-num">III.</span>
@@ -254,8 +255,8 @@
           <table class="informe-table" id="tabla-productores-informe">
             <thead>
               <tr>
-                <th class="col-photo" style="width: 50px;">Foto</th>
-                <th style="width: 40px;">N°</th>
+                <th class="col-photo s-ae1f13b3">Foto</th>
+                <th class="s-479236c4">N°</th>
                 <th>Establecimiento</th>
                 <th>Rubro / Especialidad</th>
                 <th>Dirección y Coordenadas</th>
@@ -268,110 +269,110 @@
               <tr>
                 <td class="prod-photo-cell"><img src="assets/productores/licores-bard.jpg" alt="Licores Bard" class="prod-photo-thumb"></td>
                 <td><strong>01</strong></td>
-                <td><strong>Licores Bard</strong><br><small style="color: var(--text-muted);">Desde 1908</small></td>
+                <td><strong>Licores Bard</strong><br><small class="s-7abb3a4e">Desde 1908</small></td>
                 <td><span class="table-badge-cat cat-badge-bebidas">Bebidas &bull; Licores</span></td>
-                <td>Entre Ríos 1046, San José<br><small style="color: var(--text-muted); font-family: monospace;">-32.20780, -58.22510</small></td>
-                <td>+54 9 3447 40-5163<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Entre Ríos 1046, San José<br><small class="s-c0fe50a0">-32.20780, -58.22510</small></td>
+                <td>+54 9 3447 40-5163<br><small class="s-5d4377f6">WhatsApp Activo</small></td>
                 <td>Lun a Sáb: 08:30 a 12:30 y 17:00 a 21:00 hs</td>
               </tr>
               <!-- 2. Establecimiento Los Pecanes -->
               <tr>
                 <td class="prod-photo-cell"><img src="assets/productores/establecimiento-los-pecanes.jpg" alt="Establecimiento Los Pecanes" class="prod-photo-thumb"></td>
                 <td><strong>02</strong></td>
-                <td><strong>Establecimiento Los Pecanes</strong><br><small style="color: var(--text-muted);">Plantación Pionera</small></td>
+                <td><strong>Establecimiento Los Pecanes</strong><br><small class="s-7abb3a4e">Plantación Pionera</small></td>
                 <td><span class="table-badge-cat cat-badge-pecan">Pecán & Té Campestre</span></td>
-                <td>Ruta 26 (RP 130) Km. 7<br><small style="color: var(--text-muted); font-family: monospace;">-32.20350, -58.20320</small></td>
-                <td>+54 9 3447 43-3929<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Ruta 26 (RP 130) Km. 7<br><small class="s-c0fe50a0">-32.20350, -58.20320</small></td>
+                <td>+54 9 3447 43-3929<br><small class="s-5d4377f6">WhatsApp Activo</small></td>
                 <td>Mié a Dom: 10:00 a 20:00 hs (Visitas guiadas)</td>
               </tr>
               <!-- 3. De los Troncos Petrificados -->
               <tr>
                 <td class="prod-photo-cell"><img src="assets/productores/troncos-petrificados.jpg" alt="De los Troncos Petrificados" class="prod-photo-thumb"></td>
                 <td><strong>03</strong></td>
-                <td><strong>De los Troncos Petrificados</strong><br><small style="color: var(--text-muted);">Selva Gayol</small></td>
+                <td><strong>De los Troncos Petrificados</strong><br><small class="s-7abb3a4e">Selva Gayol</small></td>
                 <td><span class="table-badge-cat cat-badge-artesania">Piedras & Minerales</span></td>
-                <td>RP 26 Km. 3,5 (B° Troncos Petrificados)<br><small style="color: var(--text-muted); font-family: monospace;">-32.19801, -58.15484</small></td>
-                <td>+54 9 3447 46-4775<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>RP 26 Km. 3,5 (B° Troncos Petrificados)<br><small class="s-c0fe50a0">-32.19801, -58.15484</small></td>
+                <td>+54 9 3447 46-4775<br><small class="s-5d4377f6">WhatsApp Activo</small></td>
                 <td>Todos los días: 10:00 a 19:00 hs</td>
               </tr>
               <!-- 4. Artesanías El Palmar -->
               <tr>
                 <td class="prod-photo-cell"><img src="assets/productores/artesanias-el-palmar.jpg" alt="Artesanías El Palmar" class="prod-photo-thumb"></td>
                 <td><strong>04</strong></td>
-                <td><strong>Artesanías El Palmar</strong><br><small style="color: var(--text-muted);">Fibras Naturales</small></td>
+                <td><strong>Artesanías El Palmar</strong><br><small class="s-7abb3a4e">Fibras Naturales</small></td>
                 <td><span class="table-badge-cat cat-badge-artesania">Cestería & Mates</span></td>
-                <td>Ruta Nacional 14 Km. 158,5, Colonia San José<br><small style="color: var(--text-muted); font-family: monospace;">-32.19409, -58.23921</small></td>
-                <td>+54 9 3447 45-5239<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Ruta Nacional 14 Km. 158,5, Colonia San José<br><small class="s-c0fe50a0">-32.19409, -58.23921</small></td>
+                <td>+54 9 3447 45-5239<br><small class="s-5d4377f6">WhatsApp Activo</small></td>
                 <td>Lun a Sáb: 10:00 a 18:00 hs</td>
               </tr>
               <!-- 5. Nuez Pecán La Reina -->
               <tr>
                 <td class="prod-photo-cell"><img src="assets/productores/nuez-pecan-la-reina.jpg" alt="Nuez Pecán La Reina" class="prod-photo-thumb"></td>
                 <td><strong>05</strong></td>
-                <td><strong>Nuez Pecán La Reina</strong><br><small style="color: var(--text-muted);">Boutique del Pecán</small></td>
+                <td><strong>Nuez Pecán La Reina</strong><br><small class="s-7abb3a4e">Boutique del Pecán</small></td>
                 <td><span class="table-badge-cat cat-badge-pecan">Pecán & Agroindustria</span></td>
-                <td>Doctor Luis Cettour, San José<br><small style="color: var(--text-muted); font-family: monospace;">-32.20277, -58.20241</small></td>
-                <td>+54 9 3447 45-2947<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Doctor Luis Cettour, San José<br><small class="s-c0fe50a0">-32.20277, -58.20241</small></td>
+                <td>+54 9 3447 45-2947<br><small class="s-5d4377f6">WhatsApp Activo</small></td>
                 <td>Lun a Dom: 09:00 a 13:00 y 16:00 a 20:00 hs</td>
               </tr>
               <!-- 6. Apícola La Sanjosesina -->
               <tr>
                 <td class="prod-photo-cell"><img src="assets/productores/apicola-la-sanjosesina.jpg" alt="Apícola La Sanjosesina" class="prod-photo-thumb"></td>
                 <td><strong>06</strong></td>
-                <td><strong>Apícola La Sanjosesina</strong><br><small style="color: var(--text-muted);">Mieles de Monte</small></td>
+                <td><strong>Apícola La Sanjosesina</strong><br><small class="s-7abb3a4e">Mieles de Monte</small></td>
                 <td><span class="table-badge-cat cat-badge-alimentos">Miel & Derivados</span></td>
-                <td>Centenario 1580 (e/ Ituzaingó y Yrigoyen)<br><small style="color: var(--text-muted); font-family: monospace;">-32.20950, -58.21620</small></td>
-                <td>+54 9 3447 50-1122<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Centenario 1580 (e/ Ituzaingó y Yrigoyen)<br><small class="s-c0fe50a0">-32.20950, -58.21620</small></td>
+                <td>+54 9 3447 50-1122<br><small class="s-5d4377f6">WhatsApp Activo</small></td>
                 <td>Lun a Sáb: 08:30 a 12:30 y 16:30 a 20:30 hs</td>
               </tr>
               <!-- 7. Granja y Museo La Administración -->
               <tr>
                 <td class="prod-photo-cell"><img src="assets/productores/granja-la-administracion.jpg" alt="Granja La Administración" class="prod-photo-thumb"></td>
                 <td><strong>07</strong></td>
-                <td><strong>Granja La Administración</strong><br><small style="color: var(--text-muted);">Junto a Molino Forclaz</small></td>
+                <td><strong>Granja La Administración</strong><br><small class="s-7abb3a4e">Junto a Molino Forclaz</small></td>
                 <td><span class="table-badge-cat cat-badge-alimentos">Quesería & Chacinados</span></td>
-                <td>Camino de los Primeros Colonos s/n<br><small style="color: var(--text-muted); font-family: monospace;">-32.18890, -58.21450</small></td>
-                <td>+54 9 3447 41-8977<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Camino de los Primeros Colonos s/n<br><small class="s-c0fe50a0">-32.18890, -58.21450</small></td>
+                <td>+54 9 3447 41-8977<br><small class="s-5d4377f6">WhatsApp Activo</small></td>
                 <td>Mar a Dom: 10:00 a 18:30 hs (Degustaciones)</td>
               </tr>
               <!-- 8. Dulces Caseros La Juanita -->
               <tr>
                 <td class="prod-photo-cell"><img src="assets/productores/dulces-la-juanita.jpg" alt="Dulces La Juanita" class="prod-photo-thumb"></td>
                 <td><strong>08</strong></td>
-                <td><strong>Dulces Caseros La Juanita</strong><br><small style="color: var(--text-muted);">Frente a Plaza Urquiza</small></td>
+                <td><strong>Dulces Caseros La Juanita</strong><br><small class="s-7abb3a4e">Frente a Plaza Urquiza</small></td>
                 <td><span class="table-badge-cat cat-badge-alimentos">Dulces en Paila</span></td>
-                <td>Urquiza 1127 (frente al Museo Histórico)<br><small style="color: var(--text-muted); font-family: monospace;">-32.21280, -58.21850</small></td>
-                <td>+54 9 3447 43-2211<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Urquiza 1127 (frente al Museo Histórico)<br><small class="s-c0fe50a0">-32.21280, -58.21850</small></td>
+                <td>+54 9 3447 43-2211<br><small class="s-5d4377f6">WhatsApp Activo</small></td>
                 <td>Todos los días: 09:30 a 13:00 y 17:00 a 21:00 hs</td>
               </tr>
               <!-- 9. Viñedos & Bodega Vulliez Sermet -->
               <tr>
                 <td class="prod-photo-cell"><img src="assets/productores/bodega-vulliez-sermet.jpg" alt="Viñedos Vulliez Sermet" class="prod-photo-thumb"></td>
                 <td><strong>09</strong></td>
-                <td><strong>Bodega Vulliez Sermet</strong><br><small style="color: var(--text-muted);">Enoturismo Histórico</small></td>
+                <td><strong>Bodega Vulliez Sermet</strong><br><small class="s-7abb3a4e">Enoturismo Histórico</small></td>
                 <td><span class="table-badge-cat cat-badge-bebidas">Vinos Varietales</span></td>
-                <td>Ruta Nacional 135 Km 8, Colón - San José<br><small style="color: var(--text-muted); font-family: monospace;">-32.22150, -58.17890</small></td>
-                <td>+54 9 3447 42-1062<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Ruta Nacional 135 Km 8, Colón - San José<br><small class="s-c0fe50a0">-32.22150, -58.17890</small></td>
+                <td>+54 9 3447 42-1062<br><small class="s-5d4377f6">WhatsApp Activo</small></td>
                 <td>Lun a Sáb: 09:00 a 18:00 hs</td>
               </tr>
               <!-- 10. Cervecería Artesanal El Molino -->
               <tr>
                 <td class="prod-photo-cell"><img src="assets/productores/cerveceria-el-molino.jpg" alt="Cervecería El Molino" class="prod-photo-thumb"></td>
                 <td><strong>10</strong></td>
-                <td><strong>Cervecería El Molino</strong><br><small style="color: var(--text-muted);">Maltas Entrerrianas</small></td>
+                <td><strong>Cervecería El Molino</strong><br><small class="s-7abb3a4e">Maltas Entrerrianas</small></td>
                 <td><span class="table-badge-cat cat-badge-bebidas">Cerveza Artesanal</span></td>
-                <td>Centenario 1361 (Zona Céntrica), San José<br><small style="color: var(--text-muted); font-family: monospace;">-32.21110, -58.21780</small></td>
-                <td>+54 9 3447 52-8833<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Centenario 1361 (Zona Céntrica), San José<br><small class="s-c0fe50a0">-32.21110, -58.21780</small></td>
+                <td>+54 9 3447 52-8833<br><small class="s-5d4377f6">WhatsApp Activo</small></td>
                 <td>Mié a Dom: 19:00 a 02:00 hs</td>
               </tr>
               <!-- 11. Cuchillería Sanjo Tradición -->
               <tr>
                 <td class="prod-photo-cell"><img src="assets/productores/sanjo-tradicion-cuchilleria.jpg" alt="Cuchillería Sanjo Tradición" class="prod-photo-thumb"></td>
                 <td><strong>11</strong></td>
-                <td><strong>Cuchillería Sanjo Tradición</strong><br><small style="color: var(--text-muted);">Forja Criolla en Acero</small></td>
+                <td><strong>Cuchillería Sanjo Tradición</strong><br><small class="s-7abb3a4e">Forja Criolla en Acero</small></td>
                 <td><span class="table-badge-cat cat-badge-artesania">Platería & Cuchillería</span></td>
-                <td>Mitre 1150 (frente a Plaza Urquiza)<br><small style="color: var(--text-muted); font-family: monospace;">-32.21200, -58.21950</small></td>
-                <td>+54 9 3447 48-1904<br><small style="color: var(--color-secondary);">WhatsApp Activo</small></td>
+                <td>Mitre 1150 (frente a Plaza Urquiza)<br><small class="s-c0fe50a0">-32.21200, -58.21950</small></td>
+                <td>+54 9 3447 48-1904<br><small class="s-5d4377f6">WhatsApp Activo</small></td>
                 <td>Lun a Sáb: 09:00 a 12:30 y 17:00 a 20:30 hs</td>
               </tr>
             </tbody>
@@ -379,7 +380,7 @@
         </div>
       </section>
 
-      <!-- SECCIÓN IV: RED URBANA DE GÓNDOLAS MUNICIPALES -->
+      <!-- SECCIÃ“N IV: RED URBANA DE GÃ“NDOLAS MUNICIPALES -->
       <section class="informe-sec informe-avoid-break" id="sec-gondolas">
         <div class="informe-sec-header">
           <span class="sec-num">IV.</span>
@@ -412,7 +413,7 @@
         </div>
       </section>
 
-      <!-- SECCIÓN V: ACCESIBILIDAD DIGITAL Y CÓDIGO QR -->
+      <!-- SECCIÃ“N V: ACCESIBILIDAD DIGITAL Y CÃ“DIGO QR -->
       <section class="informe-sec informe-avoid-break" id="sec-qr">
         <div class="informe-sec-header">
           <span class="sec-num">V.</span>
@@ -432,7 +433,7 @@
         </div>
       </section>
 
-      <!-- SECCIÓN VI: ANTEPROYECTO DE ORDENANZA / DECLARACIÓN -->
+      <!-- SECCIÃ“N VI: ANTEPROYECTO DE ORDENANZA / DECLARACIÃ“N -->
       <section class="informe-sec informe-avoid-break" id="sec-ordenanza">
         <div class="informe-sec-header">
           <span class="sec-num">VI.</span>
@@ -440,7 +441,7 @@
         </div>
         
         <div class="informe-ordenanza-box">
-          <h4>PROYECTO DE ORDENANZA &bull; H.C.D. SAN JOSÉ</h4>
+          <h4>PROYECTO DE ORDENANZA &bull; H.C.D. SAN JOSÃ‰</h4>
           
           <div class="legal-recital">VISTO:</div>
           <p class="legal-article">
@@ -455,19 +456,19 @@
             Que la Secretaría de Educación, Cultura y Turismo ha desarrollado una plataforma de georreferenciación cartográfica abierta que pone en valor los establecimientos locales sin costos operativos de licencias para el Municipio;
           </p>
 
-          <div class="legal-recital">POR ELLO, EL HONORABLE CONCEJO DELIBERANTE DE LA CIUDAD DE SAN JOSÉ SANCIONA CON FUERZA DE ORDENANZA:</div>
+          <div class="legal-recital">POR ELLO, EL HONORABLE CONCEJO DELIBERANTE DE LA CIUDAD DE SAN JOSÃ‰ SANCIONA CON FUERZA DE ORDENANZA:</div>
           
           <div class="legal-article">
             <strong>ARTÍCULO 1°.-</strong> DECLÁRASE de <em>Interés Municipal, Productivo y Turístico</em> al Programa «Hecho en San José» y a su Mapa Productivo Interactivo Georreferenciado, reconociendo como patrimonio vivo a los productores de nuez pecán, licores tradicionales, apicultura, queserías y artesanías locales.
           </div>
           <div class="legal-article">
-            <strong>ARTÍCULO 2°.-</strong> DISPÓNGASE la colocación progresiva de <em>Señalética Turístico-Productiva Unificada</em> en los accesos viales principales a la ciudad (Ruta Provincial 26, Ruta Provincial 130 y Autovía Nacional 14), orientando a visitantes hacia los establecimientos debidamente inscriptos en el Padrón Municipal.
+            <strong>ARTÍCULO 2°.-</strong> DISPÃ“NGASE la colocación progresiva de <em>Señalética Turístico-Productiva Unificada</em> en los accesos viales principales a la ciudad (Ruta Provincial 26, Ruta Provincial 130 y Autovía Nacional 14), orientando a visitantes hacia los establecimientos debidamente inscriptos en el Padrón Municipal.
           </div>
           <div class="legal-article">
-            <strong>ARTÍCULO 3°.-</strong> FACÚLTASE al Departamento Ejecutivo Municipal a otorgar prioridad de stands y espacios de exhibición a los productores empadronados en todas las ferias municipales, festivales gastronómicos y en la Fiesta Nacional de la Colonización.
+            <strong>ARTÍCULO 3°.-</strong> FACÃšLTASE al Departamento Ejecutivo Municipal a otorgar prioridad de stands y espacios de exhibición a los productores empadronados en todas las ferias municipales, festivales gastronómicos y en la Fiesta Nacional de la Colonización.
           </div>
           <div class="legal-article">
-            <strong>ARTÍCULO 4°.-</strong> ESTABLÉZCANSE incentivos y reconocimiento municipal de «Comercio Amigo de la Producción Local» para aquellos supermercados y autoservicios que mantengan de forma permanente las Góndolas Hecho en San José.
+            <strong>ARTÍCULO 4°.-</strong> ESTABLÃ‰ZCANSE incentivos y reconocimiento municipal de «Comercio Amigo de la Producción Local» para aquellos supermercados y autoservicios que mantengan de forma permanente las Góndolas Hecho en San José.
           </div>
           <div class="legal-article">
             <strong>ARTÍCULO 5°.-</strong> COMUNÍQUESE, regístrese, publíquese y archívese.
@@ -475,13 +476,13 @@
         </div>
       </section>
 
-      <!-- SECCIÓN VII: RÚBRICAS Y FIRMAS PROTOCOLARES -->
+      <!-- SECCIÃ“N VII: RÃšBRICAS Y FIRMAS PROTOCOLARES -->
       <section class="informe-sec informe-avoid-break" id="sec-firmas">
         <div class="informe-sec-header">
           <span class="sec-num">VII.</span>
           <h3 class="sec-title">Elevación Protocolar y Rúbricas Oficiales</h3>
         </div>
-        <p style="font-size: 0.88rem; color: var(--text-muted);">
+        <p class="s-93df1c65">
           Elevado formalmente para consideración de los señores y señoras Concejales en sesiones del Honorable Concejo Deliberante de la Ciudad de San José, Departamento Colón, Provincia de Entre Ríos.
         </p>
 

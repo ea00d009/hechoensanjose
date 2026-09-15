@@ -1,57 +1,14 @@
 <?php
 /**
  * ==============================================================================
- * HECHO EN SAN JOSÉ • LISTADO Y GESTIÓN GENERAL DE PRODUCTORES
+ * HECHO EN SAN JOSÉ • LISTADO Y GESTIÓN GENERAL DE PRODUCTORES (VISTA)
  * ==============================================================================
  */
-
 $pageTitle = 'Productores Registrados';
 require_once __DIR__ . '/header.php';
 
-$pdo = getDBConnection();
-
-// Filtros
-$busqueda  = trim($_GET['q'] ?? '');
-$catFiltro = trim($_GET['categoria'] ?? 'todos');
-$estado    = trim($_GET['estado'] ?? 'todos');
-
-// Obtener categorías para el filtro
-$categorias = $pdo->query("SELECT * FROM `ps_categorias` ORDER BY `orden` ASC")->fetchAll();
-
-// Construir consulta SQL
-$sql = "
-    SELECT p.*, c.nombre AS categoria_nombre, c.tag_class, c.pin_color 
-    FROM `ps_productores` p
-    LEFT JOIN `ps_categorias` c ON p.categoria_id = c.id
-    WHERE 1=1
-";
-$params = [];
-
-if ($busqueda !== '') {
-    $sql .= " AND (p.nombre LIKE :q OR p.rubro LIKE :q OR p.direccion LIKE :q OR p.descripcion LIKE :q)";
-    $params[':q'] = "%{$busqueda}%";
-}
-
-if ($catFiltro !== '' && $catFiltro !== 'todos') {
-    $sql .= " AND p.categoria_id = :cat";
-    $params[':cat'] = $catFiltro;
-}
-
-if ($estado === 'activos') {
-    $sql .= " AND p.activo = 1";
-} elseif ($estado === 'inactivos') {
-    $sql .= " AND p.activo = 0";
-} elseif ($estado === 'destacados') {
-    $sql .= " AND p.destacado = 1";
-}
-
-$sql .= " ORDER BY p.id ASC";
-
-$stmt = $pdo->prepare($sql);
-$stmt->execute($params);
-$productores = $stmt->fetchAll();
-
-$csrf = getCsrfToken();
+// Variables esperadas desde el controlador:
+// $busqueda, $catFiltro, $estado, $categorias, $productores, $csrf
 ?>
 
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
@@ -119,7 +76,7 @@ $csrf = getCsrfToken();
       Filtrar
     </button>
     <?php if ($busqueda !== '' || $catFiltro !== 'todos' || $estado !== 'todos'): ?>
-      <a href="productores.php" style="font-size: 0.85rem; color: #dc2626; text-decoration: underline; margin-left: 6px;">
+      <a href="productores" style="font-size: 0.85rem; color: #dc2626; text-decoration: underline; margin-left: 6px;">
         Limpiar filtros
       </a>
     <?php endif; ?>
@@ -216,13 +173,18 @@ $csrf = getCsrfToken();
               </td>
               <td style="text-align: right;">
                 <div style="display: flex; gap: 6px; justify-content: flex-end;">
+                  <?php
+                    $pSlug = mb_strtolower(trim($p['nombre']), 'UTF-8');
+                    $pSlug = strtr($pSlug, ['á'=>'a','é'=>'e','í'=>'i','ó'=>'o','ú'=>'u','à'=>'a','è'=>'e','ì'=>'i','ò'=>'o','ù'=>'u','ä'=>'a','ë'=>'e','ï'=>'i','ö'=>'o','ü'=>'u','ñ'=>'n','ç'=>'c','&'=>'y']);
+                    $pSlug = trim(preg_replace('/[^a-z0-9]+/i', '-', $pSlug), '-');
+                  ?>
                   <a href="productor-form.php?id=<?= $p['id'] ?>" class="btn btn-outline btn-sm" title="Modificar datos">
                     Editar
                   </a>
-                  <a href="../mapa.php?id=<?= $p['id'] ?>" target="_blank" class="btn btn-outline btn-sm" style="color: #0284c7;" title="Ver en mapa">
+                  <a href="../mapa/<?= $pSlug ?>" target="_blank" class="btn btn-outline btn-sm" style="color: #0284c7;" title="Ver <?= htmlspecialchars($p['nombre']) ?> en mapa interactivo">
                     Ver
                   </a>
-                  <a href="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://sanjose.tur.ar/hechoensanjose/index.php?productor=<?= $p['id'] ?>" target="_blank" class="btn btn-outline btn-sm" style="color: #7e22ce;" title="Ver y descargar Código QR">
+                  <a href="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://sanjose.tur.ar/mapa/<?= $pSlug ?>" target="_blank" class="btn btn-outline btn-sm" style="color: #7e22ce;" title="Ver y descargar Código QR">
                     QR
                   </a>
                   <form method="POST" action="productor-acciones.php" style="display: inline;" onsubmit="return confirm('¿Seguro que deseás eliminar a <?= htmlspecialchars(addslashes($p['nombre'])) ?>? Esta acción no se puede deshacer.');">
@@ -230,7 +192,7 @@ $csrf = getCsrfToken();
                     <input type="hidden" name="accion" value="eliminar">
                     <input type="hidden" name="id" value="<?= $p['id'] ?>">
                     <button type="submit" class="btn btn-danger-soft btn-sm" title="Eliminar productor">
-                      ✕
+                      ✖
                     </button>
                   </form>
                 </div>

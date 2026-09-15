@@ -1,7 +1,7 @@
 <?php
 /**
  * ==============================================================================
- * HECHO EN SAN JOSÉ • DASHBOARD DE GESTIÓN MUNICIPAL
+ * HECHO EN SAN JOSÃ‰ â€¢ DASHBOARD DE GESTIÃ“N MUNICIPAL
  * ==============================================================================
  */
 
@@ -16,7 +16,7 @@ $totalActivos     = (int)$pdo->query("SELECT COUNT(*) FROM `ps_productores` WHER
 $totalDestacados  = (int)$pdo->query("SELECT COUNT(*) FROM `ps_productores` WHERE `destacado` = 1")->fetchColumn();
 $totalSolicitudes = (int)$pdo->query("SELECT COUNT(*) FROM `ps_solicitudes_inscripcion` WHERE `estado` = 'pendiente'")->fetchColumn();
 
-// Últimos productores modificados
+// Ãšltimos productores modificados
 $ultimosProductores = $pdo->query("
     SELECT p.*, c.nombre AS categoria_nombre 
     FROM `ps_productores` p
@@ -34,7 +34,7 @@ $statsPorCategoria = $pdo->query("
     ORDER BY cantidad DESC
 ")->fetchAll();
 
-// Últimas solicitudes recibidas
+// Ãšltimas solicitudes recibidas
 $ultimasSolicitudes = $pdo->query("
     SELECT * FROM `ps_solicitudes_inscripcion` 
     ORDER BY `creado_en` DESC 
@@ -55,7 +55,7 @@ $ultimasSolicitudes = $pdo->query("
     <a href="productor-form.php" class="btn btn-accent" style="padding: 10px 20px; font-size: 0.9rem;">
       + Cargar Nuevo Productor
     </a>
-    <a href="../mapa.php" target="_blank" class="btn btn-outline" style="padding: 10px 18px; font-size: 0.9rem;">
+    <a href="../mapa" target="_blank" class="btn btn-outline" style="padding: 10px 18px; font-size: 0.9rem;">
       Ver Mapa &nearr;
     </a>
   </div>
@@ -131,7 +131,7 @@ $ultimasSolicitudes = $pdo->query("
       <h3 style="font-size: 1.15rem; color: var(--text-main, #0f172a); margin: 0; font-weight: 700;">
         Productores Actualizados Recientemente
       </h3>
-      <a href="productores.php" style="font-size: 0.85rem; color: #0284c7; font-weight: 600; text-decoration: underline;">
+      <a href="productores" style="font-size: 0.85rem; color: #0284c7; font-weight: 600; text-decoration: underline;">
         Ver todos los <?= $totalProductores ?> &rarr;
       </a>
     </div>
@@ -158,7 +158,7 @@ $ultimasSolicitudes = $pdo->query("
                     <div>
                       <strong style="color: var(--text-main); font-size: 0.92rem;"><?= htmlspecialchars($p['nombre']) ?></strong>
                       <?php if ($p['destacado']): ?>
-                        <span style="color: #d97706; font-size: 0.75rem; margin-left: 4px;" title="Destacado">★</span>
+                        <span style="color: #d97706; font-size: 0.75rem; margin-left: 4px;" title="Destacado">â˜…</span>
                       <?php endif; ?>
                     </div>
                   </div>

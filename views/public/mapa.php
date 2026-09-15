@@ -1,6 +1,54 @@
+<?php
+// Función para generar slugs limpios y legibles
+if (!function_exists('generarSlug')) {
+    function generarSlug(string $texto): string {
+        $texto = mb_strtolower(trim($texto), 'UTF-8');
+        $reemplazos = [
+            'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ú'=>'u',
+            'à'=>'a', 'è'=>'e', 'ì'=>'i', 'ò'=>'o', 'ù'=>'u',
+            'ä'=>'a', 'ë'=>'e', 'ï'=>'i', 'ö'=>'o', 'ü'=>'u',
+            'ñ'=>'n', 'ç'=>'c', '&' => 'y'
+        ];
+        $texto = strtr($texto, $reemplazos);
+        $texto = preg_replace('/[^a-z0-9]+/i', '-', $texto);
+        return trim($texto, '-');
+    }
+}
+
+// Base URL dinámica para soporte de subcarpetas y URLs limpias /mapa/{slug}
+$baseDir = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+$baseUrl = ($baseDir !== '' ? $baseDir : '') . '/';
+
+// Pre-procesar productores para paso directo a JavaScript (renderizado instantáneo de Leaflet)
+$jsonProductores = [];
+if (!empty($productores)) {
+    foreach ($productores as $row) {
+        $jsonProductores[] = [
+            'id'          => (int)$row['id'],
+            'slug'        => generarSlug($row['nombre'] ?? ''),
+            'nombre'      => htmlspecialchars($row['nombre'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'rubro'       => htmlspecialchars($row['rubro'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'categoria'   => htmlspecialchars($row['categoria'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'tagLabel'    => htmlspecialchars($row['tagLabel'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'tagClass'    => htmlspecialchars($row['tagClass'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'pinColor'    => htmlspecialchars($row['pinColor'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'imagen'      => htmlspecialchars($row['imagen'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'iconoSvg'    => $row['iconoSvg'],
+            'coords'      => [(float)$row['lat'], (float)$row['lng']],
+            'direccion'   => htmlspecialchars($row['direccion'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'telefono'    => htmlspecialchars($row['telefono'] ?: '', ENT_QUOTES, 'UTF-8'),
+            'whatsapp'    => htmlspecialchars($row['whatsapp'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'horario'     => htmlspecialchars($row['horario'] ?: '', ENT_QUOTES, 'UTF-8'),
+            'descripcion' => htmlspecialchars($row['descripcion'] ?? '', ENT_QUOTES, 'UTF-8'),
+            'destacado'   => (bool)$row['destacado']
+        ];
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <base href="<?= htmlspecialchars($baseUrl) ?>">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mapa Productivo de la Ciudad de San José - Hecho en San José</title>
@@ -8,6 +56,7 @@
   
   <!-- Hoja de Estilos Propia -->
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/css/normalized.css">
   
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
@@ -37,36 +86,36 @@
 
   <!-- Cabecera Superior Institucional -->
   <header class="site-header">
-    <div class="header-main" style="padding: 0.65rem 1.5rem;">
+    <div class="header-main s-b4b5776f">
       <div class="logo-group">
-        <a href="index.php" class="btn-back" title="Regresar a Hecho en San José">
+        <a href="./" class="btn-back" title="Regresar a Hecho en San José">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
           <span>Inicio</span>
         </a>
-        <div style="height: 24px; width: 1px; background: var(--border-light); margin: 0 4px;"></div>
-        <a href="index.php" class="logo-link-wrap" title="Municipalidad de San José, Entre Ríos">
-          <img src="assets/logo-sanjose.png" alt="Municipalidad de San José, Entre Ríos" class="municipal-logo" style="height: 38px;">
+        <div class="s-f312428b"></div>
+        <a href="./" class="logo-link-wrap" title="Municipalidad de San José, Entre Ríos">
+          <img src="assets/logo-sanjose.png" alt="Municipalidad de San José, Entre Ríos" class="municipal-logo s-5a0c6663">
         </a>
-        <div class="logo-divider" style="height: 28px;"></div>
+        <div class="logo-divider s-77d2eba4"></div>
         <div class="logo-titles">
-          <h1 style="font-size: 1.15rem; margin-bottom: 0;">Hecho en <span>San José</span></h1>
-          <div class="logo-subtitle" style="font-size: 0.72rem;">Mapa Productivo</div>
+          <h1 class="s-577ad58c">Hecho en <span>San José</span></h1>
+          <div class="logo-subtitle s-606efc58">Mapa Productivo</div>
         </div>
       </div>
 
       <div class="header-right-group">
         <div class="nav-actions" id="main-nav-actions">
           <!-- Enlaces a subpáginas (sin duplicar Inicio que ya está en el extremo izquierdo) -->
-          <div style="display: flex; gap: 6px; align-items: center;" class="nav-subpages-links">
-            <a href="catalogo.php" class="btn btn-outline" style="padding: 0.45rem 0.8rem; font-size: 0.78rem; white-space: nowrap;">Catálogo</a>
-            <a href="gondola.php" class="btn btn-outline" style="padding: 0.45rem 0.8rem; font-size: 0.78rem; white-space: nowrap;">Góndolas</a>
-            <a href="inscribir.php" class="btn btn-outline" style="padding: 0.45rem 0.8rem; font-size: 0.78rem; white-space: nowrap;">Inscribirse</a>
+          <div class="s-3e22b634 nav-subpages-links">
+            <a href="catalogo" class="btn btn-outline s-9dae10a3">Catálogo</a>
+            <a href="gondola" class="btn btn-outline s-9dae10a3">Góndolas</a>
+            <a href="inscribir" class="btn btn-outline s-9dae10a3">Inscribirse</a>
           </div>
 
-          <button class="btn btn-outline" onclick="window.resetMapBounds()" style="padding: 0.45rem 0.85rem; font-size: 0.78rem; white-space: nowrap;" title="Restablecer vista a todos los productores">
+          <button class="btn btn-outline" onclick="window.resetMapBounds()" class="s-1534828e" title="Restablecer vista a todos los productores">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
               <line x1="22" y1="12" x2="18" y2="12"></line>
@@ -76,7 +125,7 @@
             </svg>
             <span>Centrar todo</span>
           </button>
-          <a href="https://sanjose.tur.ar/hechoensanjose/" target="_blank" rel="noopener" class="btn btn-primary" style="padding: 0.45rem 0.9rem; font-size: 0.78rem; white-space: nowrap;">
+          <a href="https://sanjose.tur.ar/" target="_blank" rel="noopener" class="btn btn-primary s-7d6b206a">
             <span>Portal Turístico</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
@@ -204,10 +253,10 @@
       </div>
 
       <!-- Pie discreto de la barra lateral con acceso administrativo -->
-      <div class="sidebar-admin-footer" style="padding: 0.65rem 1rem; border-top: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; background: var(--bg-surface);">
-        <span style="color: var(--text-light);">&copy; 2026 San José</span>
-        <div style="display: flex; gap: 6px; align-items: center;">
-          <a href="admin/login.php" class="btn-admin-access" title="Acceso al Panel de Gestión" style="text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+      <div class="sidebar-admin-footer s-8b308977">
+        <span class="s-b32654dc">&copy; 2026 San José</span>
+        <div class="s-3e22b634">
+          <a href="admin/login" class="btn-admin-access" title="Acceso al Panel de Gestión" class="s-6e78680b">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/>
             </svg>
@@ -230,6 +279,12 @@
     </main>
 
   </div>
+
+  <!-- Pre-carga de datos para Leaflet instantáneo -->
+  <script>
+    window.INITIAL_PRODUCTORES = <?= json_encode($jsonProductores, JSON_UNESCAPED_UNICODE) ?>;
+    window.TARGET_PRODUCER_PARAM = <?= json_encode($targetParam ?? null, JSON_UNESCAPED_UNICODE) ?>;
+  </script>
 
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
