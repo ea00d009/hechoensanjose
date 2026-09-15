@@ -78,6 +78,8 @@ Desarrollada bajo estándares modernos de desarrollo web, accesibilidad y seguri
 ```
 productores-sanjose/
 ├── index.php                 # Front Controller principal y enrutador del sistema
+├── README.md                 # Ficha técnica y guía de despliegue
+├── MANUAL_USUARIO.md         # Manual exhaustivo de usuario y guía de operaciones
 ├── style.css                 # Sistema de diseño integral (tokens, modo oscuro, responsive y print)
 ├── app.js                    # Lógica del mapa Leaflet, georreferenciación y auto-enfoque
 ├── setup.php                 # Asistente de instalación y migración de base de datos
