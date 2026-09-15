@@ -1,7 +1,7 @@
 <?php
 /**
  * ==============================================================================
- * HECHO EN SAN JOSÉ • CABECERA COMÚN DEL PANEL DE ADMINISTRACIÓN
+ * HECHO EN SAN JOSÃ‰ â€¢ CABECERA COMÃšN DEL PANEL DE ADMINISTRACIÃ“N
  * ==============================================================================
  */
 
@@ -47,139 +47,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     })();
   </script>
 
-  <style>
-    .admin-container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-    }
-    .admin-nav-pills {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .admin-nav-item {
-      padding: 0.5rem 0.9rem;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      text-decoration: none;
-      color: var(--text-muted, #64748b);
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .admin-nav-item:hover {
-      background: var(--bg-hover, #f1f5f9);
-      color: var(--text-main, #0f172a);
-    }
-    .admin-nav-item.active {
-      background: #0284c7;
-      color: #ffffff !important;
-    }
-    .badge-pill {
-      background: #ef4444;
-      color: #ffffff;
-      font-size: 0.72rem;
-      font-weight: 800;
-      padding: 2px 6px;
-      border-radius: 12px;
-    }
-    .alert-flash {
-      padding: 1rem 1.25rem;
-      border-radius: 8px;
-      margin-bottom: 1.5rem;
-      font-size: 0.92rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .alert-flash.success {
-      background: #ecfdf5;
-      color: #065f46;
-      border: 1px solid #a7f3d0;
-    }
-    .alert-flash.danger {
-      background: #fef2f2;
-      color: #991b1b;
-      border: 1px solid #fecaca;
-    }
-    .card-admin {
-      background: var(--bg-card, #ffffff);
-      border: 1px solid var(--border-light, #e2e8f0);
-      border-radius: 14px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-      margin-bottom: 1.5rem;
-    }
-    .admin-table-wrap {
-      overflow-x: auto;
-      border-radius: 10px;
-      border: 1px solid var(--border-light, #e2e8f0);
-    }
-    .admin-table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 0.88rem;
-    }
-    .admin-table th {
-      background: var(--bg-hover, #f8fafc);
-      padding: 12px 14px;
-      font-weight: 700;
-      color: var(--text-muted, #475569);
-      border-bottom: 1px solid var(--border-light, #e2e8f0);
-    }
-    .admin-table td {
-      padding: 12px 14px;
-      border-bottom: 1px solid var(--border-light, #f1f5f9);
-      color: var(--text-main, #1e293b);
-      vertical-align: middle;
-    }
-    .admin-table tr:hover td {
-      background: var(--bg-hover, #f8fafc);
-    }
-    .thumb-mini {
-      width: 48px;
-      height: 48px;
-      border-radius: 8px;
-      object-fit: cover;
-      border: 1px solid var(--border-light, #e2e8f0);
-    }
-    .badge-status {
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 700;
-    }
-    .badge-activo {
-      background: #ecfdf5;
-      color: #059669;
-      border: 1px solid #a7f3d0;
-    }
-    .badge-inactivo {
-      background: #f1f5f9;
-      color: #64748b;
-      border: 1px solid #cbd5e1;
-    }
-    .btn-sm {
-      padding: 6px 12px;
-      font-size: 0.8rem;
-      border-radius: 6px;
-    }
-    .btn-danger-soft {
-      background: #fee2e2;
-      color: #dc2626;
-      border: 1px solid #fca5a5;
-    }
-    .btn-danger-soft:hover {
-      background: #dc2626;
-      color: #ffffff;
-    }
-  </style>
+  <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
 <body>
 
@@ -195,14 +63,14 @@ $currentPage = basename($_SERVER['PHP_SELF']);
           Manual de Usuario
         </a>
         <span style="font-size: 0.78rem; opacity: 0.9;">Sesión activa: <strong><?= htmlspecialchars($_SESSION['admin_nombre'] ?? 'Administrador') ?></strong></span>
-        <a href="logout.php" style="color: #fff; text-decoration: underline; font-size: 0.78rem;">Cerrar Sesión</a>
+        <a href="logout" style="color: #fff; text-decoration: underline; font-size: 0.78rem;">Cerrar Sesión</a>
       </div>
     </div>
 
     <!-- Navegación Principal -->
     <div class="header-main">
       <div class="logo-group">
-        <a href="index.php" class="logo-link-wrap" title="Panel de Gestión">
+        <a href="./" class="logo-link-wrap" title="Panel de Gestión">
           <img src="../assets/logo-sanjose.png" alt="Municipalidad de San José" class="municipal-logo">
         </a>
         <div class="logo-divider"></div>
@@ -214,14 +82,14 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
       <div class="header-right-group">
         <nav class="admin-nav-pills">
-          <a href="index.php" class="admin-nav-item <?= $currentPage === 'index.php' ? 'active' : '' ?>">
+          <a href="./" class="admin-nav-item <?= $currentPage === 'index.php' ? 'active' : '' ?>">
             Dashboard
           </a>
-          <a href="productores.php" class="admin-nav-item <?= in_array($currentPage, ['productores.php', 'productor-form.php']) ? 'active' : '' ?>">
+          <a href="productores" class="admin-nav-item <?= in_array($currentPage, ['productores.php', 'productor-form.php']) ? 'active' : '' ?>">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             Gestión de Productores
           </a>
-          <a href="categorias.php" class="admin-nav-item <?= $currentPage === 'categorias.php' ? 'active' : '' ?>">
+          <a href="categorias" class="admin-nav-item <?= $currentPage === 'categorias.php' ? 'active' : '' ?>">
             Categorías
           </a>
           <a href="productor-form.php" class="admin-nav-item <?= $currentPage === 'productor-form.php' && empty($_GET['id']) ? 'active' : '' ?>" style="color: #0284c7; font-weight: 700;">
@@ -234,7 +102,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
               <span class="badge-pill"><?= $solicitudesPendientesCount ?></span>
             <?php endif; ?>
           </a>
-          <a href="../index.php" target="_blank" class="admin-nav-item" style="color: #059669;" title="Abrir sitio web público en nueva pestaña">
+          <a href="../" target="_blank" class="admin-nav-item" style="color: #059669;" title="Abrir sitio web público en nueva pestaña">
             Sitio Web &nearr;
           </a>
         </nav>

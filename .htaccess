@@ -1,14 +1,28 @@
 # Ocultar archivos y directorios sensibles
 <FilesMatch "^\.env|^\.env\.example">
-    Order allow,deny
-    Deny from all
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
 # Ocultar acceso al directorio .git/
 RedirectMatch 404 /\.git
 
+# Forzar codificación UTF-8
+AddDefaultCharset UTF-8
+
 # Desactivar el listado de directorios
 Options -Indexes
+
+# Enrutar todo a index.php
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [QSA,L]
 
 # Security Headers (Protección avanzada del lado del cliente)
 <IfModule mod_headers.c>

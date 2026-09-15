@@ -105,61 +105,7 @@ if ($isCli || $_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['auto'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Instalador de Base de Datos &bull; Hecho en San José</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    .setup-container {
-      max-width: 650px;
-      margin: 3rem auto;
-      padding: 2.5rem;
-      background: var(--bg-card, #ffffff);
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      border: 1px solid var(--border-light, #e2e8f0);
-    }
-    .setup-header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-    .setup-header img {
-      height: 60px;
-      margin-bottom: 1rem;
-    }
-    .alert {
-      padding: 1rem 1.25rem;
-      border-radius: 8px;
-      margin-bottom: 1.5rem;
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-    .alert-success {
-      background: #ecfdf5;
-      color: #065f46;
-      border: 1px solid #a7f3d0;
-    }
-    .alert-danger {
-      background: #fef2f2;
-      color: #991b1b;
-      border: 1px solid #fecaca;
-    }
-    .form-group {
-      margin-bottom: 1.25rem;
-    }
-    .form-group label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 0.35rem;
-      font-size: 0.88rem;
-    }
-    .form-control {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
-      border: 1px solid var(--border-light, #cbd5e1);
-      font-size: 0.95rem;
-      box-sizing: border-box;
-      background: var(--bg-card, #fff);
-      color: var(--text-main, #1e293b);
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body style="background: var(--bg-body, #f8fafc);">
   <div class="setup-container">

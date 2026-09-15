@@ -216,19 +216,40 @@ let currentFilter = 'todos';
 let searchQuery = '';
 const markerMap = new Map(); // id -> L.marker
 
+// Pre-carga si el servidor PHP ya inyectó INITIAL_PRODUCTORES
+if (typeof window !== 'undefined' && window.INITIAL_PRODUCTORES && Array.isArray(window.INITIAL_PRODUCTORES) && window.INITIAL_PRODUCTORES.length > 0) {
+  PRODUCTORES_SAN_JOSE = window.INITIAL_PRODUCTORES;
+  window.PRODUCTORES_SAN_JOSE = PRODUCTORES_SAN_JOSE;
+}
+
 // Carga asíncrona desde la API PHP/MySQL con fallback automático
 async function loadProducersFromApi() {
+  if (typeof window !== 'undefined' && window.INITIAL_PRODUCTORES && Array.isArray(window.INITIAL_PRODUCTORES) && window.INITIAL_PRODUCTORES.length > 0) {
+    PRODUCTORES_SAN_JOSE = window.INITIAL_PRODUCTORES;
+    window.PRODUCTORES_SAN_JOSE = PRODUCTORES_SAN_JOSE;
+  }
+
   try {
-    const res = await fetch('api/productores.php');
+    // Intentar primero endpoint limpio, luego con extensión .php
+    let res = await fetch('api/productores');
+    if (!res.ok) {
+      res = await fetch('api/productores.php');
+    }
     if (res.ok) {
       const data = await res.json();
       if (data && data.success && Array.isArray(data.productores) && data.productores.length > 0) {
         PRODUCTORES_SAN_JOSE = data.productores;
         window.PRODUCTORES_SAN_JOSE = PRODUCTORES_SAN_JOSE;
+        if (typeof updateMarkers === 'function' && mapInstance) {
+          updateMarkers();
+        }
+        if (typeof renderProducersList === 'function') {
+          renderProducersList();
+        }
       }
     }
   } catch (e) {
-    console.warn('Cargando productores locales estáticos (modo estático o sin servidor PHP):', e);
+    console.warn('Cargando productores locales (modo estático o sin servidor PHP):', e);
   }
 }
 
@@ -247,12 +268,36 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupFilterListeners();
   setupSearchListener();
 
-  // Soporte de enlace directo con query param ?id=X (ej. desde el catálogo o QR)
+  // Helper para generar slug en JavaScript
+  function slugifyJs(str) {
+    return (str || '').toLowerCase().trim()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  }
+
+  // Asegurar que cada productor tenga su slug
+  PRODUCTORES_SAN_JOSE.forEach(p => {
+    if (!p.slug) p.slug = slugifyJs(p.nombre);
+  });
+
+  // Soporte de enlace directo: por URL limpia /mapa/{slug}, ?productor=slug o legacy ?id=X
   const urlParams = new URLSearchParams(window.location.search);
-  const targetId = parseInt(urlParams.get('id'), 10);
-  if (targetId) {
+  const targetParam = (typeof window !== 'undefined' && window.TARGET_PRODUCER_PARAM)
+    ? String(window.TARGET_PRODUCER_PARAM).trim()
+    : (urlParams.get('productor') || urlParams.get('slug') || urlParams.get('id') || '').trim();
+
+  if (targetParam) {
     setTimeout(() => {
-      focusProducer(targetId);
+      const targetInt = parseInt(targetParam, 10);
+      const matched = PRODUCTORES_SAN_JOSE.find(p =>
+        (targetInt && p.id === targetInt) ||
+        (p.slug && p.slug === targetParam) ||
+        slugifyJs(p.nombre) === targetParam
+      );
+      if (matched) {
+        focusProducer(matched.id);
+      }
     }, 450);
   }
 });
