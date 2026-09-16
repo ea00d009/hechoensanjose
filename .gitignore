@@ -1,9 +1,19 @@
+# Archivos del sistema operativo y logs
 .DS_Store
 Thumbs.db
 *.log
+
+# Credenciales de entorno y base de datos (NUNCA subir a repositorios)
 .env
+.env.*
+!.env.example
 config/.env
+config/.env.*
 env.php
+config/env.php
+**/env.php
+!config/env.example.php
+*.local_backup
 
 # Scripts temporales de mantenimiento y pruebas
 fix_*
