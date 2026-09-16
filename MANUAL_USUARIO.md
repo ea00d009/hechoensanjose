@@ -15,7 +15,6 @@
    - [2.3. Catálogo Digital de Productores (`/catalogo`)](#23-catálogo-digital-de-productores-catalogo)
    - [2.4. Red de Góndolas Oficiales (`/gondola`)](#24-red-de-góndolas-oficiales-gondola)
    - [2.5. Formulario de Postulación Ciudadana (`/inscribir`)](#25-formulario-de-postulación-ciudadana-inscribir)
-   - [2.6. Dossier Institucional para el Concejo Deliberante (`/informe`)](#26-dossier-institucional-para-el-concejo-deliberante-informe)
 3. [Panel de Gestión y Backoffice Administrativo (`/admin`)](#3-panel-de-gestión-y-backoffice-administrativo-admin)
    - [3.1. Acceso y Autenticación de Operadores](#31-acceso-y-autenticación-de-operadores)
    - [3.2. Dashboard Principal y Métricas en Tiempo Real](#32-dashboard-principal-y-métricas-en-tiempo-real)
@@ -48,7 +47,7 @@ El programa municipal **«Hecho en San José»** surge con el propósito de cone
 * **Soberanía Tecnológica:** Construido íntegramente con tecnologías de código abierto (**Leaflet.js**, **OpenStreetMap**, **PHP 8** y **MySQL**), eliminando costos de licenciamiento recurrentes y prescindiendo de APIs de pago.
 * **Comercialización Directa:** Fomento del consumo de cercanía mediante contacto directo vía WhatsApp y navegación GPS guiada paso a paso, sin intermediarios comerciales ni comisiones.
 * **Identidad de Origen:** Resguardo de oficios tradicionales: apicultura de monte nativo, plantaciones pioneras de nuez pecán, licores centenarios, queserías tradicionales, vitivinicultura entrerriana y forja criolla.
-* **Transparencia y Respaldo Institucional:** Registro formal de solicitudes ciudadanas y tratamiento parlamentario ante el Honorable Concejo Deliberante.
+* **Transparencia y Respaldo Institucional:** Registro formal de solicitudes ciudadanas y homologación municipal del padrón productivo.
 
 ---
 
@@ -103,12 +102,6 @@ Formulario interactivo en **4 pasos** diseñado para facilitar el registro de pr
 
 > [!NOTE]
 > Al enviarse el formulario, la solicitud se almacena de forma inmediata en la base de datos municipal con estado `pendiente` y queda disponible en el panel administrativo.
-
-### 2.6. Dossier Institucional para el Concejo Deliberante (`/informe`)
-* **Propósito:** Documento técnico y fundamentación de ordenanza para el Honorable Concejo Deliberante de San José.
-* **Acceso Restringido por PIN:** El acceso se encuentra protegido mediante una clave de seguridad institucional: **`2706`**.
-* **Acceso Discreto:** Enlace ubicado en el pie de página del portal público (ícono de candado institucional).
-* **Diseño para Impresión A4:** Al presionar `Ctrl + P`, la interfaz oculta automáticamente barras de navegación y elementos web, aplicando márgenes formales, tipografía ejecutiva y membrete municipal.
 
 ---
 
@@ -297,7 +290,7 @@ El módulo de categorías (`/admin/categorias`) permite organizar los sectores d
 
 ## 8. Exportación de Datos y Estadísticas Comunitarias
 
-Para tareas de planificación municipal, informes de gestión o elevación de antecedentes al Honorable Concejo Deliberante:
+Para tareas de planificación municipal, informes de gestión o articulación turística y comercial:
 
 1. Ingresar a `/admin/productores` o `/admin/solicitudes`.
 2. Presionar el botón **«⬇️ Exportar CSV»**.
@@ -323,7 +316,7 @@ El sistema implementa 6 capas de seguridad defensiva para proteger la infraestru
 ├─────────────────────────────────────────────────────────────┤
 │ 5. SESIONES SEGURAS (Regeneración de ID, HttpOnly, SameSite)│
 ├─────────────────────────────────────────────────────────────┤
-│ 6. PROTECCIÓN LEGISLATIVA (PIN 2706 para acceso a informe)  │
+│ 6. AISLAMIENTO Y CABECERAS HTTP (Clickjacking y MIME Sniff) │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -345,9 +338,6 @@ Sí. Si un artesano produce en su domicilio particular y no desea recibir visita
 
 ### ¿Cómo pausar a un productor por temporada sin borrarlo?
 Hacer clic en el conmutador de estado **Activo / Inactivo** de su fila en el padrón administrativo. El productor dejará de verse en la web pública inmediatamente y podrá reactivarse con un solo clic cuando reinicie actividades.
-
-### ¿Cuál es el PIN para acceder al informe del Concejo Deliberante?
-El código de acceso institucional es **`2706`**. Se ingresa en la pantalla de bienvenida de `/informe`.
 
 ### ¿Por qué el sistema rechaza una imagen al intentar subirla?
 El sistema verifica que el archivo sea efectivamente una imagen real (JPG, PNG o WebP) y que no supere los **5 MB**. Si el archivo fue generado por una cámara profesional en alta resolución, comprimirlo o reducir su escala antes de subirlo.
