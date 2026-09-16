@@ -51,9 +51,8 @@ require_once __DIR__ . '/header.php';
       <a href="#solicitudes" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">📬 3. Solicitudes de Vecinos</a>
       <a href="#qr-urls" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">📱 4. URLs Amigables y QR</a>
       <a href="#categorias" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">🏷️ 5. Categorías y Simbología</a>
-      <a href="#informe-hcd" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">🏛️ 6. Dossier HCD (PIN 2706)</a>
-      <a href="#seguridad" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">🛡️ 7. Seguridad y Resguardo</a>
-      <a href="#faq" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">❓ 8. Preguntas Frecuentes</a>
+      <a href="#seguridad" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">🛡️ 6. Seguridad y Resguardo</a>
+      <a href="#faq" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">❓ 7. Preguntas Frecuentes</a>
     </div>
   </div>
 
@@ -123,15 +122,6 @@ require_once __DIR__ . '/header.php';
             </strong>
             <p style="font-size: 0.85rem; margin: 0.5rem 0 0 0;">
               Formulario guiado en 4 pasos para que nuevos emprendedores soliciten incorporarse al programa. Conecta directamente con la bandeja de solicitudes administrativas.
-            </p>
-          </div>
-
-          <div style="background: var(--bg-hover, #f8fafc); padding: 1rem; border-radius: 10px; border: 1px solid var(--border-light);">
-            <strong style="color: var(--text-main); display: flex; align-items: center; gap: 6px;">
-              <code style="color: var(--color-primary); font-size: 0.85rem;">/informe</code> Dossier Legislativo (HCD)
-            </strong>
-            <p style="font-size: 0.85rem; margin: 0.5rem 0 0 0;">
-              Informe técnico y proyecto de ordenanza institucional protegido mediante clave de acceso (PIN). Formato optimizado para impresión municipal membretada.
             </p>
           </div>
         </div>
@@ -372,53 +362,14 @@ require_once __DIR__ . '/header.php';
     </section>
 
     <!-- ==========================================
-         SECCIÓN 6: INFORME HCD (PIN 2706)
-         ========================================== -->
-    <section id="informe-hcd" class="card-admin" style="scroll-margin-top: 2rem;">
-      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
-        <span style="font-size: 1.5rem;">🏛️</span>
-        <div>
-          <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
-            6. Dossier Institucional para el Concejo Deliberante (HCD)
-          </h3>
-          <p style="margin: 2px 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
-            Acceso restringido, fundamentación técnico-jurídica y formato de impresión oficial.
-          </p>
-        </div>
-      </div>
-
-      <div style="font-size: 0.92rem; line-height: 1.6; color: var(--text-muted);">
-        <p>
-          Para fundamentar el respaldo legislativo y la creación del marco normativo del programa "Hecho en San José", la plataforma incluye un módulo especial en <code>/informe</code>.
-        </p>
-
-        <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 1rem; margin: 1rem 0; color: #92400e;">
-          <div style="display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 0.95rem; margin-bottom: 0.4rem;">
-            <span>🔒</span> Acceso Protegido por PIN Institucional:
-          </div>
-          <p style="margin: 0; font-size: 0.88rem;">
-            El acceso al informe no está abierto al público general para resguardar la estrategia legislativa. Requiere ingresar el <strong>PIN de Seguridad: <code style="background: #fef3c7; padding: 2px 8px; border-radius: 4px; font-size: 1.05rem; font-weight: 800; color: #b45309;">2706</code></strong>. El enlace se encuentra de forma discreta en el pie de página de la web (ícono de candado institucional).
-          </p>
-        </div>
-
-        <div style="border-left: 4px solid #0284c7; padding-left: 1rem; margin-top: 1rem;">
-          <strong style="color: var(--text-main);">Instrucciones para Impresión y Presentación en Expediente:</strong>
-          <p style="margin: 0.25rem 0 0 0; font-size: 0.88rem;">
-            Una vez ingresado el PIN en <code>/informe</code>, presionar <strong>Ctrl + P</strong> (o el botón Imprimir). La hoja de estilos CSS activa automáticamente el formato <code>@media print</code>, aplicando márgenes A4, tipografía ejecutiva, membrete municipal oficial y ocultando barras de navegación y elementos web innecesarios.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================
-         SECCIÓN 7: SEGURIDAD Y RESGUARDO
+         SECCIÓN 6: SEGURIDAD Y RESGUARDO
          ========================================== -->
     <section id="seguridad" class="card-admin" style="scroll-margin-top: 2rem;">
       <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
         <span style="font-size: 1.5rem;">🛡️</span>
         <div>
           <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
-            7. Arquitectura de Seguridad y Resguardo de Datos
+            6. Arquitectura de Seguridad y Resguardo de Datos
           </h3>
           <p style="margin: 2px 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
             Estándares empresariales implementados para proteger los sistemas de la Municipalidad.
@@ -478,14 +429,14 @@ require_once __DIR__ . '/header.php';
     </section>
 
     <!-- ==========================================
-         SECCIÓN 8: PREGUNTAS FRECUENTES
+         SECCIÓN 7: PREGUNTAS FRECUENTES
          ========================================== -->
     <section id="faq" class="card-admin" style="scroll-margin-top: 2rem;">
       <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
         <span style="font-size: 1.5rem;">❓</span>
         <div>
           <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
-            8. Preguntas Frecuentes y Guía Rápida de Soporte
+            7. Preguntas Frecuentes y Guía Rápida de Soporte
           </h3>
           <p style="margin: 2px 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
             Respuestas a las situaciones más comunes del día a día administrativo.
