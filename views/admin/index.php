@@ -154,7 +154,12 @@ $ultimasSolicitudes = $pdo->query("
               <tr>
                 <td>
                   <div style="display: flex; align-items: center; gap: 10px;">
-                    <img src="../<?= htmlspecialchars($p['imagen']) ?>" alt="" class="thumb-mini" onerror="this.src='../assets/logo-sanjose.png'">
+                    <?php
+                      $dashImg = $p['imagen'] ?? '';
+                      $isAbsDashImg = preg_match('#^(https?://|/)#i', $dashImg);
+                      $thumbUrl = $dashImg ? ($isAbsDashImg ? $dashImg : '../' . ltrim($dashImg, './')) : '../assets/logo-sanjose.png';
+                    ?>
+                    <img src="<?= htmlspecialchars($thumbUrl) ?>" alt="" class="thumb-mini" onerror="this.onerror=null; this.src='../assets/logo-sanjose.png'">
                     <div>
                       <strong style="color: var(--text-main); font-size: 0.92rem;"><?= htmlspecialchars($p['nombre']) ?></strong>
                       <?php if ($p['destacado']): ?>

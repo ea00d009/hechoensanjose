@@ -363,18 +363,13 @@ function createPopupContent(p) {
   const whatsappMsg = encodeURIComponent(`Hola! Los contacto a través del Mapa Productivo "Hecho en San José" (Turismo). Me gustaría consultar sobre sus productos.`);
   const whatsappUrl = `https://wa.me/${p.whatsapp}?text=${whatsappMsg}`;
 
-  const imageHtml = p.imagen ? `
+  const imageHtml = `
     <div class="popup-cover">
-      <img src="${p.imagen}" alt="${p.nombre}" class="popup-cover-img" loading="lazy" onerror="this.parentElement.style.display='none'">
+      <img src="${p.imagen || 'assets/logo-sanjose.png'}" alt="${p.nombre}" class="popup-cover-img ${!p.imagen ? 'img-fallback-logo' : ''}" loading="lazy" onerror="this.onerror=null; this.src='assets/logo-sanjose.png'; this.classList.add('img-fallback-logo');">
       <div class="popup-cover-overlay">
         <span class="category-tag ${p.tagClass}">${p.tagLabel}</span>
         ${p.destacado ? '<span class="tag-destacado-badge">★ Destacado</span>' : ''}
       </div>
-    </div>
-  ` : `
-    <div class="popup-header">
-      <span class="category-tag ${p.tagClass}">${p.tagLabel}</span>
-      ${p.destacado ? '<span class="tag-destacado-badge">★ Destacado</span>' : ''}
     </div>
   `;
 
@@ -513,7 +508,7 @@ function renderProducersList() {
   container.innerHTML = filtered.map(p => `
     <article class="producer-item-card has-cover" data-id="${p.id}" id="card-item-${p.id}" onclick="focusProducer(${p.id})">
       <div class="producer-card-cover">
-        <img src="${p.imagen}" alt="${p.nombre}" class="producer-cover-img" loading="lazy" onerror="this.parentElement.style.display='none'">
+        <img src="${p.imagen || 'assets/logo-sanjose.png'}" alt="${p.nombre}" class="producer-cover-img ${!p.imagen ? 'img-fallback-logo' : ''}" loading="lazy" onerror="this.onerror=null; this.src='assets/logo-sanjose.png'; this.classList.add('img-fallback-logo');">
         <div class="cover-badge-overlay">
           <span class="category-tag ${p.tagClass}">${p.tagLabel}</span>
           ${p.destacado ? '<span class="tag-destacado-badge">★ Destacado</span>' : ''}

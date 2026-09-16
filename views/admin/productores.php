@@ -114,11 +114,16 @@ require_once __DIR__ . '/header.php';
                 #<?= $p['id'] ?>
               </td>
               <td>
+                <?php
+                  $adminImg = $p['imagen'] ?? '';
+                  $isAbsAdminImg = preg_match('#^(https?://|/)#i', $adminImg);
+                  $thumbUrl = $adminImg ? ($isAbsAdminImg ? $adminImg : '../' . ltrim($adminImg, './')) : '../assets/logo-sanjose.png';
+                ?>
                 <img 
-                  src="../<?= htmlspecialchars($p['imagen']) ?>" 
+                  src="<?= htmlspecialchars($thumbUrl) ?>" 
                   alt="" 
                   class="thumb-mini" 
-                  onerror="this.src='../assets/logo-sanjose.png'"
+                  onerror="this.onerror=null; this.src='../assets/logo-sanjose.png'"
                 >
               </td>
               <td>
