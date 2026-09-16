@@ -163,3 +163,11 @@
 .s-7abb3a4e { color: var(--text-muted); }
 .s-c0fe50a0 { color: var(--text-muted); font-family: monospace; }
 .s-93df1c65 { font-size: 0.88rem; color: var(--text-muted); }
+
+/* Fallback visual cuando la imagen de un productor no carga o falla */
+.img-fallback-logo {
+  object-fit: contain !important;
+  padding: 1.5rem !important;
+  background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%) !important;
+  opacity: 0.9 !important;
+}

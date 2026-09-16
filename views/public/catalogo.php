@@ -350,7 +350,7 @@ if (!empty($productores)) {
           return `
             <article class="grid-card catalog-producer-card catalog-card-custom">
               <div class="catalog-card-img-wrap catalog-card-img-wrap-custom">
-                <img src="${p.imagen}" alt="${p.nombre}" class="catalog-card-img catalog-card-img-custom" loading="lazy" onerror="this.parentElement.style.display='none'">
+                <img src="${p.imagen || 'assets/logo-sanjose.png'}" alt="${p.nombre}" class="catalog-card-img catalog-card-img-custom ${!p.imagen ? 'img-fallback-logo' : ''}" loading="lazy" onerror="this.onerror=null; this.src='assets/logo-sanjose.png'; this.classList.add('img-fallback-logo');">
                 <div class="card-icon-wrapper-abs">
                   <div class="card-icon-container card-icon-container-custom s-eefcf430">
                     ${p.iconoSvg}
@@ -358,7 +358,7 @@ if (!empty($productores)) {
                 </div>
                 <div class="card-tags-wrapper">
                   <span class="category-tag ${p.tagClass} category-tag-custom">${p.tagLabel}</span>
-                  ${p.destacado ? '<span class="sello-destacado">â˜… Sello Destacado</span>' : ''}
+                  ${p.destacado ? '<span class="sello-destacado">★ Sello Destacado</span>' : ''}
                 </div>
               </div>
 

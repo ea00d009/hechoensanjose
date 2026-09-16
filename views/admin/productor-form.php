@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Generar nombre de archivo limpio y único
             $slug = strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $nombre));
             $nombreArchivo = 'prod-' . trim($slug, '-') . '-' . time() . '.' . $ext;
-            $directorioDestino = __DIR__ . '/../assets/productores/';
+            $directorioDestino = dirname(__DIR__, 2) . '/assets/productores/';
 
             if (!is_dir($directorioDestino)) {
                 mkdir($directorioDestino, 0755, true);
@@ -379,12 +379,17 @@ $csrf = getCsrfToken();
       </h3>
 
       <div style="text-align: center; margin-bottom: 1.5rem; padding: 1rem; border: 1px dashed var(--border-light); border-radius: 12px; background: var(--bg-hover);">
+        <?php
+          $formImg = $datos['imagen'] ?? '';
+          $isAbsFormImg = preg_match('#^(https?://|/)#i', $formImg);
+          $previewUrl = $formImg ? ($isAbsFormImg ? $formImg : '../' . ltrim($formImg, './')) : '../assets/logo-sanjose.png';
+        ?>
         <img 
           id="preview-img" 
-          src="../<?= htmlspecialchars($datos['imagen']) ?>" 
+          src="<?= htmlspecialchars($previewUrl) ?>" 
           alt="Vista previa" 
           style="max-width: 100%; height: 160px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 1rem;"
-          onerror="this.src='../assets/logo-sanjose.png'"
+          onerror="this.onerror=null; this.src='../assets/logo-sanjose.png'"
         >
         <div>
           <label class="btn btn-outline btn-sm" style="cursor: pointer; display: inline-block;">
