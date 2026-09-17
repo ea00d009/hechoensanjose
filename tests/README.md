@@ -51,10 +51,13 @@ No necesita servidor ni base de datos:
 
 ```powershell
 node tests/qr-pdf.test.cjs
+node tests/qr-pdf-browser.test.cjs
 node tests/qr-pdf.test.cjs 'C:\qa\pdfs'
 ```
 
 Verifica cuatro fichas A4 de una página, textos largos, contactos opcionales y entradas inválidas. El directorio opcional guarda PDFs para revisión visual; revisar también su legibilidad y escanear el QR antes de publicar cambios de diseño.
+
+La prueba del botón verifica su evento de clic, la entrega del PDF a la descarga, la recuperación del botón y avisos visibles cuando falta una dependencia o falla la descarga. La suite administrativa comprueba que los tres scripts se sirvan como JavaScript, también en URLs con barra final. Completar la revisión pulsando el botón en un navegador real y comprobando la descarga.
 
 Al finalizar las pruebas HTTP, quitar la contraseña del entorno:
 

@@ -42,6 +42,22 @@ assert.ok(bases.length, 'Indicá al menos una URL local');
     assert.notEqual(cookie, before, 'La sesión debe rotar al autenticar');
     assert.equal((await request('/admin/')).status, 200);
     assert.equal((await request('/admin')).headers.get('location'), admin);
+    for (const page of ['/admin/productores', '/admin/productores/', '/admin/productores.php/']) {
+      const listing = await request(page);
+      assert.equal(listing.status, 200);
+      const scripts = [...listing.text.matchAll(/<script src="([^"]+)"/g)]
+        .map(match => new URL(match[1], base + page))
+        .filter(script => /jspdf|qrcode|productor-qr-pdf/.test(script.pathname));
+      assert.equal(scripts.length, 3, 'El botón necesita los tres scripts');
+      for (const script of scripts) {
+        assert.equal(script.origin, url.origin);
+        assert.ok(script.pathname.startsWith(url.pathname.replace(/\/$/, '') + '/assets/'), 'Resolver recursos desde la instalación');
+        const asset = await fetch(script, { redirect: 'manual' });
+        assert.equal(asset.status, 200, script.pathname);
+        assert.match(asset.headers.get('content-type'), /javascript/i);
+        assert.ok((await asset.text()).length > 100);
+      }
+    }
     for (const path of ['/admin/productores?q[]=x&categoria[]=x&estado[]=x', '/admin/gondolas?q[]=x&estado[]=x']) {
       assert.equal((await request(path)).status, 200, 'Los filtros compuestos no deben causar errores');
     }
