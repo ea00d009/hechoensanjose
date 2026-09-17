@@ -189,6 +189,16 @@ require_once __DIR__ . '/header.php';
                     $pSlug = mb_strtolower(trim($p['nombre']), 'UTF-8');
                     $pSlug = strtr($pSlug, ['á'=>'a','é'=>'e','í'=>'i','ó'=>'o','ú'=>'u','à'=>'a','è'=>'e','ì'=>'i','ò'=>'o','ù'=>'u','ä'=>'a','ë'=>'e','ï'=>'i','ö'=>'o','ü'=>'u','ñ'=>'n','ç'=>'c','&'=>'y']);
                     $pSlug = trim(preg_replace('/[^a-z0-9]+/i', '-', $pSlug), '-');
+                    $qrDatos = [
+                      'nombre' => $p['nombre'],
+                      'rubro' => $p['rubro'] ?? '',
+                      'direccion' => $p['direccion'] ?? '',
+                      'telefono' => $p['telefono'] ?? '',
+                      'whatsapp' => $p['whatsapp'] ?? '',
+                      'horario' => $p['horario'] ?? '',
+                      'slug' => $pSlug,
+                      'url' => 'https://sanjose.tur.ar/mapa/' . $pSlug,
+                    ];
                   ?>
                   <a href="productor-form.php?id=<?= $p['id'] ?>" class="btn btn-outline btn-sm" title="Modificar datos">
                     Editar
@@ -196,9 +206,11 @@ require_once __DIR__ . '/header.php';
                   <a href="../mapa/<?= $pSlug ?>" target="_blank" class="btn btn-outline btn-sm" style="color: #0284c7;" title="Ver <?= htmlspecialchars($p['nombre']) ?> en mapa interactivo">
                     Ver
                   </a>
-                  <a href="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https://sanjose.tur.ar/mapa/<?= $pSlug ?>" target="_blank" class="btn btn-outline btn-sm" style="color: #7e22ce;" title="Ver y descargar Código QR">
-                    QR
-                  </a>
+                  <button type="button" class="btn btn-outline btn-sm" style="color: #7e22ce;"
+                    data-productor-qr="<?= htmlspecialchars(json_encode($qrDatos, JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE), ENT_QUOTES, 'UTF-8') ?>"
+                    title="Descargar PDF con datos de contacto y QR de <?= htmlspecialchars($p['nombre'], ENT_QUOTES, 'UTF-8') ?>">
+                    QR PDF
+                  </button>
                   <form method="POST" action="productor-acciones.php" style="display: inline;" onsubmit="return confirm('¿Seguro que deseás eliminar a <?= htmlspecialchars(addslashes($p['nombre'])) ?>? Esta acción no se puede deshacer.');">
                     <input type="hidden" name="csrf" value="<?= $csrf ?>">
                     <input type="hidden" name="accion" value="eliminar">
@@ -216,5 +228,10 @@ require_once __DIR__ . '/header.php';
     </table>
   </div>
 </div>
+
+<p id="qr-pdf-status" role="status" aria-live="polite" style="margin-top: 1rem;"></p>
+<script src="../assets/vendor/jspdf/jspdf.umd.min.js" defer></script>
+<script src="../assets/vendor/qrcode-generator/qrcode.js" defer></script>
+<script src="../assets/js/productor-qr-pdf.js" defer></script>
 
 <?php require_once __DIR__ . '/footer.php'; ?>

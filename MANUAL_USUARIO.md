@@ -19,7 +19,7 @@
    - [3.1. Acceso y Autenticación de Operadores](#31-acceso-y-autenticación-de-operadores)
    - [3.2. Dashboard Principal y Métricas en Tiempo Real](#32-dashboard-principal-y-métricas-en-tiempo-real)
 4. [Gestión del Padrón de Productores](#4-gestión-del-padrón-de-productores)
-   - [4.1. Listado y Acciones Rápidas (Ver, QR, Destacar, Activar/Pausar, Eliminar)](#41-listado-y-acciones-rápidas)
+   - [4.1. Listado y Acciones Rápidas (Ver, QR PDF, Destacar, Activar/Pausar, Eliminar)](#41-listado-y-acciones-rápidas)
    - [4.2. Formulario de Alta y Edición (`productor-form.php`)](#42-formulario-de-alta-y-edición)
    - [4.3. Selector Geográfico Satelital Interactivo](#43-selector-geográfico-satelital-interactivo)
    - [4.4. Carga y Validación de Fotografías](#44-carga-y-validación-de-fotografías)
@@ -156,7 +156,7 @@ La tabla de productores cuenta con buscador por texto, filtro por categoría y f
 | Botón | Función | Descripción Operativa |
 | :--- | :---: | :--- |
 | **👁️ Ver** | Previsualización Canónica | Abre la URL pública amigable (`/mapa/{slug}`) en una nueva pestaña para auditar el mapa y la ficha en tiempo real. |
-| **📱 QR** | Código QR Vectorial | Despliega una ventana modal con el código QR oficial de alta resolución listo para descargar o imprimir. |
+| **📱 QR PDF** | PDF para Imprimir | Descarga un PDF A4 de una página con el nombre, rubro y datos de contacto disponibles del productor, junto a un código QR grande enlazado a su ficha en el mapa. |
 | **✏️ Editar** | Modificación Completa | Abre el formulario con todos los campos, mapa de coordenadas y selector de imágenes. |
 | **⭐ Destacado** | Toggle en 1 Clic | Activa o desactiva la insignia dorada de prioridad sin necesidad de entrar al formulario. |
 | **👁️‍🗨️ Activo / Inactivo** | Pausa Temporal | Oculta o visibiliza al productor en la web pública de manera instantánea sin borrar sus datos. |
@@ -323,7 +323,9 @@ La plataforma genera identificadores semánticos limpios (slugs) a partir del no
 
 ### 7.2. Generación e Impresión de Códigos QR
 
-Desde el listado del padrón (`/admin/productores`), el botón **«QR»** genera el código bidimensional enlazado a la URL oficial del productor.
+Desde el listado del padrón (`/admin/productores`), el botón **«QR PDF»** descarga un PDF A4 de una sola página, listo para imprimir o compartir. Incluye el nombre y rubro del productor, su dirección, WhatsApp, teléfono y horario de atención cuando estén cargados, junto a un código QR grande de 12 cm.
+
+El QR conserva la URL pública oficial del productor en el mapa (`https://sanjose.tur.ar/mapa/{slug}`). El PDF se genera en el navegador y mantiene el QR en formato vectorial para una impresión nítida. Para obtener un cartel con datos actualizados, editá la ficha del productor y volvé a descargar el PDF. Al imprimir, conservá el margen blanco alrededor del código para facilitar su lectura.
 
 #### Aplicaciones Prácticas:
 1. **Etiquetado de Envases y Packaging:** Productores de miel, licores, vinos y nueces pueden imprimir el código en sus etiquetas comerciales. El turista que compra el producto en una góndola puede escanearlo y conocer la historia del productor y cómo visitar el taller.

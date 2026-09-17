@@ -160,9 +160,9 @@ require_once __DIR__ . '/header.php';
           </div>
 
           <div style="border-left: 4px solid #059669; padding-left: 1rem;">
-            <strong style="color: var(--text-main); font-size: 0.95rem;">📱 Botón «QR» (Generación Vectorial):</strong>
+            <strong style="color: var(--text-main); font-size: 0.95rem;">📱 Botón «QR PDF» (PDF para Imprimir):</strong>
             <p style="margin: 0.25rem 0 0 0;">
-              Abre una ventana modal con el código QR oficial de alta resolución del productor, enlazado directamente a su URL amigable (ej. <code>https://sanjose.tur.ar/mapa/licores-bard</code>). Este código se puede descargar e imprimir en etiquetas de packaging, folletos o carteles para comercios.
+              Descarga un PDF A4 de una sola página con el nombre y rubro del productor, su dirección, WhatsApp, teléfono y horario de atención cuando estén cargados, junto a un código QR grande de 12 cm. El QR conserva su URL pública en el mapa (ej. <code>https://sanjose.tur.ar/mapa/licores-bard</code>) y se incluye en formato vectorial para una impresión nítida.
             </p>
           </div>
 
@@ -384,9 +384,9 @@ require_once __DIR__ . '/header.php';
         </div>
 
         <div style="background: rgba(0, 150, 199, 0.08); padding: 1rem; border-radius: 8px; border-left: 4px solid var(--color-primary);">
-          <strong style="color: var(--text-main);">¿Cómo descargar el QR de un productor?</strong>
+          <strong style="color: var(--text-main);">¿Cómo descargar el PDF con QR de un productor?</strong>
           <p style="margin: 0.3rem 0 0 0; font-size: 0.88rem;">
-            En <a href="productores" style="color: #0284c7; font-weight: 700;">Gestión de Productores</a>, hacé clic en el botón <strong>«QR»</strong> del productor deseado. Se abrirá la ventana emergente con el código en alta resolución listo para guardar como imagen o imprimir directamente.
+            En <a href="productores" style="color: #0284c7; font-weight: 700;">Gestión de Productores</a>, hacé clic en el botón <strong>«QR PDF»</strong> del productor deseado. Se descargará el PDF A4 con su nombre, los datos de contacto disponibles y el QR grande en la misma página, listo para imprimir o compartir. Si actualizás la ficha del productor, volvé a descargar el PDF para obtener los datos nuevos. Al imprimir, conservá el margen blanco alrededor del código para facilitar su lectura.
           </p>
         </div>
       </div>
