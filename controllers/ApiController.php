@@ -22,6 +22,11 @@ class ApiController {
 
         try {
             $categoria = $_GET['categoria'] ?? null;
+            if ($categoria !== null && !is_string($categoria)) {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'error' => 'La categoría indicada no es válida.'], JSON_UNESCAPED_UNICODE);
+                return;
+            }
             $soloDestacados = isset($_GET['destacados']) && $_GET['destacados'] === '1';
 
             $repo = new ProductorRepository();
@@ -102,9 +107,33 @@ class ApiController {
             $rawInput = file_get_contents('php://input');
             if (!empty($rawInput)) {
                 $decoded = json_decode($rawInput, true);
-                if (is_array($decoded)) {
-                    $input = $decoded;
+                if (json_last_error() !== JSON_ERROR_NONE || !is_array($decoded) || substr(ltrim($rawInput), 0, 1) !== '{') {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'error' => 'Los datos de la solicitud no tienen un formato válido.'], JSON_UNESCAPED_UNICODE);
+                    return;
                 }
+                $input = $decoded;
+            }
+        }
+
+        // Validar tipos y límites antes de llamar a trim o consultar la base.
+        $limites = [
+            'nombre_titular' => 150, 'dni_cuit' => 30, 'whatsapp' => 50,
+            'email' => 150, 'nombre_emprendimiento' => 150, 'rubro' => 100,
+            'direccion' => 255, 'descripcion' => 10000
+        ];
+        foreach ($limites as $campo => $maximo) {
+            if (isset($input[$campo]) && (!is_string($input[$campo]) || !mb_check_encoding($input[$campo], 'UTF-8') || mb_strlen($input[$campo], 'UTF-8') > $maximo)) {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'error' => 'Revisá el campo "' . str_replace('_', ' ', $campo) . '": debe ser texto y no superar los ' . $maximo . ' caracteres.'], JSON_UNESCAPED_UNICODE);
+                return;
+            }
+        }
+        foreach (['interes_catalogo', 'interes_mapa', 'interes_gondola', 'interes_ferias'] as $campo) {
+            if (isset($input[$campo]) && !in_array($input[$campo], ['0', '1', 0, 1, false, true], true)) {
+                http_response_code(400);
+                echo json_encode(['success' => false, 'error' => 'Las opciones de interés no son válidas.'], JSON_UNESCAPED_UNICODE);
+                return;
             }
         }
 
@@ -129,6 +158,18 @@ class ApiController {
                 'success' => false,
                 'error'   => 'Por favor completá todos los campos obligatorios requeridos (*).'
             ], JSON_UNESCAPED_UNICODE);
+            return;
+        }
+
+        if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Ingresá un correo electrónico válido o dejá ese campo vacío.'], JSON_UNESCAPED_UNICODE);
+            return;
+        }
+        $digitosWhatsapp = preg_replace('/\D/', '', $whatsapp);
+        if (!preg_match('/^\+?[0-9\s().-]+$/', $whatsapp) || strlen($digitosWhatsapp) < 6 || strlen($digitosWhatsapp) > 15) {
+            http_response_code(400);
+            echo json_encode(['success' => false, 'error' => 'Ingresá un número de WhatsApp válido, con código de área.'], JSON_UNESCAPED_UNICODE);
             return;
         }
 
@@ -186,7 +227,7 @@ class ApiController {
             http_response_code(500);
             echo json_encode([
                 'success' => false,
-                'error'   => 'Ocurrió un error al registrar la solicitud en el sistema: ' . $e->getMessage()
+                'error'   => 'No se pudo registrar la solicitud. Por favor intentá nuevamente más tarde.'
             ], JSON_UNESCAPED_UNICODE);
         }
     }
@@ -213,10 +254,11 @@ class ApiController {
                 'gondolas' => $gondolas
             ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
         } catch (Throwable $e) {
+            error_log('Error API Góndolas: ' . $e->getMessage());
             http_response_code(500);
             echo json_encode([
                 'success' => false,
-                'error'   => 'Error al obtener góndolas: ' . $e->getMessage()
+                'error'   => 'No se pudieron obtener las góndolas. Por favor intentá nuevamente más tarde.'
             ], JSON_UNESCAPED_UNICODE);
         }
     }

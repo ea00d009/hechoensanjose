@@ -1,5 +1,5 @@
 # Ocultar archivos y directorios sensibles
-<FilesMatch "^\.env|^\.env\.example">
+<FilesMatch "(?i)(^\.env(?:\.|$)|^env(?:\.example)?\.php$|\.(?:sql|log|ini|bak|backup|local_backup)(?:\.(?:gz|zip))?$)">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>
@@ -20,6 +20,10 @@ Options -Indexes
 
 # Enrutar todo a index.php
 RewriteEngine On
+# Los módulos se incluyen desde PHP; no son páginas públicas.
+RewriteRule ^(?:config|core|models|controllers|views|sql|tests)(?:/|$) - [F,L,NC]
+# No exponer instaladores y diagnósticos en el sitio público.
+RewriteRule ^(?:setup|migrar_gondolas|test_[^/]*|fix_[^/]*|[^/]+_fixed)\.php$ - [F,L,NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php [QSA,L]

@@ -11,39 +11,41 @@ require_once __DIR__ . '/../models/GondolaRepository.php';
 class AdminController {
 
     private function checkAuth() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-        if (empty($_SESSION['admin_user_id'])) {
-            header('Location: ./login');
-            exit;
-        }
+        require_once __DIR__ . '/../views/admin/auth.php';
+        requireAdmin();
     }
 
     public function dashboard() {
         $this->checkAuth();
+        if (parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH) !== adminUrl()) {
+            header('Location: ' . adminUrl());
+            exit;
+        }
         require __DIR__ . '/../views/admin/index.php';
     }
 
     public function login() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        require_once __DIR__ . '/../views/admin/auth.php';
         if (!empty($_SESSION['admin_user_id'])) {
-            header('Location: ./');
+            header('Location: ' . adminUrl());
             exit;
         }
         require __DIR__ . '/../views/admin/login.php';
     }
 
     public function postLogin() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        require_once __DIR__ . '/../views/admin/auth.php';
         
         $errorLogin = '';
-        $usuario = trim($_POST['usuario'] ?? '');
-        $password = trim($_POST['password'] ?? '');
+        $usuario = is_string($_POST['usuario'] ?? null) ? trim($_POST['usuario']) : '';
+        $password = is_string($_POST['password'] ?? null) ? $_POST['password'] : '';
+
+        if (!verifyCsrfToken($_POST['csrf'] ?? null)) {
+            http_response_code(403);
+            $errorLogin = 'La sesión del formulario venció. Volvé a intentar con este formulario.';
+            require __DIR__ . '/../views/admin/login.php';
+            return;
+        }
 
         if (empty($usuario) || empty($password)) {
             $errorLogin = 'Por favor ingresá tu nombre de usuario y contraseña.';
@@ -59,6 +61,7 @@ class AdminController {
 
             if ($user && password_verify($password, $user['password_hash'])) {
                 session_regenerate_id(true);
+                $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
                 $_SESSION['admin_user_id']  = (int)$user['id'];
                 $_SESSION['admin_username'] = $user['usuario'];
                 $_SESSION['admin_nombre']   = $user['nombre'];
@@ -67,7 +70,7 @@ class AdminController {
                 $updateStmt->execute([':id' => $user['id']]);
 
                 // Usamos ruta relativa segura para el router
-                header('Location: ./');
+                header('Location: ' . adminUrl());
                 exit;
             } else {
                 $errorLogin = 'Usuario o contraseña incorrectos.';
@@ -75,27 +78,27 @@ class AdminController {
             }
         } catch (Throwable $e) {
             error_log("Error en postLogin: " . $e->getMessage());
-            $errorLogin = 'Error de Base de Datos: ' . $e->getMessage();
+            $errorLogin = 'No se pudo iniciar sesión. Intentá nuevamente más tarde.';
             require __DIR__ . '/../views/admin/login.php';
         }
     }
 
     public function logout() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        require_once __DIR__ . '/../views/admin/auth.php';
         $_SESSION = [];
+        $params = session_get_cookie_params();
+        setcookie(session_name(), '', time() - 42000, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
         session_destroy();
-        header('Location: ./login');
+        header('Location: ' . adminUrl('login'));
         exit;
     }
 
     public function productores() {
         $this->checkAuth();
         
-        $busqueda  = trim($_GET['q'] ?? '');
-        $catFiltro = trim($_GET['categoria'] ?? 'todos');
-        $estado    = trim($_GET['estado'] ?? 'todos');
+        $busqueda  = is_string($_GET['q'] ?? null) ? trim($_GET['q']) : '';
+        $catFiltro = is_string($_GET['categoria'] ?? null) ? trim($_GET['categoria']) : 'todos';
+        $estado    = is_string($_GET['estado'] ?? null) ? trim($_GET['estado']) : 'todos';
 
         $repoProd = new ProductorRepository();
         $repoCat  = new CategoriaRepository();
@@ -120,8 +123,8 @@ class AdminController {
     public function gondolas() {
         $this->checkAuth();
 
-        $busqueda = trim($_GET['q'] ?? '');
-        $estado   = trim($_GET['estado'] ?? 'todos');
+        $busqueda = is_string($_GET['q'] ?? null) ? trim($_GET['q']) : '';
+        $estado   = is_string($_GET['estado'] ?? null) ? trim($_GET['estado']) : 'todos';
 
         $repoGondola = new GondolaRepository();
         $gondolas = $repoGondola->getAllForAdmin($busqueda, $estado);

@@ -512,7 +512,7 @@ La plataforma cuenta con **6 capas defensivas** diseñadas para operar con máxi
    ```bash
    mysql -u tu_usuario_mysql -p productores_sanjose < sql/database.sql
    ```
-   *También es posible utilizar el instalador asistido ejecutando `/setup.php` desde el navegador web.*
+   Los instaladores, diagnósticos y archivos SQL están bloqueados por HTTP. La importación inicial se realiza por CLI o phpMyAdmin; una actualización de la aplicación en producción no requiere volver a importar el esquema.
 
 4. **Acceso al Panel de Control:**
    * Navegar hacia `/admin` o `/admin/login`.
@@ -525,6 +525,7 @@ La plataforma cuenta con **6 capas defensivas** diseñadas para operar con máxi
 ## 📖 Documentación Complementaria
 
 * [**MANUAL_USUARIO.md**](MANUAL_USUARIO.md): Manual de operaciones institucionales, guía de homologación de solicitudes, exportación CSV para Excel y administración cartográfica.
+* [**ACTUALIZACION.md**](ACTUALIZACION.md): Instrucciones para aplicar las mejoras móviles y validaciones mediante el administrador de archivos.
 
 ---
 

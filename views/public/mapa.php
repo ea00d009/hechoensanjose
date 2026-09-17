@@ -61,7 +61,7 @@ if (!empty($productores)) {
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
 
   <!-- Hoja de Estilos Propia -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=<?= filemtime(__DIR__ . '/../../style.css') ?>">
   <link rel="stylesheet" href="assets/css/normalized.css">
   
   <!-- Leaflet CSS -->
@@ -192,7 +192,7 @@ if (!empty($productores)) {
     </div>
 
     <!-- Chips de Filtrado por Rubro -->
-    <div class="filter-categories-container" role="tablist">
+    <div class="filter-categories-container" role="group" aria-label="Filtrar por categoría">
       <button class="filter-chip active" data-filter="todos">
         <span>🌱 Todos</span>
       </button>
@@ -216,13 +216,13 @@ if (!empty($productores)) {
         <circle cx="11" cy="11" r="8"></circle>
         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
       </svg>
-      <input type="text" id="search-producer" class="search-input" placeholder="Buscar por nombre, rubro o calle...">
+      <input type="search" id="search-producer" class="search-input" aria-label="Buscar productores" placeholder="Buscar por nombre, rubro o calle...">
     </div>
   </div>
 
   <!-- Conmutador de Pestañas para Móvil -->
   <div class="map-mobile-tabs" id="map-mobile-tabs">
-    <button class="map-tab-btn active" id="tab-btn-map" onclick="switchMapTab('map')">
+    <button class="map-tab-btn active" id="tab-btn-map" aria-pressed="true" onclick="switchMapTab('map')">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon>
         <line x1="9" y1="3" x2="9" y2="18"></line>
@@ -230,7 +230,7 @@ if (!empty($productores)) {
       </svg>
       <span>Ver Mapa</span>
     </button>
-    <button class="map-tab-btn" id="tab-btn-list" onclick="switchMapTab('list')">
+    <button class="map-tab-btn" id="tab-btn-list" aria-pressed="false" onclick="switchMapTab('list')">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="8" y1="6" x2="21" y2="6"></line>
         <line x1="8" y1="12" x2="21" y2="12"></line>
@@ -289,6 +289,6 @@ if (!empty($productores)) {
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   
   <!-- Lógica de la Aplicación -->
-  <script src="app.js"></script>
+  <script src="app.js?v=<?= filemtime(__DIR__ . '/../../app.js') ?>"></script>
 </body>
 </html>

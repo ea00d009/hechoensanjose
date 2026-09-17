@@ -5,9 +5,10 @@
  * ==============================================================================
  */
 
-// HABILITAR ERRORES TEMPORALMENTE PARA DEBUG (Quitar en producción)
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+// Los detalles internos se registran en el servidor, sin mostrarlos al visitante.
+ini_set('display_errors', '0');
+ini_set('display_startup_errors', '0');
+ini_set('log_errors', '1');
 error_reporting(E_ALL);
 
 // Forzar codificación UTF-8 para evitar problemas de caracteres en vistas HTML
@@ -58,7 +59,10 @@ $router->post('/api/inscribir.php', [ApiController::class, 'postInscribir']);
 $router->get('/admin', [AdminController::class, 'dashboard']);
 $router->get('/admin/login', [AdminController::class, 'login']);
 $router->post('/admin/login', [AdminController::class, 'postLogin']);
+$router->get('/admin/login.php', [AdminController::class, 'login']);
+$router->post('/admin/login.php', [AdminController::class, 'postLogin']);
 $router->get('/admin/logout', [AdminController::class, 'logout']);
+$router->get('/admin/logout.php', [AdminController::class, 'logout']);
 $router->get('/admin/productores', [AdminController::class, 'productores']);
 $router->get('/admin/productores.php', [AdminController::class, 'productores']);
 $router->get('/admin/categorias', [AdminController::class, 'categorias']);

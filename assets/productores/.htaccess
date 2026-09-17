@@ -1,6 +1,6 @@
 # Prevenir la ejecución de scripts (PHP, CGI, etc.) en este directorio
-<FilesMatch "\.(php|php[0-9]|phtml|pl|py|jsp|asp|htm|html|shtml|sh|cgi)$">
-    SetHandler default-handler
+<FilesMatch "(?i)\.(php|php[0-9]|phtml|phar|pl|py|jsp|asp|htm|html|shtml|sh|cgi)$">
+    Require all denied
 </FilesMatch>
 
 # Opcional: Forzar a que solo sirvan imágenes si Apache lo permite

@@ -61,8 +61,8 @@ if (!empty($productores)) {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
 
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="assets/css/normalized.css">
+  <link rel="stylesheet" href="style.css?v=<?= filemtime(__DIR__ . '/../../style.css') ?>">
+  <link rel="stylesheet" href="assets/css/normalized.css?v=<?= filemtime(__DIR__ . '/../../assets/css/normalized.css') ?>">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛍️</text></svg>">
   <!-- Script para prevenir parpadeo de modo oscuro (Zero FOUC) -->
   <script>
@@ -82,7 +82,7 @@ if (!empty($productores)) {
     })();
   </script>
 </head>
-<body>
+<body class="catalogo-page">
 
   <!-- Barra Superior Institucional -->
   <header class="site-header">
@@ -188,7 +188,7 @@ if (!empty($productores)) {
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-            <input type="text" id="catalogo-search" placeholder="Buscar por producto, negocio o ingrediente..." class="search-input search-input-custom">
+            <input type="search" id="catalogo-search" aria-label="Buscar en el catálogo" placeholder="Buscar por producto, negocio o ingrediente..." class="search-input search-input-custom">
           </div>
 
           <!-- Filtros de categoría -->
@@ -288,7 +288,7 @@ if (!empty($productores)) {
   </script>
 
   <!-- Script del Catálogo Interactivo -->
-  <script src="app.js"></script>
+  <script src="app.js?v=<?= filemtime(__DIR__ . '/../../app.js') ?>"></script>
   <script>
     // Lógica específica para la vista de cuadrícula del catálogo
     document.addEventListener('DOMContentLoaded', async () => {
@@ -390,7 +390,7 @@ if (!empty($productores)) {
                     <span style="font-size: 0.95rem; line-height: 1;">🛒</span>
                     <div>
                       <strong style="color: #047857;">Disponible en Góndola:</strong>
-                      <span style="color: var(--text-main); font-weight: 600;"> ${p.gondolas.join(', ')}</span>
+                      <span style="color: var(--text-main); font-weight: 600;"> ${p.gondolas.map(escapeHtmlText).join(', ')}</span>
                     </div>
                   </div>
                 ` : ''}
@@ -424,8 +424,9 @@ if (!empty($productores)) {
 
       filterChips.forEach(chip => {
         chip.addEventListener('click', (e) => {
-          filterChips.forEach(c => c.classList.remove('active'));
+          filterChips.forEach(c => { c.classList.remove('active'); c.setAttribute('aria-pressed', 'false'); });
           chip.classList.add('active');
+          chip.setAttribute('aria-pressed', 'true');
           currentCat = chip.getAttribute('data-cat');
           renderCatalogo();
         });
