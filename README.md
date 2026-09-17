@@ -70,6 +70,8 @@ El esquema relacional fue diseñado para normalizar las relaciones entre rubros 
 ```mermaid
 erDiagram
     ps_categorias ||--o{ ps_productores : "clasifica (1:N)"
+    ps_gondolas ||--o{ ps_gondola_productores : "aloja (1:N)"
+    ps_productores ||--o{ ps_gondola_productores : "participa (1:N)"
     
     ps_categorias {
         VARCHAR_50 id PK "Identificador alfanumérico / slug (ej: pecan, bebidas)"
@@ -102,6 +104,31 @@ erDiagram
         TINYINT_1 activo "Bandera de visibilidad (1: Publicado, 0: Oculto)"
         TIMESTAMP creado_en "Fecha y hora de alta en el sistema"
         TIMESTAMP actualizado_en "Marca temporal de última modificación"
+    }
+
+    ps_gondolas {
+        INT id PK "Clave primaria autoincremental del exhibidor"
+        VARCHAR_150 nombre "Nombre del comercio o punto de venta"
+        VARCHAR_100 tipo "Tipo: Góndola Central, Almacén, Turismo"
+        VARCHAR_255 direccion "Dirección física o referencia del local"
+        VARCHAR_150 horario "Franja horaria de atención comercial"
+        TEXT productos "Detalle de líneas de productos exhibidos"
+        DECIMAL_10_8 lat "Coordenada de latitud satelital exacta"
+        DECIMAL_11_8 lng "Coordenada de longitud satelital exacta"
+        VARCHAR_255 gmaps_link "Enlace de navegación guiada Google Maps"
+        VARCHAR_255 imagen "Fotografía del punto de venta o exhibidor"
+        VARCHAR_50 color_badge "Paleta cromática institucional"
+        TINYINT_1 destacada "Bandera booleana (1: Destacada, 0: Normal)"
+        TINYINT_1 activa "Bandera de visibilidad (1: Publicada, 0: Pausada)"
+        INT orden "Prioridad numérica de visualización"
+        TIMESTAMP creado_en "Fecha y hora de alta en el sistema"
+        TIMESTAMP actualizado_en "Marca temporal de última modificación"
+    }
+
+    ps_gondola_productores {
+        INT gondola_id PK,FK "Referencia a ps_gondolas(id) ON DELETE CASCADE"
+        INT productor_id PK,FK "Referencia a ps_productores(id) ON DELETE CASCADE"
+        TIMESTAMP fecha_asignacion "Fecha y hora de vinculación"
     }
     
     ps_solicitudes_inscripcion {
@@ -144,11 +171,17 @@ erDiagram
    - Las columnas `lat` y `lng` utilizan `DECIMAL(10, 8)` y `DECIMAL(11, 8)` respectivamente, garantizando una precisión satelital submétrica (resolución milimétrica apta para navegación GPS).
    - Posee una clave foránea `fk_ps_productores_categoria` apuntando a `ps_categorias(id)` con regla `ON UPDATE CASCADE`.
    - Índices secundarios en `categoria_id` y `activo` para acelerar consultas de filtrado en el catálogo y mapa.
-3. **`ps_solicitudes_inscripcion`**:
+3. **`ps_gondolas`**:
+   - Registro de los puntos de venta adheridos (supermercados, vinotecas, almacenes y centros turísticos) provistos de un exhibidor municipal exclusivo de «Hecho en San José».
+   - Dispone de coordenadas satelitales (`lat`, `lng`), enlace directo a Google Maps (`gmaps_link`), control de visibilidad (`activa`) y prioridad de exhibición (`destacada`).
+4. **`ps_gondola_productores`**:
+   - Tabla relacional M:N compuesta por clave foránea compuesta `(gondola_id, productor_id)` con eliminación en cascada (`ON DELETE CASCADE`).
+   - **Sinergia Municipal y Regla de Negocio:** Materializa la directriz de que para tener presencia física en una góndola municipal, el productor debe encontrarse obligatoriamente registrado y activo en el padrón web oficial.
+5. **`ps_solicitudes_inscripcion`**:
    - Bandeja digital receptora de postulaciones ciudadanas enviadas desde `/inscribir`.
    - Columna `estado` tipada como `ENUM('pendiente', 'aprobada', 'desestimada')` con índice propio para segmentación rápida.
    - El campo `notas_admin` resguarda el número de identificación tributaria (**CUIT o DNI**) provisto por el postulante para validaciones bromatológicas y comerciales.
-4. **`ps_usuarios_admin`**:
+6. **`ps_usuarios_admin`**:
    - Credenciales de operadores autorizados para la gestión del backoffice.
    - Campo `usuario` con restricción de unicidad (`UNIQUE`).
    - El campo `password_hash` almacena hashes de longitud estándar de 60 caracteres generados con `PASSWORD_BCRYPT`.
@@ -187,7 +220,8 @@ sequenceDiagram
 ### Componentes Clave del Framework:
 * **`core/Router.php`**: Enrutador ligero basado en colecciones asociativas de rutas por método HTTP (`GET`, `POST`). Transforma comodines `{slug}` o `{id}` en expresiones regulares de captura (`([^/]+)`), extrayendo los parámetros hacia los métodos controladores.
 * **`core/Database.php`**: Proveedor de persistencia mediante Singleton que implementa verificación de contingencia (intenta cargar credenciales desde `.env`, luego desde `env.php` y finalmente desde constantes por defecto).
-* **`models/ProductorRepository.php`**: Capa de abstracción de datos para el padrón, que implementa queries parametrizadas con `LIKE` para búsquedas en vivo y filtrados combinados por categoría y estado de actividad.
+* **`models/ProductorRepository.php`**: Capa de abstracción de datos para el padrón, que implementa queries parametrizadas con `LIKE` para búsquedas en vivo, filtrados combinados por categoría/estado y sincronización relacional con góndolas.
+* **`models/GondolaRepository.php`**: Repositorio integral para la gestión de puntos de venta y exhibidores oficiales, consultas con cálculo de productores asignados y sincronización bidireccional de la tabla `ps_gondola_productores`.
 * **`models/CategoriaRepository.php`**: Repositorio de consulta y ordenamiento de rubros productivos.
 
 ---
@@ -227,7 +261,14 @@ Para soportar integraciones desacopladas y aplicaciones móviles o clientes exte
       "horario": "Lun a Sáb: 08:30 a 12:30 y 17:00 a 21:00 hs",
       "descripcion": "Fábrica centenaria fundada en 1908...",
       "destacado": 1,
-      "activo": 1
+      "activo": 1,
+      "gondolas": [
+        {
+          "id": 1,
+          "nombre": "Supermercado San José (Central)",
+          "tipo": "Góndola Central"
+        }
+      ]
     }
   ]
 }
@@ -255,6 +296,48 @@ Para soportar integraciones desacopladas y aplicaciones móviles o clientes exte
 }
 ```
 
+### 3. Obtener Red de Góndolas Municipales
+* **Ruta:** `GET /api/gondolas` (o `/api/gondolas.php`)
+* **Cabeceras:** `Accept: application/json`
+* **Parámetros de Consulta (Query Params):**
+  * `solo_activas` *(entero 0 o 1, opcional, por defecto: 1)*: Filtra solo puntos activos.
+* **Formato de Respuesta (200 OK):**
+```json
+{
+  "status": "success",
+  "total": 4,
+  "data": [
+    {
+      "id": 1,
+      "nombre": "Supermercado San José (Central)",
+      "tipo": "Góndola Central",
+      "direccion": "Centenario y Cettour, San José",
+      "horario": "Lun a Sáb: 08:00 a 12:30 y 16:30 a 20:30 hs",
+      "productos": "Miel de monte nativo, nueces pecán, dulces caseros y licores",
+      "lat": -32.20350000,
+      "lng": -58.21980000,
+      "gmaps_link": "https://maps.google.com/?q=-32.20350000,-58.21980000",
+      "imagen": "assets/productores/gondola1.jpg",
+      "color_badge": "emerald",
+      "destacada": 1,
+      "activa": 1,
+      "productores": [
+        {
+          "id": 1,
+          "nombre": "Licores Bard",
+          "slug": "licores-bard"
+        },
+        {
+          "id": 2,
+          "nombre": "Establecimiento Los Pecanes",
+          "slug": "establecimiento-los-pecanes"
+        }
+      ]
+    }
+  ]
+}
+```
+
 ---
 
 ## 📁 Estructura del Proyecto y Organización Modular
@@ -267,6 +350,7 @@ productores-sanjose/
 ├── style.css                 # Sistema de diseño global (tokens, dark mode, responsive, print)
 ├── app.js                    # Controlador cliente: Leaflet, auto-enfoque, flyTo y filtros
 ├── setup.php                 # Asistente web para migración e inicialización de DB
+├── migrar_gondolas.php       # Script de migración y seed para la red de góndolas y relaciones
 ├── .htaccess                 # Reglas mod_rewrite, cabeceras HTTP y directivas de seguridad
 ├── .gitignore                # Reglas de exclusión de repositorio Git
 │
@@ -280,24 +364,27 @@ productores-sanjose/
 │   └── ApiController.php     # Manejador de endpoints JSON de la API REST
 │
 ├── models/                   # Capa de persistencia y repositorios
-│   ├── ProductorRepository.php   # Consultas parametrizadas, búsquedas y filtros de productores
+│   ├── ProductorRepository.php   # Consultas parametrizadas, búsquedas, filtros y sinergia de góndolas
+│   ├── GondolaRepository.php     # Gestión de puntos de venta, asignación y cálculo de productores
 │   └── CategoriaRepository.php   # Consultas y persistencia de categorías y rubros
 │
 ├── views/                    # Plantillas de renderizado
 │   ├── public/               # Vistas públicas para turistas y vecinos
 │   │   ├── home.php          # Portada institucional con métricas y destacados
 │   │   ├── mapa.php          # Mapa cartográfico interactivo con soporte de slugs
-│   │   ├── catalogo.php      # Catálogo interactivo con buscador en vivo y contadores
-│   │   ├── gondola.php       # Directorio de puntos de venta y góndolas oficiales
-│   │   ├── inscribir.php     # Formulario de postulación en 4 pasos guiados
-│   │   └── informe.php       # Expediente técnico institucional
+│   │   ├── catalogo.php      # Catálogo interactivo con buscador en vivo, contadores y badges de góndola
+│   │   ├── gondola.php       # Directorio de puntos de venta y productores locales vinculados
+│   │   └── inscribir.php     # Formulario de postulación en 4 pasos guiados
 │   └── admin/                # Vistas del panel de administración
 │       ├── index.php         # Tablero principal con métricas cuantitativas
 │       ├── login.php         # Formulario seguro de inicio de sesión
-│       ├── productores.php   # Padrón con acciones rápidas: Ver, QR, Editar, Destacar
-│       ├── productor-form.php# Formulario con selector Leaflet satelital y subida MIME
+│       ├── productores.php   # Padrón con acciones rápidas, QR y conteo de góndolas
+│       ├── productor-form.php# Formulario con mapa satelital, subida MIME y Sección 5 de Góndolas
 │       ├── productor-acciones.php # Procesador de toggle y eliminación protegida
-│       ├── solicitudes.php   # Bandeja de homologación con aprobación en 1 clic
+│       ├── gondolas.php      # ABM de góndolas y puntos de venta con conteo de productores
+│       ├── gondola-form.php  # Formulario con mapa y selector de productores asignados
+│       ├── gondola-acciones.php # Procesador de acciones de góndolas
+│       ├── solicitudes.php   # Bandeja de homologación con botón «Aprobar y Asignar a Góndolas»
 │       ├── categorias.php    # Editor de categorías, simbología y colores
 │       ├── exportar-csv.php  # Exportador del padrón y solicitudes en formato Excel (BOM)
 │       ├── manual.php        # Manual de operaciones web interactivo
@@ -306,13 +393,14 @@ productores-sanjose/
 │
 ├── api/                      # Puntos de entrada para compatibilidad directa
 │   ├── productores.php       # Delegador al controlador ApiController::getProductores
+│   ├── gondolas.php          # Delegador al controlador ApiController::getGondolas
 │   └── inscribir.php         # Delegador al controlador ApiController::postInscribir
 │
 ├── config/                   # Configuración del entorno de ejecución
 │   └── db.php                # Conector legado y cargador de variables .env / env.php
 │
 ├── sql/                      # Scripts de base de datos relacional
-│   └── database.sql          # Estructura DDL completa y padrón de los 11 productores auténticos
+│   └── database.sql          # Estructura DDL completa, 11 productores auténticos y góndolas
 │
 └── assets/                   # Recursos estáticos servidos al cliente
     ├── css/

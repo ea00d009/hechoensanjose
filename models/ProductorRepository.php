@@ -24,9 +24,13 @@ class ProductorRepository {
                 COALESCE(p.tag_class, c.tag_class) AS tagClass,
                 COALESCE(p.pin_color, c.pin_color) AS pinColor,
                 p.imagen, COALESCE(p.icono_svg, c.icono_svg) AS iconoSvg,
-                p.lat, p.lng, p.direccion, p.telefono, p.whatsapp, p.horario, p.descripcion, p.destacado
+                p.lat, p.lng, p.direccion, p.telefono, p.whatsapp, p.horario, p.descripcion, p.destacado,
+                GROUP_CONCAT(DISTINCT g.nombre ORDER BY g.orden ASC SEPARATOR '||') AS gondolas_nombres,
+                GROUP_CONCAT(DISTINCT g.id ORDER BY g.orden ASC SEPARATOR ',') AS gondolas_ids
             FROM `ps_productores` p
             LEFT JOIN `ps_categorias` c ON p.categoria_id = c.id
+            LEFT JOIN `ps_gondola_productores` gp ON p.id = gp.productor_id
+            LEFT JOIN `ps_gondolas` g ON gp.gondola_id = g.id AND g.activo = 1
             WHERE p.activo = 1
         ";
 
@@ -41,7 +45,7 @@ class ProductorRepository {
             $sql .= " AND p.destacado = 1";
         }
 
-        $sql .= " ORDER BY p.destacado DESC, p.id ASC";
+        $sql .= " GROUP BY p.id ORDER BY p.destacado DESC, p.id ASC";
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
@@ -53,9 +57,13 @@ class ProductorRepository {
      */
     public function getAllForAdmin(string $busqueda = '', string $categoria = 'todos', string $estado = 'todos'): array {
         $sql = "
-            SELECT p.*, c.nombre AS categoria_nombre, c.tag_class, c.pin_color 
+            SELECT p.*, c.nombre AS categoria_nombre, c.tag_class, c.pin_color,
+                   COUNT(DISTINCT gp.gondola_id) AS total_gondolas,
+                   GROUP_CONCAT(DISTINCT g.nombre ORDER BY g.orden ASC SEPARATOR ', ') AS gondolas_nombres
             FROM `ps_productores` p
             LEFT JOIN `ps_categorias` c ON p.categoria_id = c.id
+            LEFT JOIN `ps_gondola_productores` gp ON p.id = gp.productor_id
+            LEFT JOIN `ps_gondolas` g ON gp.gondola_id = g.id AND g.activo = 1
             WHERE 1=1
         ";
         
@@ -79,7 +87,7 @@ class ProductorRepository {
             $sql .= " AND p.destacado = 1";
         }
 
-        $sql .= " ORDER BY p.id ASC";
+        $sql .= " GROUP BY p.id ORDER BY p.id ASC";
 
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);

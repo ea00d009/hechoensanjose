@@ -15,6 +15,7 @@ $totalProductores = (int)$pdo->query("SELECT COUNT(*) FROM `ps_productores`")->f
 $totalActivos     = (int)$pdo->query("SELECT COUNT(*) FROM `ps_productores` WHERE `activo` = 1")->fetchColumn();
 $totalDestacados  = (int)$pdo->query("SELECT COUNT(*) FROM `ps_productores` WHERE `destacado` = 1")->fetchColumn();
 $totalSolicitudes = (int)$pdo->query("SELECT COUNT(*) FROM `ps_solicitudes_inscripcion` WHERE `estado` = 'pendiente'")->fetchColumn();
+$totalGondolas    = (int)$pdo->query("SELECT COUNT(*) FROM `ps_gondolas` WHERE `activo` = 1")->fetchColumn();
 
 // Ãšltimos productores modificados
 $ultimosProductores = $pdo->query("
@@ -51,7 +52,10 @@ $ultimasSolicitudes = $pdo->query("
       Gestión centralizada del mapa interactivo, catálogo y puntos de venta oficiales.
     </p>
   </div>
-  <div style="display: flex; gap: 0.75rem;">
+  <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+    <a href="gondola-form.php" class="btn btn-outline" style="padding: 10px 18px; font-size: 0.9rem; color: #0d9488; border-color: #0d9488;">
+      + Nueva Góndola
+    </a>
     <a href="productor-form.php" class="btn btn-accent" style="padding: 10px 20px; font-size: 0.9rem;">
       + Cargar Nuevo Productor
     </a>
@@ -62,7 +66,7 @@ $ultimasSolicitudes = $pdo->query("
 </div>
 
 <!-- Grilla de Métricas -->
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1.25rem; margin-bottom: 2rem;">
   
   <div class="card-admin" style="display: flex; align-items: center; gap: 1.25rem;">
     <div style="width: 52px; height: 52px; border-radius: 12px; background: #e0f2fe; color: #0284c7; display: flex; align-items: center; justify-content: center;">
@@ -84,13 +88,23 @@ $ultimasSolicitudes = $pdo->query("
     </div>
   </div>
 
+  <a href="gondolas.php" class="card-admin" style="display: flex; align-items: center; gap: 1.25rem; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;">
+    <div style="width: 52px; height: 52px; border-radius: 12px; background: #ccfbf1; color: #0d9488; display: flex; align-items: center; justify-content: center;">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    </div>
+    <div>
+      <div style="font-size: 1.8rem; font-weight: 800; color: #0d9488;"><?= $totalGondolas ?></div>
+      <div style="font-size: 0.85rem; color: var(--text-muted, #64748b); font-weight: 600;">Góndolas Habilitadas</div>
+    </div>
+  </a>
+
   <div class="card-admin" style="display: flex; align-items: center; gap: 1.25rem;">
     <div style="width: 52px; height: 52px; border-radius: 12px; background: #fef3c7; color: #d97706; display: flex; align-items: center; justify-content: center;">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
     </div>
     <div>
       <div style="font-size: 1.8rem; font-weight: 800; color: #d97706;"><?= $totalDestacados ?></div>
-      <div style="font-size: 0.85rem; color: var(--text-muted, #64748b); font-weight: 600;">Establecimientos Destacados</div>
+      <div style="font-size: 0.85rem; color: var(--text-muted, #64748b); font-weight: 600;">Productores Destacados</div>
     </div>
   </div>
 
