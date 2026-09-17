@@ -157,7 +157,7 @@
         <p class="s-10a9a526">Completá los datos de tu emprendimiento para ser evaluado por el equipo técnico municipal.</p>
       </div>
 
-      <form id="registro-form" onsubmit="handleFormSubmit(event)">
+      <form id="registro-form" method="POST" action="api/inscribir" onsubmit="handleFormSubmit(event)">
 
         <!-- Sección 1: Datos del Titular -->
         <div class="s-2579959f">
@@ -168,19 +168,19 @@
           <div class="form-two-col s-f76dfa49">
             <div>
               <label class="s-65bd4b79">Nombre y Apellido *</label>
-              <input type="text" name="nombre_titular" required placeholder="Ej. Martina Baccón" class="search-input s-50ca1596">
+              <input type="text" name="nombre_titular" maxlength="150" autocomplete="name" required placeholder="Ej. Martina Baccón" class="search-input s-50ca1596">
             </div>
             <div>
               <label class="s-65bd4b79">DNI o CUIT *</label>
-              <input type="text" name="dni_cuit" required placeholder="Ej. 20-34567890-4" class="search-input s-50ca1596">
+              <input type="text" name="dni_cuit" maxlength="30" required placeholder="Ej. 20-34567890-4" class="search-input s-50ca1596">
             </div>
             <div>
               <label class="s-65bd4b79">Teléfono Celular / WhatsApp *</label>
-              <input type="tel" name="whatsapp" required placeholder="Ej. +54 9 3447 45-1234" class="search-input s-50ca1596">
+              <input type="tel" name="whatsapp" maxlength="50" autocomplete="tel" required placeholder="Ej. +54 9 3447 45-1234" class="search-input s-50ca1596">
             </div>
             <div>
               <label class="s-65bd4b79">Correo Electrónico</label>
-              <input type="email" name="email" placeholder="nombre@ejemplo.com" class="search-input s-50ca1596">
+              <input type="email" name="email" maxlength="150" autocomplete="email" placeholder="nombre@ejemplo.com" class="search-input s-50ca1596">
             </div>
           </div>
         </div>
@@ -194,7 +194,7 @@
           <div class="form-two-col s-f76dfa49">
             <div>
               <label class="s-65bd4b79">Nombre del Emprendimiento / Marca *</label>
-              <input type="text" name="nombre_emprendimiento" required placeholder="Ej. Alfajores y Dulces La Colonia" class="search-input s-50ca1596">
+              <input type="text" name="nombre_emprendimiento" maxlength="150" autocomplete="organization" required placeholder="Ej. Alfajores y Dulces La Colonia" class="search-input s-50ca1596">
             </div>
             <div>
               <label class="s-65bd4b79">Rubro Productivo *</label>
@@ -212,11 +212,11 @@
             </div>
             <div class="s-e86cdd0b">
               <label class="s-65bd4b79">Dirección del Establecimiento / Taller en San José *</label>
-              <input type="text" name="direccion" required placeholder="Calle, número o camino rural de referencia" class="search-input s-50ca1596">
+              <input type="text" name="direccion" maxlength="255" autocomplete="street-address" required placeholder="Calle, número o camino rural de referencia" class="search-input s-50ca1596">
             </div>
             <div class="s-e86cdd0b">
               <label class="s-65bd4b79">Descripción de los Productos y Materias Primas Locales *</label>
-              <textarea name="descripcion" required rows="4" placeholder="Contanos qué producís, qué insumos utilizás de nuestra región y cómo elaborás tus productos..." class="search-input s-1706339d"></textarea>
+              <textarea name="descripcion" maxlength="10000" required rows="4" placeholder="Contanos qué producís, qué insumos utilizás de nuestra región y cómo elaborás tus productos..." class="search-input s-1706339d"></textarea>
             </div>
           </div>
         </div>
@@ -248,6 +248,7 @@
         </div>
 
         <!-- Botón de Envío -->
+        <p id="registro-error" role="alert" tabindex="-1" hidden></p>
         <div class="s-545f76ce">
           <button type="submit" class="btn btn-accent s-c711011d">
             <span>Enviar Solicitud de Registro &rarr;</span>
@@ -260,7 +261,7 @@
         <div class="s-c65b13db">
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
-        <h3 class="s-7acbb626">¿Solicitud enviada con éxito!</h3>
+        <h3 class="s-7acbb626">¡Solicitud enviada con éxito!</h3>
         <p class="s-df0fb330">
           Tu inscripción al programa <strong>«Hecho en San José»</strong> fue registrada. El equipo de la Secretaría de Educación, Cultura y Turismo revisará la información y se comunicará vía WhatsApp para coordinar la visita y validación del sello de origen.
         </p>
@@ -336,6 +337,9 @@
       e.preventDefault();
       const form = document.getElementById('registro-form');
       const submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn.disabled) return;
+      const errorBox = document.getElementById('registro-error');
+      errorBox.hidden = true;
       const originalText = submitBtn.innerHTML;
 
       submitBtn.disabled = true;
@@ -369,13 +373,17 @@
           document.getElementById('mensaje-exito').style.display = 'block';
           document.getElementById('mensaje-exito').scrollIntoView({ behavior: 'smooth' });
         } else {
-          alert(data.error || 'Hubo un inconveniente al enviar la solicitud. Por favor verificá los datos ingresados.');
+          errorBox.textContent = data.error || 'Hubo un inconveniente al enviar la solicitud. Por favor verificá los datos ingresados.';
+          errorBox.hidden = false;
+          errorBox.focus();
           submitBtn.disabled = false;
           submitBtn.innerHTML = originalText;
         }
       } catch (err) {
         console.error('Error al enviar la solicitud de inscripción:', err);
-        alert('No se pudo completar el envío de la solicitud. Por favor verificá tu conexión a internet e intentalo nuevamente.');
+        errorBox.textContent = 'No se pudo completar el envío de la solicitud. Por favor verificá tu conexión a internet e intentalo nuevamente.';
+        errorBox.hidden = false;
+        errorBox.focus();
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalText;
       }

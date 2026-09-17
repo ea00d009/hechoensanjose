@@ -41,8 +41,10 @@ class GondolaRepository {
         $params = [];
 
         if ($busqueda !== '') {
-            $sql .= " AND (g.nombre LIKE :q OR g.tipo LIKE :q OR g.direccion LIKE :q OR g.descripcion LIKE :q OR g.productos_destacados LIKE :q)";
-            $params[':q'] = "%{$busqueda}%";
+            $sql .= " AND (g.nombre LIKE :q_nombre OR g.tipo LIKE :q_tipo OR g.direccion LIKE :q_direccion OR g.descripcion LIKE :q_descripcion OR g.productos_destacados LIKE :q_productos)";
+            foreach (['nombre', 'tipo', 'direccion', 'descripcion', 'productos'] as $campo) {
+                $params[':q_' . $campo] = "%{$busqueda}%";
+            }
         }
 
         if ($estado === 'activos') {
@@ -244,23 +246,24 @@ class GondolaRepository {
      * Sincroniza las góndolas asignadas a un productor
      */
     public function syncGondolasForProductor(int $productorId, array $gondolaIds): void {
-        $this->pdo->beginTransaction();
+        $ownsTransaction = !$this->pdo->inTransaction();
+        if ($ownsTransaction) $this->pdo->beginTransaction();
         try {
             $del = $this->pdo->prepare("DELETE FROM `ps_gondola_productores` WHERE `productor_id` = :pid");
             $del->execute([':pid' => $productorId]);
 
             if (!empty($gondolaIds)) {
-                $ins = $this->pdo->prepare("INSERT IGNORE INTO `ps_gondola_productores` (`gondola_id`, `productor_id`) VALUES (:gid, :pid)");
-                foreach ($gondolaIds as $gid) {
+                $ins = $this->pdo->prepare("INSERT INTO `ps_gondola_productores` (`gondola_id`, `productor_id`) VALUES (:gid, :pid)");
+                foreach (array_unique($gondolaIds) as $gid) {
                     $gidInt = (int)$gid;
                     if ($gidInt > 0) {
                         $ins->execute([':gid' => $gidInt, ':pid' => $productorId]);
                     }
                 }
             }
-            $this->pdo->commit();
+            if ($ownsTransaction) $this->pdo->commit();
         } catch (Throwable $e) {
-            $this->pdo->rollBack();
+            if ($ownsTransaction && $this->pdo->inTransaction()) $this->pdo->rollBack();
             throw $e;
         }
     }
@@ -269,23 +272,24 @@ class GondolaRepository {
      * Sincroniza los productores asignados a una góndola
      */
     public function syncProductoresForGondola(int $gondolaId, array $productorIds): void {
-        $this->pdo->beginTransaction();
+        $ownsTransaction = !$this->pdo->inTransaction();
+        if ($ownsTransaction) $this->pdo->beginTransaction();
         try {
             $del = $this->pdo->prepare("DELETE FROM `ps_gondola_productores` WHERE `gondola_id` = :gid");
             $del->execute([':gid' => $gondolaId]);
 
             if (!empty($productorIds)) {
-                $ins = $this->pdo->prepare("INSERT IGNORE INTO `ps_gondola_productores` (`gondola_id`, `productor_id`) VALUES (:gid, :pid)");
-                foreach ($productorIds as $pid) {
+                $ins = $this->pdo->prepare("INSERT INTO `ps_gondola_productores` (`gondola_id`, `productor_id`) VALUES (:gid, :pid)");
+                foreach (array_unique($productorIds) as $pid) {
                     $pidInt = (int)$pid;
                     if ($pidInt > 0) {
                         $ins->execute([':gid' => $gondolaId, ':pid' => $pidInt]);
                     }
                 }
             }
-            $this->pdo->commit();
+            if ($ownsTransaction) $this->pdo->commit();
         } catch (Throwable $e) {
-            $this->pdo->rollBack();
+            if ($ownsTransaction && $this->pdo->inTransaction()) $this->pdo->rollBack();
             throw $e;
         }
     }

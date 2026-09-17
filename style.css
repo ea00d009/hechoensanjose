@@ -1239,7 +1239,7 @@ a {
 .leaflet-popup-content {
   margin: 0 !important;
   line-height: 1.5;
-  width: 310px !important;
+  overflow-wrap: anywhere;
 }
 
 .popup-card {
@@ -1249,7 +1249,6 @@ a {
 
 .popup-card.has-cover {
   padding: 0;
-  overflow: hidden;
 }
 
 .popup-cover {
@@ -1356,9 +1355,14 @@ a {
 .popup-actions {
   display: flex;
   gap: 8px;
+  position: sticky;
+  bottom: 0;
+  padding: 8px 0;
+  background: var(--bg-card, #fff);
 }
 
 .btn-popup-action {
+  min-height: 44px;
   flex: 1;
   padding: 7px 10px;
   border-radius: var(--radius-sm);
@@ -1374,6 +1378,10 @@ a {
 .btn-whatsapp {
   background: #25d366;
   color: #ffffff;
+}
+
+.leaflet-container a.btn-whatsapp {
+  color: #063b25;
 }
 
 .btn-whatsapp:hover {
@@ -2257,6 +2265,71 @@ textarea:focus-visible {
   box-shadow: 0 0 0 4px rgba(0, 150, 199, 0.25) !important;
 }
 
+.popup-gondolas-info {
+  margin: 8px 0;
+  padding: 8px;
+  background: rgba(5, 150, 105, 0.08);
+  border: 1px solid rgba(5, 150, 105, 0.25);
+  border-radius: 6px;
+  font-size: 0.78rem;
+  color: #065f46;
+  line-height: 1.45;
+}
+[data-theme="dark"] .popup-gondolas-info { color: #a7f3d0; }
+.leaflet-popup-content.leaflet-popup-scrolled { border: 0; overscroll-behavior: contain; }
+
+@media (max-width: 480px) {
+  .map-page-body .header-main { padding: 0.55rem 0.75rem !important; gap: 8px; }
+  .map-page-body .logo-group { max-width: none; min-width: 0; flex: 1; }
+  .map-page-body .logo-link-wrap,
+  .map-page-body .logo-divider,
+  .map-page-body .logo-group > .s-f312428b { display: none; }
+  .map-page-body .logo-titles { min-width: 0; }
+  .map-page-body .logo-titles h1 { font-size: 1rem; }
+  .map-page-body .logo-subtitle { font-size: 0.6rem; }
+}
+
+@media (max-width: 360px) {
+  .map-page-body .btn-back { min-width: 44px; min-height: 44px; padding: 8px; justify-content: center; }
+  .map-page-body .btn-back span { display: none; }
+}
+
+@media (max-height: 650px) {
+  .map-page-body .popup-cover { display: none; }
+  .map-page-body .popup-title { padding-right: 42px; }
+}
+
+/* Conservar espacio de mapa al girar un teléfono horizontalmente. */
+@media (min-width: 769px) and (max-width: 1024px) and (max-height: 650px) {
+  .map-page-body .header-main { padding: 0.4rem 1rem !important; gap: 8px; }
+  .map-page-body .logo-link-wrap,
+  .map-page-body .logo-divider,
+  .map-page-body .logo-group > .s-f312428b,
+  .map-page-body .nav-actions > a[target="_blank"] { display: none; }
+  .map-page-body .logo-titles h1 { font-size: 1rem; white-space: nowrap; }
+  .map-page-body .logo-subtitle { font-size: 0.6rem; }
+  .map-page-body .map-control-bar { display: grid; grid-template-columns: 1fr 240px; padding: 6px 1rem; gap: 6px; flex-shrink: 0; }
+  .map-page-body .map-page-title-group { grid-column: 1; grid-row: 1; }
+  .map-page-body .search-box-wrap { grid-column: 2; grid-row: 1; min-width: 0; }
+  .map-page-body .filter-categories-container { grid-column: 1 / -1; flex-wrap: nowrap; overflow-x: auto; }
+  .map-page-body .filter-chip { flex-shrink: 0; min-height: 44px; }
+  .map-page-body .map-app-layout { min-height: 0; }
+  .map-page-body .producers-sidebar { width: 260px; flex-shrink: 0; }
+}
+
+@media (max-width: 768px) {
+  .map-page-body > .site-header,
+  .map-control-bar,
+  .map-mobile-tabs { flex-shrink: 0; }
+  .map-app-layout { min-height: 0; }
+  .filter-chip, .map-tab-btn { min-height: 44px; }
+  .search-input { font-size: 16px; }
+  .leaflet-popup-close-button { width: 44px !important; height: 44px !important; font-size: 24px !important; }
+  .popup-cover { height: 105px; }
+  .popup-body { padding: 0.8rem; }
+  .popup-cover-overlay { right: 54px; flex-wrap: wrap; gap: 4px; }
+}
+
 /* Áreas mínimas táctiles para pantallas móviles (44px) */
 @media (pointer: coarse) {
   .btn,
@@ -2335,5 +2408,3 @@ textarea:focus-visible {
 [data-theme="dark"] .card-gondolas-badge-wrap strong {
   color: #6ee7b7 !important;
 }
-
-

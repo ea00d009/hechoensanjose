@@ -25,6 +25,19 @@
 .search-input-custom { padding: 12px 18px 12px 46px; font-size: 0.95rem; border-radius: 9999px; box-shadow: var(--shadow-sm); }
 .filter-container-center { justify-content: center; }
 
+@media (max-width: 768px) {
+  .catalogo-page #catalogo-filters { justify-content: flex-start; }
+  .catalogo-page .hero-section-custom { padding: 1.5rem 1rem; }
+  .catalogo-page .page-hero-title { font-size: clamp(1.65rem, 7vw, 2rem); line-height: 1.2; }
+  .catalogo-page .hero-search-wrapper { margin-top: 1.25rem; }
+  .catalogo-page .search-input-custom { font-size: 16px; }
+  .catalogo-page .main-container-custom { padding: 1.5rem 1rem 3rem; }
+  .catalogo-page .card-content-custom { padding: 1rem; }
+  .catalogo-page .card-actions .btn { min-height: 44px; flex: 1; }
+  .catalogo-page .card-title-custom,
+  .catalogo-page .card-info-row { overflow-wrap: anywhere; min-width: 0; }
+}
+
 /* --- Main Layout --- */
 .main-container-custom { max-width: 1280px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
 .main-title-custom { font-size: 1.3rem; color: var(--text-main); }
