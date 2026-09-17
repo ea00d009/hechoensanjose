@@ -290,12 +290,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (targetParam) {
     setTimeout(() => {
-      const targetInt = parseInt(targetParam, 10);
       const matched = PRODUCTORES_SAN_JOSE.find(p =>
-        (targetInt && p.id === targetInt) ||
-        (p.slug && p.slug === targetParam) ||
+        p.slug && p.slug === targetParam
+      ) || PRODUCTORES_SAN_JOSE.find(p =>
         slugifyJs(p.nombre) === targetParam
-      );
+      ) || (/^\d+$/.test(targetParam)
+        ? PRODUCTORES_SAN_JOSE.find(p => p.id === Number(targetParam))
+        : null);
       if (matched) {
         focusProducer(matched.id);
       }

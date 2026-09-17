@@ -45,6 +45,9 @@ assert.ok(bases.length, 'Indicá al menos una URL local');
     for (const page of ['/admin/productores', '/admin/productores/', '/admin/productores.php/']) {
       const listing = await request(page);
       assert.equal(listing.status, 200);
+      const encodedData = listing.text.match(/data-productor-qr="([^"]+)"/)[1];
+      const qrData = JSON.parse(encodedData.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&'));
+      assert.equal(qrData.url, 'https://sanjose.tur.ar/hechoensanjose/' + qrData.slug);
       const scripts = [...listing.text.matchAll(/<script src="([^"]+)"/g)]
         .map(match => new URL(match[1], base + page))
         .filter(script => /jspdf|qrcode|productor-qr-pdf/.test(script.pathname));
@@ -68,6 +71,16 @@ assert.ok(bases.length, 'Indicá al menos una URL local');
       assert.equal((await request(path)).status, 200, path + ' debe seguir disponible');
     }
     const missing = await request('/ruta-%3Cscript%3E');
+    for (const slug of ['licores-bard', 'vinedos-y-bodega-vulliez-sermet']) {
+      const ficha = await request('/' + slug);
+      assert.equal(ficha.status, 200);
+      assert.ok(ficha.text.includes('window.TARGET_PRODUCER_PARAM = "' + slug + '"'));
+      assert.ok(ficha.text.includes('<base href="' + url.pathname.replace(/\/$/, '') + '/">'));
+    }
+    for (const path of ['/catalogo', '/mapa', '/gondola', '/inscribir']) {
+      assert.equal((await request(path)).status, 200, 'Las secciones mantienen sus rutas');
+    }
+    assert.equal((await request('/api/ruta-inexistente-qa')).status, 404);
     assert.ok([403, 404].includes(missing.status));
     assert.equal((await request('/ruta-inexistente-qa')).status, 404);
     assert.ok(!missing.text.includes('<script>'));

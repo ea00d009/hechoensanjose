@@ -197,7 +197,7 @@ require_once __DIR__ . '/header.php';
                       'whatsapp' => $p['whatsapp'] ?? '',
                       'horario' => $p['horario'] ?? '',
                       'slug' => $pSlug,
-                      'url' => 'https://sanjose.tur.ar/mapa/' . $pSlug,
+                      'url' => 'https://sanjose.tur.ar/hechoensanjose/' . $pSlug,
                     ];
                   ?>
                   <a href="productor-form.php?id=<?= $p['id'] ?>" class="btn btn-outline btn-sm" title="Modificar datos">

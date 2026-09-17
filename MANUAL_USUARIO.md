@@ -315,17 +315,17 @@ La plataforma genera identificadores semánticos limpios (slugs) a partir del no
 
 | Productor | URL Amigable Oficial |
 | :--- | :--- |
-| Licores Bard | `https://sanjose.tur.ar/mapa/licores-bard` |
-| Establecimiento Los Pecanes | `https://sanjose.tur.ar/mapa/establecimiento-los-pecanes` |
-| Apícola La Sanjosesina | `https://sanjose.tur.ar/mapa/apicola-la-sanjosesina` |
-| Viñedos & Bodega Vulliez Sermet | `https://sanjose.tur.ar/mapa/vinedos-y-bodega-vulliez-sermet` |
-| Cuchillería Sanjo Tradición | `https://sanjose.tur.ar/mapa/cuchilleria-sanjo-tradicion` |
+| Licores Bard | `https://sanjose.tur.ar/hechoensanjose/licores-bard` |
+| Establecimiento Los Pecanes | `https://sanjose.tur.ar/hechoensanjose/establecimiento-los-pecanes` |
+| Apícola La Sanjosesina | `https://sanjose.tur.ar/hechoensanjose/apicola-la-sanjosesina` |
+| Viñedos & Bodega Vulliez Sermet | `https://sanjose.tur.ar/hechoensanjose/vinedos-y-bodega-vulliez-sermet` |
+| Cuchillería Sanjo Tradición | `https://sanjose.tur.ar/hechoensanjose/cuchilleria-sanjo-tradicion` |
 
 ### 7.2. Generación e Impresión de Códigos QR
 
 Desde el listado del padrón (`/admin/productores`), el botón **«QR PDF»** descarga un PDF A4 de una sola página, listo para imprimir o compartir. Incluye el nombre y rubro del productor, su dirección, WhatsApp, teléfono y horario de atención cuando estén cargados, junto a un código QR grande de 12 cm.
 
-El QR conserva la URL pública oficial del productor en el mapa (`https://sanjose.tur.ar/mapa/{slug}`). El PDF se genera en el navegador y mantiene el QR en formato vectorial para una impresión nítida. Para obtener un cartel con datos actualizados, editá la ficha del productor y volvé a descargar el PDF. Al imprimir, conservá el margen blanco alrededor del código para facilitar su lectura.
+El QR conserva la URL pública oficial del productor en el mapa (`https://sanjose.tur.ar/hechoensanjose/{slug}`). El PDF se genera en el navegador y mantiene el QR en formato vectorial para una impresión nítida. Para obtener un cartel con datos actualizados, editá la ficha del productor y volvé a descargar el PDF. Al imprimir, conservá el margen blanco alrededor del código para facilitar su lectura.
 
 #### Aplicaciones Prácticas:
 1. **Etiquetado de Envases y Packaging:** Productores de miel, licores, vinos y nueces pueden imprimir el código en sus etiquetas comerciales. El turista que compra el producto en una góndola puede escanearlo y conocer la historia del productor y cómo visitar el taller.

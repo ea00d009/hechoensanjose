@@ -43,6 +43,26 @@ class PublicController {
         require __DIR__ . '/../views/public/mapa.php';
     }
 
+    public function fichaProductor($params = []) {
+        $productorRepo = new ProductorRepository();
+        $productores = $productorRepo->getActivos();
+        $targetParam = $params['slug'] ?? '';
+        $coincidencias = 0;
+        foreach ($productores as $productor) {
+            // Mismo normalizador usado por la vista del mapa y el botón QR.
+            $slug = mb_strtolower(trim($productor['nombre']), 'UTF-8');
+            $slug = strtr($slug, ['á'=>'a','é'=>'e','í'=>'i','ó'=>'o','ú'=>'u','à'=>'a','è'=>'e','ì'=>'i','ò'=>'o','ù'=>'u','ä'=>'a','ë'=>'e','ï'=>'i','ö'=>'o','ü'=>'u','ñ'=>'n','ç'=>'c','&'=>'y']);
+            $slug = trim(preg_replace('/[^a-z0-9]+/i', '-', $slug), '-');
+            if ($slug === $targetParam) $coincidencias++;
+        }
+        if ($coincidencias !== 1) {
+            http_response_code(404);
+            echo '<h1>Productor no encontrado</h1><p>La ficha no está disponible.</p>';
+            return;
+        }
+        require __DIR__ . '/../views/public/mapa.php';
+    }
+
     public function inscribir() {
         require __DIR__ . '/../views/public/inscribir.php';
     }

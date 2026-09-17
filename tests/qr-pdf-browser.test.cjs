@@ -16,7 +16,7 @@ function fixture({ missingQr = false, saveError = false } = {}) {
     scrollIntoView() { this.scrolled = true; }
   };
   const button = { textContent: 'QR PDF', disabled: false, attrs: {},
-    dataset: { productorQr: JSON.stringify({ nombre: 'Licores Bard', slug: 'licores-bard', url: 'https://sanjose.tur.ar/mapa/licores-bard', whatsapp: '5493447123456' }) },
+    dataset: { productorQr: JSON.stringify({ nombre: 'Licores Bard', slug: 'licores-bard', url: 'https://sanjose.tur.ar/hechoensanjose/licores-bard', whatsapp: '5493447123456' }) },
     setAttribute(key, value) { this.attrs[key] = value; },
     removeAttribute(key) { delete this.attrs[key]; },
     addEventListener(event, listener) { assert.equal(event, 'click'); clicks.push(listener); }

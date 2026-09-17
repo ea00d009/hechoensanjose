@@ -4,7 +4,14 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 globalThis.jspdf = require('../assets/vendor/jspdf/jspdf.umd.min.js');
-globalThis.qrcode = require('../assets/vendor/qrcode-generator/qrcode.js');
+const makeQr = require('../assets/vendor/qrcode-generator/qrcode.js');
+let qrPayload;
+globalThis.qrcode = (...args) => {
+  const qr = makeQr(...args);
+  const addData = qr.addData;
+  qr.addData = (payload, mode) => { qrPayload = payload; return addData(payload, mode); };
+  return qr;
+};
 require('../assets/js/productor-qr-pdf.js');
 const { createDocument } = globalThis.ProductorQrPdf;
 const outputDir = process.argv[2];
@@ -18,7 +25,7 @@ const base = {
   whatsapp: '+54 9 3447 123456',
   horario: 'Lunes a sábados de 9:00 a 18:00 hs',
   slug: 'vinedos-y-bodega-vulliez-sermet',
-  url: 'https://sanjose.tur.ar/mapa/vinedos-y-bodega-vulliez-sermet'
+  url: 'https://sanjose.tur.ar/hechoensanjose/vinedos-y-bodega-vulliez-sermet'
 };
 
 const samples = [
@@ -37,6 +44,8 @@ const samples = [
 
 for (const [filename, data] of samples) {
   const doc = createDocument(data);
+  assert.equal(qrPayload, data.url, 'El QR debe codificar el destino completo en /hechoensanjose/');
+  assert.ok(doc.output().includes('/URI (' + data.url + ')'), 'El enlace del PDF debe coincidir con el QR');
   assert.equal(doc.getNumberOfPages(), 1, filename + ': debe ser una sola página');
   assert.ok(Math.abs(doc.internal.pageSize.getWidth() - 210) < 0.1);
   assert.ok(Math.abs(doc.internal.pageSize.getHeight() - 297) < 0.1);
@@ -50,6 +59,9 @@ for (const [filename, data] of samples) {
 assert.throws(() => createDocument({ ...base, nombre: '' }), /no tiene nombre/);
 assert.throws(() => createDocument({ ...base, url: 'javascript:alert(1)' }), /no es válido/);
 assert.throws(() => createDocument({ ...base, url: 'https://example.com/mapa/productor' }), /no es válido/);
+assert.throws(() => createDocument({ ...base, url: 'https://sanjose.tur.ar/mapa/licores-bard' }), /no es válido/);
+assert.throws(() => createDocument({ ...base, url: 'https://sanjose.tur.ar/hechoensanjose/mapa/licores-bard' }), /no es válido/);
+assert.throws(() => createDocument({ ...base, url: base.url + '#otro' }), /no es válido/);
 assert.throws(() => createDocument({ ...base, url: base.url + '?otro=1' }), /no es válido/);
 const originalQr = globalThis.qrcode;
 delete globalThis.qrcode;
