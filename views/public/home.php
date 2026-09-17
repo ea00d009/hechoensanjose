@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hecho en San José - Portal Turístico & Productivo Oficial</title>
   <meta name="description" content="Propuesta de integración del sector productivo local en la plataforma turística oficial 'Hecho en San José'. Maqueta funcional para el Honorable Concejo Deliberante.">
+  
+  <!-- Tipografía Google Fonts optimizada -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
+
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="assets/css/normalized.css">
   <!-- Favicon icon SVG -->

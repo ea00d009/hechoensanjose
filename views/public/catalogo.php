@@ -41,7 +41,8 @@ if (!empty($productores)) {
             'whatsapp'    => htmlspecialchars($row['whatsapp'] ?? '', ENT_QUOTES, 'UTF-8'),
             'horario'     => htmlspecialchars($row['horario'] ?: '', ENT_QUOTES, 'UTF-8'),
             'descripcion' => htmlspecialchars($row['descripcion'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'destacado'   => (bool)$row['destacado']
+            'destacado'   => (bool)$row['destacado'],
+            'gondolas'    => !empty($row['gondolas_nombres']) ? explode('||', $row['gondolas_nombres']) : []
         ];
     }
 }
@@ -54,6 +55,12 @@ if (!empty($productores)) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Catálogo de Negocios - Hecho en San José &bull; Turismo Oficial</title>
   <meta name="description" content="Explorá el catálogo oficial de productores, emprendedores y artesanos de la ciudad de San José, Entre Ríos. Nuez pecán, licores centenarios, miel y creaciones con identidad local.">
+  
+  <!-- Tipografía Google Fonts optimizada -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
+
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="assets/css/normalized.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛍️</text></svg>">
@@ -271,13 +278,6 @@ if (!empty($productores)) {
           </svg>
           <span>Panel de Gestión</span>
         </a>
-        <button type="button" class="btn-admin-access" onclick="window.abrirModalAdminPin()" title="Acceso Administrativo HCD / Gestión" aria-label="Acceso Administrativo">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-          <span>Acceso HCD</span>
-        </button>
       </div>
     </div>
   </footer>
@@ -306,7 +306,11 @@ if (!empty($productores)) {
       const catCountTodosEl = document.getElementById('cat-count-todos');
 
       let currentCat = 'todos';
-      let currentQuery = '';
+      const urlParams = new URLSearchParams(window.location.search);
+      let currentQuery = urlParams.get('q') ? urlParams.get('q').trim() : '';
+      if (currentQuery && searchInput) {
+        searchInput.value = currentQuery;
+      }
 
       function renderCatalogo() {
         if (catCountTodosEl && PRODUCTORES_SAN_JOSE.length > 0) {
@@ -380,6 +384,16 @@ if (!empty($productores)) {
                     <span>${p.horario}</span>
                   </div>
                 </div>
+
+                ${p.gondolas && p.gondolas.length > 0 ? `
+                  <div class="card-gondolas-badge-wrap" style="margin: 0.65rem 0 0.85rem 0; padding: 0.5rem 0.75rem; background: rgba(5, 150, 105, 0.08); border: 1px solid rgba(5, 150, 105, 0.25); border-radius: var(--radius-sm); font-size: 0.76rem; color: #065f46; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4;">
+                    <span style="font-size: 0.95rem; line-height: 1;">🛒</span>
+                    <div>
+                      <strong style="color: #047857;">Disponible en Góndola:</strong>
+                      <span style="color: var(--text-main); font-weight: 600;"> ${p.gondolas.join(', ')}</span>
+                    </div>
+                  </div>
+                ` : ''}
 
                 <div class="card-actions">
                   <a href="${wa}" target="_blank" rel="noopener" class="btn btn-primary btn-contact">

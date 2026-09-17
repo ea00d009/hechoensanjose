@@ -48,11 +48,12 @@ require_once __DIR__ . '/header.php';
     <div style="margin-top: 1.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
       <a href="#ecosistema" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">🌐 1. Ecosistema Público</a>
       <a href="#padron" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">👨‍🌾 2. Padrón y Mapa</a>
-      <a href="#solicitudes" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">📬 3. Solicitudes de Vecinos</a>
-      <a href="#qr-urls" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">📱 4. URLs Amigables y QR</a>
-      <a href="#categorias" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">🏷️ 5. Categorías y Simbología</a>
-      <a href="#seguridad" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">🛡️ 6. Seguridad y Resguardo</a>
-      <a href="#faq" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">❓ 7. Preguntas Frecuentes</a>
+      <a href="#gondolas" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">🛒 3. Red de Góndolas (ABM)</a>
+      <a href="#solicitudes" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">📬 4. Solicitudes de Vecinos</a>
+      <a href="#qr-urls" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">📱 5. URLs Amigables y QR</a>
+      <a href="#categorias" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">🏷️ 6. Categorías y Simbología</a>
+      <a href="#seguridad" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">🛡️ 7. Seguridad y Resguardo</a>
+      <a href="#faq" class="btn btn-outline btn-sm" style="font-size: 0.78rem; text-decoration: none;">❓ 8. Preguntas Frecuentes</a>
     </div>
   </div>
 
@@ -205,22 +206,86 @@ require_once __DIR__ . '/header.php';
             </p>
           </div>
 
+          <div style="border-left: 4px solid #8b5cf6; padding-left: 1rem;">
+            <strong style="color: var(--text-main); font-size: 0.95rem;">🛒 Asignación a Góndolas Municipales (Sección 5 del Formulario):</strong>
+            <p style="margin: 0.25rem 0 0 0;">
+              Al editar o dar de alta un productor, la <strong>Sección 5</strong> lista todas las góndolas municipales activas con casillas de verificación (checkboxes). El operador puede tildar los puntos de venta adheridos donde el productor tiene mercadería en exhibición. Al guardar, el padrón mostrará la insignia <code>🛒 X góndolas</code> y en el catálogo público aparecerá el badge <em>«Disponible en Góndola»</em>.
+            </p>
+          </div>
+
         </div>
       </div>
     </section>
 
     <!-- ==========================================
-         SECCIÓN 3: BANDEJA DE SOLICITUDES
+         SECCIÓN 3: RED DE GÓNDOLAS OFICIALES (ABM)
+         ========================================== -->
+    <section id="gondolas" class="card-admin" style="scroll-margin-top: 2rem;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
+        <span style="font-size: 1.5rem;">🛒</span>
+        <div>
+          <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
+            3. Red de Góndolas «Hecho en San José» (Módulo ABM y Sinergia)
+          </h3>
+          <p style="margin: 2px 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
+            Iniciativa Municipal: Exhibidores exclusivos ubicados en comercios y centros turísticos para acercar el trabajo local a residentes y turistas.
+          </p>
+        </div>
+      </div>
+
+      <div style="font-size: 0.92rem; line-height: 1.6; color: var(--text-muted);">
+        <div style="background: #fdf4ff; border: 1px solid #f0abfc; color: #86198f; padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1rem; font-size: 0.88rem;">
+          <strong>⚖️ Requisito Institucional Obligatorio:</strong> Para que un productor local pueda colocar sus productos en los exhibidores municipales instalados en comercios, supermercados y centros turísticos, <strong>debe estar previamente homologado y publicado en el padrón web oficial</strong> de <em>Hecho en San José</em>. Esto garantiza trazabilidad bromatológica, identidad de origen y permite que cualquier persona frente a la góndola escanee el QR para conocer su historia y contactarlo directamente.
+        </div>
+
+        <p>
+          Las góndolas oficiales son muebles exhibidores identificados institucionalmente instalados en supermercados, autoservicios, vinotecas y centros turísticos de San José. Desde la sección <a href="gondolas.php" style="color: #0284c7; font-weight: 700;">Góndolas</a>, los operadores pueden realizar:
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1rem 0;">
+          <div style="background: var(--bg-hover, #f8fafc); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main); font-size: 0.95rem;">➕ Alta y Edición con Geolocalización:</strong>
+            <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem;">
+              Cargar nuevos comercios adheridos indicando nombre, tipo de punto (Góndola Central, Punto Turístico, Almacén de Campo, etc.), descripción, horarios, dirección física y pin interactivo sobre mapa satelital para generar el enlace de llegada con GPS.
+            </p>
+          </div>
+
+          <div style="background: var(--bg-hover, #f8fafc); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main); font-size: 0.95rem;">👨‍🌾 Asignación Bidireccional de Productores:</strong>
+            <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem;">
+              En el formulario de cada góndola se seleccionan con casillas de verificación qué productores del padrón ofrecen sus elaboraciones allí. La tabla de administración muestra la insignia en vivo <code>👨‍🌾 X productores asignados</code>.
+            </p>
+          </div>
+
+          <div style="background: var(--bg-hover, #f8fafc); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main); font-size: 0.95rem;">⚡ Control de Visibilidad y Puntos Destacados:</strong>
+            <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem;">
+              Activar o pausar de inmediato la publicación de una góndola con un solo clic, así como asignarle la insignia de punto destacado (★) para priorizarla visualmente en el portal.
+            </p>
+          </div>
+
+          <div style="background: var(--bg-hover, #f8fafc); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-light);">
+            <strong style="color: var(--text-main); font-size: 0.95rem;">⬇️ Exportación de Puntos a CSV:</strong>
+            <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem;">
+              Descargar en cualquier momento el padrón completo de góndolas en formato Excel compatible (UTF-8 con BOM) para informes de gestión de la Secretaría.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         SECCIÓN 4: BANDEJA DE SOLICITUDES
          ========================================== -->
     <section id="solicitudes" class="card-admin" style="scroll-margin-top: 2rem;">
       <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
         <span style="font-size: 1.5rem;">📬</span>
         <div>
           <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
-            3. Bandeja de Solicitudes y Homologación en 1 Clic
+            4. Bandeja de Solicitudes y Homologación en 1 Clic
           </h3>
           <p style="margin: 2px 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
-            Circuito de postulación ciudadana, contacto institucional y conversión directa a productor.
+            Circuito de postulación ciudadana, contacto institucional y conversión directa a productor con asignación a góndolas.
           </p>
         </div>
       </div>
@@ -242,16 +307,20 @@ require_once __DIR__ . '/header.php';
               <strong>Contacto Previo por WhatsApp:</strong> Presionar el botón <em>«Enviar WhatsApp»</em> en la tarjeta de la solicitud para iniciar una conversación oficial con el emprendedor mediante un mensaje institucional prediseñado.
             </li>
             <li>
-              <strong>Conversión Automática:</strong> Hacer clic en el botón verde <strong>«✓ Aprobar y Convertir en Productor»</strong>.
+              <strong>Conversión Asistida (Góndolas / Catálogo):</strong>
+              <ul style="margin: 0.25rem 0 0.25rem 1rem; padding: 0;">
+                <li>Si el postulante marcó interés en <strong>Venta en Góndolas</strong>, el sistema ofrece el botón prioritario: <strong style="color: #8b5cf6;">«✓ Aprobar y Asignar a Góndolas →»</strong>. Al pulsarlo, transfiere los datos al formulario y emite una alerta para tildar las góndolas convenidas en la Sección 5.</li>
+                <li>Si no marcó góndolas, presenta el botón verde estándar <strong style="color: #059669;">«✓ Aprobar y Convertir en Productor»</strong>.</li>
+              </ul>
               <div style="background: #ecfdf5; color: #065f46; padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.84rem; margin-top: 0.4rem; border: 1px solid #a7f3d0;">
-                💡 <strong>Automatización:</strong> El sistema transfiere automáticamente el nombre del emprendimiento, rubro, WhatsApp, dirección y descripción al formulario de alta, y deduce de forma inteligente la categoría adecuada (Alimentos, Bebidas, Artesanías, etc.).
+                💡 <strong>Automatización Inteligente:</strong> El sistema transfiere automáticamente el nombre del emprendimiento, rubro, WhatsApp, dirección y descripción, y deduce la categoría adecuada (Alimentos, Bebidas, Artesanías, etc.).
               </div>
             </li>
             <li>
-              <strong>Georreferenciación y Publicación:</strong> El operador solo debe verificar la posición exacta del pin en el mapa satelital, asociar una fotografía representativa y pulsar <em>«Guardar Productor»</em>.
+              <strong>Georreferenciación y Publicación:</strong> El operador solo verifica la posición del pin satelital, asocia una fotografía y pulsa <em>«Guardar Productor»</em>.
             </li>
             <li>
-              <strong>Cierre del Circuito:</strong> Al guardarse el productor, la solicitud cambia automáticamente su estado a <strong>«Aprobada»</strong> y el emprendimiento queda publicado de inmediato en el mapa y catálogo oficial.
+              <strong>Cierre del Circuito:</strong> Al guardarse el productor, la solicitud cambia automáticamente su estado a <strong>«Aprobada»</strong> y el emprendimiento queda publicado de inmediato en el mapa, catálogo oficial y góndolas vinculadas.
             </li>
           </ol>
         </div>
@@ -271,14 +340,14 @@ require_once __DIR__ . '/header.php';
     </section>
 
     <!-- ==========================================
-         SECCIÓN 4: CÓDIGOS QR Y URLS AMIGABLES
+         SECCIÓN 5: CÓDIGOS QR Y URLS AMIGABLES
          ========================================== -->
     <section id="qr-urls" class="card-admin" style="scroll-margin-top: 2rem;">
       <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
         <span style="font-size: 1.5rem;">📱</span>
         <div>
           <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
-            4. URLs Semánticas y Códigos QR Oficiales
+            5. URLs Semánticas y Códigos QR Oficiales
           </h3>
           <p style="margin: 2px 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
             Integración de marketing territorial para packaging, folletería y cartelería turística.
@@ -324,14 +393,14 @@ require_once __DIR__ . '/header.php';
     </section>
 
     <!-- ==========================================
-         SECCIÓN 5: CATEGORÍAS Y SIMBOLOGÍA
+         SECCIÓN 6: CATEGORÍAS Y SIMBOLOGÍA
          ========================================== -->
     <section id="categorias" class="card-admin" style="scroll-margin-top: 2rem;">
       <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
         <span style="font-size: 1.5rem;">🏷️</span>
         <div>
           <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
-            5. Categorías y Simbología Cartográfica
+            6. Categorías y Simbología Cartográfica
           </h3>
           <p style="margin: 2px 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
             Configuración de colores, íconos vectoriales y filtros temáticos.
@@ -362,14 +431,14 @@ require_once __DIR__ . '/header.php';
     </section>
 
     <!-- ==========================================
-         SECCIÓN 6: SEGURIDAD Y RESGUARDO
+         SECCIÓN 7: SEGURIDAD Y RESGUARDO
          ========================================== -->
     <section id="seguridad" class="card-admin" style="scroll-margin-top: 2rem;">
       <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
         <span style="font-size: 1.5rem;">🛡️</span>
         <div>
           <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
-            6. Arquitectura de Seguridad y Resguardo de Datos
+            7. Arquitectura de Seguridad y Resguardo de Datos
           </h3>
           <p style="margin: 2px 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
             Estándares empresariales implementados para proteger los sistemas de la Municipalidad.
@@ -429,14 +498,14 @@ require_once __DIR__ . '/header.php';
     </section>
 
     <!-- ==========================================
-         SECCIÓN 7: PREGUNTAS FRECUENTES
+         SECCIÓN 8: PREGUNTAS FRECUENTES
          ========================================== -->
     <section id="faq" class="card-admin" style="scroll-margin-top: 2rem;">
       <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; border-bottom: 1px solid var(--border-light); padding-bottom: 0.75rem;">
         <span style="font-size: 1.5rem;">❓</span>
         <div>
           <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: var(--text-main);">
-            7. Preguntas Frecuentes y Guía Rápida de Soporte
+            8. Preguntas Frecuentes y Guía Rápida de Soporte
           </h3>
           <p style="margin: 2px 0 0 0; font-size: 0.82rem; color: var(--text-muted);">
             Respuestas a las situaciones más comunes del día a día administrativo.
@@ -446,6 +515,13 @@ require_once __DIR__ . '/header.php';
 
       <div style="font-size: 0.92rem; line-height: 1.6; color: var(--text-muted); display: flex; flex-direction: column; gap: 1.2rem;">
         
+        <div>
+          <strong style="color: var(--text-main);">¿Un productor puede participar en una Góndola Municipal sin estar en la web?</strong>
+          <p style="margin: 0.25rem 0 0 0;">
+            <strong>No.</strong> Por disposición de la iniciativa municipal, es requisito obligatorio estar publicado en el padrón web oficial de <em>Hecho en San José</em>. De esta forma se asegura la calidad artesanal, trazabilidad y se permite que cualquier cliente frente a la góndola física escanee el código QR oficial del producto para conocer la historia del productor.
+          </p>
+        </div>
+
         <div>
           <strong style="color: var(--text-main);">¿Cómo cambio las coordenadas de un productor si se mudó de taller?</strong>
           <p style="margin: 0.25rem 0 0 0;">

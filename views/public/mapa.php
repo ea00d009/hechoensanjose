@@ -40,7 +40,8 @@ if (!empty($productores)) {
             'whatsapp'    => htmlspecialchars($row['whatsapp'] ?? '', ENT_QUOTES, 'UTF-8'),
             'horario'     => htmlspecialchars($row['horario'] ?: '', ENT_QUOTES, 'UTF-8'),
             'descripcion' => htmlspecialchars($row['descripcion'] ?? '', ENT_QUOTES, 'UTF-8'),
-            'destacado'   => (bool)$row['destacado']
+            'destacado'   => (bool)$row['destacado'],
+            'gondolas'    => !empty($row['gondolas_nombres']) ? explode('||', $row['gondolas_nombres']) : []
         ];
     }
 }
@@ -54,6 +55,11 @@ if (!empty($productores)) {
   <title>Mapa Productivo de la Ciudad de San José - Hecho en San José</title>
   <meta name="description" content="Mapa interactivo georreferenciado de productores y emprendedores locales de la ciudad de San José, Entre Ríos. Integración turística y productiva.">
   
+  <!-- Tipografía Google Fonts optimizada -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
+
   <!-- Hoja de Estilos Propia -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="assets/css/normalized.css">
@@ -262,13 +268,6 @@ if (!empty($productores)) {
             </svg>
             <span>Panel de Gestión</span>
           </a>
-          <button type="button" class="btn-admin-access" onclick="window.abrirModalAdminPin()" title="Acceso Administrativo HCD / Gestión" aria-label="Acceso Administrativo">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-            </svg>
-            <span>Acceso HCD</span>
-          </button>
         </div>
       </div>
     </aside>

@@ -65,6 +65,7 @@ if ($isCli || $_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['auto'])) {
         // 5. Verificar inserciones
         $countProd = $pdo->query("SELECT COUNT(*) FROM `ps_productores`")->fetchColumn();
         $countCat = $pdo->query("SELECT COUNT(*) FROM `ps_categorias`")->fetchColumn();
+        $countGond = $pdo->query("SELECT COUNT(*) FROM `ps_gondolas`")->fetchColumn();
         $countAdmin = $pdo->query("SELECT COUNT(*) FROM `ps_usuarios_admin`")->fetchColumn();
 
         // 6. Guardar o actualizar archivo .env local si las credenciales cambiaron
@@ -73,7 +74,7 @@ if ($isCli || $_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['auto'])) {
         file_put_contents($envPath, $envData);
 
         $instalado = true;
-        $mensaje = "¡Base de datos instalada exitosamente! Se registraron {$countCat} categorías, {$countProd} productores auténticos y {$countAdmin} usuario administrador.";
+        $mensaje = "¡Base de datos instalada exitosamente! Se registraron {$countCat} categorías, {$countProd} productores auténticos, {$countGond} góndolas oficiales y {$countAdmin} usuario administrador.";
 
         if ($isCli) {
             echo "========================================================\n";
@@ -104,6 +105,12 @@ if ($isCli || $_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['auto'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Instalador de Base de Datos &bull; Hecho en San José</title>
+  
+  <!-- Tipografía Google Fonts optimizada -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
+
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="assets/css/admin.css">
 </head>

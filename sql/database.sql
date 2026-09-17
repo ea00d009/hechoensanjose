@@ -119,5 +119,59 @@ INSERT INTO `ps_productores` (`id`, `nombre`, `rubro`, `categoria_id`, `tag_labe
 
 (11, 'Cuchillería & Talabartería Sanjo Tradición', 'Artesanías & Tradición Criolla', 'artesania', 'Cuchillos & Cuero', 'tag-artesania', '#e54260', 'assets/productores/sanjo-tradicion-cuchilleria.jpg', '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>', -32.21215000, -58.21715000, 'Mitre 1150 (Frente a Plaza Urquiza), San José', '+54 9 3447 43-9911', '5493447439911', 'Lun a Sáb: 09:00 a 13:00 y 17:00 a 20:30 hs', 'Cuchillos artesanales forjados a mano en acero al carbono con cabos de guayacán, asta de ciervo y alpaca. Platería criolla y trabajos artesanales en cuero crudo sobado.', 0, 1);
 
+-- ------------------------------------------------------------------------------
+-- 6. Tabla de Góndolas Municipales «Hecho en San José»
+-- ------------------------------------------------------------------------------
+DROP TABLE IF EXISTS `ps_gondolas`;
+CREATE TABLE `ps_gondolas` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `nombre` VARCHAR(150) NOT NULL,
+  `tipo` VARCHAR(100) NOT NULL DEFAULT 'Góndola Oficial',
+  `color` VARCHAR(30) NOT NULL DEFAULT 'icon-emerald',
+  `icono_svg` TEXT NULL,
+  `descripcion` TEXT NOT NULL,
+  `direccion` VARCHAR(255) NOT NULL,
+  `horario` VARCHAR(150) NULL,
+  `telefono` VARCHAR(50) NULL,
+  `whatsapp` VARCHAR(50) NULL,
+  `productos_destacados` TEXT NULL,
+  `lat` DECIMAL(10, 8) NULL,
+  `lng` DECIMAL(11, 8) NULL,
+  `google_maps_url` VARCHAR(255) NULL,
+  `imagen` VARCHAR(255) NULL,
+  `destacado` TINYINT(1) DEFAULT 0,
+  `activo` TINYINT(1) DEFAULT 1,
+  `orden` INT DEFAULT 0,
+  `creado_en` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `actualizado_en` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX (`activo`),
+  INDEX (`orden`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `ps_gondolas` (`id`, `nombre`, `tipo`, `color`, `icono_svg`, `descripcion`, `direccion`, `horario`, `telefono`, `whatsapp`, `productos_destacados`, `lat`, `lng`, `google_maps_url`, `imagen`, `destacado`, `activo`, `orden`) VALUES
+(1, 'Supermercado y Autoservicio San José', 'Góndola Central', 'icon-emerald', '<svg width=\"26\" height=\"26\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\"/><polyline points=\"9 22 9 12 15 12 15 22\"/></svg>', 'Góndola destacada en el pasillo principal. Amplio surtido en nueces pecán, dulces coloniales, conservas de la colonia y licores artesanales Bard.', 'Mitre y Centenario (Pleno centro)', 'Lun a Sáb: 08:00 a 13:00 y 16:30 a 21:00 hs', NULL, '5493447405163', 'Nueces pecán, dulces coloniales, conservas y licores Bard.', -32.21230000, -58.21910000, 'https://www.google.com/maps/search/?api=1&query=Mitre+y+Centenario+San+Jose+Entre+Rios', NULL, 1, 1, 1),
+(2, 'Centro de Información Turística Oficial', 'Punto Turístico', 'icon-blue', '<svg width=\"26\" height=\"26\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><line x1=\"12\" y1=\"16\" x2=\"12\" y2=\"12\"/><line x1=\"12\" y1=\"8\" x2=\"12.01\" y2=\"8\"/></svg>', 'Góndola institucional con muestras, degustaciones guiadas, folletería del circuito productivo y venta directa de artesanías de la colonia.', 'Centenario y Entre Ríos', 'Todos los días: 08:00 a 20:00 hs (Horario corrido)', '+54 9 3447 43-8000', '5493447438000', 'Degustaciones, folletería, artesanías y recuerdos oficiales.', -32.20860000, -58.22050000, 'https://www.google.com/maps/search/?api=1&query=Centenario+y+Entre+Rios+San+Jose+Entre+Rios', NULL, 1, 1, 2),
+(3, 'Almacén Histórico y Regional Francou', 'Almacén de Campo', 'icon-amber', '<svg width=\"26\" height=\"26\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M12 2v20\"/><path d=\"m17 5-5-3-5 3\"/><path d=\"m17 19-5 3-5-3\"/></svg>', 'Tradicional almacén de ramos generales con góndola dedicada a embutidos artesanales, miel de pradera, quesos de colonia y cuchillería entrerriana.', 'Camino de los Colonos y Los Cedros', 'Mar a Dom: 09:00 a 13:00 y 16:00 a 20:30 hs', NULL, '5493447470220', 'Embutidos artesanales, miel pura, quesos coloniales y cuchillería.', -32.21940000, -58.19210000, 'https://www.google.com/maps/search/?api=1&query=Camino+de+los+Colonos+San+Jose+Entre+Rios', NULL, 0, 1, 3),
+(4, 'Proveeduría Regional Termas San José', 'Complejo Termal', 'icon-accent', '<svg width=\"26\" height=\"26\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20\"/><path d=\"M2 12h20\"/></svg>', 'Ubicada en el predio del parque termal. Góndola exclusiva con productos listos para regalar: alfajores de nuez pecán, licores en miniatura y cosmética apícola.', 'Acceso a Termas San José s/n', 'Abierto todos los días de 09:00 a 20:00 hs', NULL, '5493447483344', 'Alfajores artesanales, licores miniatura y cosmética apícola.', -32.20350000, -58.17000000, 'https://www.google.com/maps/search/?api=1&query=Termas+San+Jose+Entre+Rios', NULL, 0, 1, 4);
+
+-- ------------------------------------------------------------------------------
+-- 7. Tabla Relacional: Productores en Góndolas Municipales
+-- ------------------------------------------------------------------------------
+DROP TABLE IF EXISTS `ps_gondola_productores`;
+CREATE TABLE `ps_gondola_productores` (
+  `gondola_id` INT NOT NULL,
+  `productor_id` INT NOT NULL,
+  `creado_en` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`gondola_id`, `productor_id`),
+  INDEX (`gondola_id`),
+  INDEX (`productor_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `ps_gondola_productores` (`gondola_id`, `productor_id`) VALUES
+(1, 1), (1, 2), (1, 3), (1, 6),
+(2, 1), (2, 4), (2, 8), (2, 11),
+(3, 4), (3, 5), (3, 7),
+(4, 1), (4, 2), (4, 5);
+
 SET FOREIGN_KEY_CHECKS = 1;
 

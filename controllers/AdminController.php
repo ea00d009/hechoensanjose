@@ -6,6 +6,7 @@
  */
 require_once __DIR__ . '/../models/ProductorRepository.php';
 require_once __DIR__ . '/../models/CategoriaRepository.php';
+require_once __DIR__ . '/../models/GondolaRepository.php';
 
 class AdminController {
 
@@ -114,5 +115,33 @@ class AdminController {
     public function categorias() {
         $this->checkAuth();
         require __DIR__ . '/../views/admin/categorias.php';
+    }
+
+    public function gondolas() {
+        $this->checkAuth();
+
+        $busqueda = trim($_GET['q'] ?? '');
+        $estado   = trim($_GET['estado'] ?? 'todos');
+
+        $repoGondola = new GondolaRepository();
+        $gondolas = $repoGondola->getAllForAdmin($busqueda, $estado);
+        $metrics  = $repoGondola->getMetrics();
+
+        if (empty($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+        $csrf = $_SESSION['csrf_token'];
+
+        require __DIR__ . '/../views/admin/gondolas.php';
+    }
+
+    public function gondolaForm() {
+        $this->checkAuth();
+        require __DIR__ . '/../views/admin/gondola-form.php';
+    }
+
+    public function gondolaAcciones() {
+        $this->checkAuth();
+        require __DIR__ . '/../views/admin/gondola-acciones.php';
     }
 }

@@ -143,6 +143,13 @@ require_once __DIR__ . '/header.php';
                 <span class="tag-badge <?= htmlspecialchars($p['tag_class'] ?? 'tag-licores') ?>" style="font-size: 0.72rem;">
                   <?= htmlspecialchars($p['categoria_nombre'] ?? $p['categoria_id']) ?>
                 </span>
+                <?php if (!empty($p['total_gondolas']) && $p['total_gondolas'] > 0): ?>
+                  <div style="margin-top: 5px;">
+                    <span style="font-size: 0.72rem; font-weight: 700; color: #059669; background: rgba(5, 150, 105, 0.1); padding: 2px 7px; border-radius: 12px; display: inline-block;" title="Disponible en: <?= htmlspecialchars($p['gondolas_nombres'] ?? '') ?>">
+                      🛒 <?= $p['total_gondolas'] ?> <?= $p['total_gondolas'] == 1 ? 'góndola' : 'góndolas' ?>
+                    </span>
+                  </div>
+                <?php endif; ?>
               </td>
               <td style="font-size: 0.82rem;">
                 <div style="color: var(--text-main); margin-bottom: 2px;">

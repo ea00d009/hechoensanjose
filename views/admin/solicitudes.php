@@ -182,9 +182,15 @@ require_once __DIR__ . '/header.php';
                 </button>
               </form>
 
-              <a href="productor-form.php?from_solicitud=<?= $sol['id'] ?>" class="btn btn-accent btn-sm" style="padding: 8px 16px; font-weight: 700;">
-                ✓ Aprobar y Convertir en Productor
-              </a>
+              <?php if ($sol['interes_gondola']): ?>
+                <a href="productor-form.php?from_solicitud=<?= $sol['id'] ?>" class="btn btn-accent btn-sm" style="padding: 8px 16px; font-weight: 700; background: linear-gradient(135deg, #059669 0%, #047857 100%);" title="Aprobar y asignar a las Góndolas Municipales">
+                  ✓ Aprobar y Asignar a Góndolas &rarr;
+                </a>
+              <?php else: ?>
+                <a href="productor-form.php?from_solicitud=<?= $sol['id'] ?>" class="btn btn-accent btn-sm" style="padding: 8px 16px; font-weight: 700;">
+                  ✓ Aprobar y Convertir en Productor
+                </a>
+              <?php endif; ?>
             <?php elseif ($sol['estado'] === 'desestimada'): ?>
               <form method="POST" action="solicitudes.php" style="display: inline;">
                 <input type="hidden" name="csrf" value="<?= $csrf ?>">
