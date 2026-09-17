@@ -3,6 +3,26 @@
 Thumbs.db
 *.log
 
+# Archivos locales de editores y dependencias regenerables
+/.idea/
+/.vscode/
+/node_modules/
+/vendor/
+
+# Respaldos y volcados privados (el esquema sql/database.sql se versiona)
+*.bak
+*.backup
+*.sql.gz
+*.sql.zip
+/backups/
+/dumps/
+
+# Claves privadas y certificados con clave
+*.key
+*.pem
+*.p12
+*.pfx
+
 # Credenciales de entorno y base de datos (NUNCA subir a repositorios)
 .env
 .env.*
