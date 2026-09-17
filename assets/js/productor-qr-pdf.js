@@ -125,7 +125,10 @@
     button.disabled = true;
     button.setAttribute('aria-busy', 'true');
     button.textContent = 'Generando…';
-    if (status) status.textContent = 'Preparando el PDF del productor…';
+    if (status) {
+      status.setAttribute('role', 'status');
+      status.textContent = 'Preparando el PDF del productor…';
+    }
     try {
       // Permitir que el navegador muestre el estado antes de generar el documento.
       await new Promise(resolve => root.setTimeout(resolve, 0));
@@ -135,7 +138,11 @@
       await doc.save(filename, { returnPromise: true });
       if (status) status.textContent = 'PDF de ' + cleanText(data.nombre) + ' generado. Revisá las descargas del navegador.';
     } catch (error) {
-      if (status) status.textContent = error.message || 'No se pudo generar el PDF. Intentá nuevamente.';
+      if (status) {
+        status.setAttribute('role', 'alert');
+        status.textContent = error.message || 'No se pudo generar el PDF. Intentá nuevamente.';
+        status.scrollIntoView({ block: 'nearest' });
+      }
     } finally {
       button.disabled = false;
       button.removeAttribute('aria-busy');

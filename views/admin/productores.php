@@ -230,8 +230,28 @@ require_once __DIR__ . '/header.php';
 </div>
 
 <p id="qr-pdf-status" role="status" aria-live="polite" style="margin-top: 1rem;"></p>
-<script src="../assets/vendor/jspdf/jspdf.umd.min.js" defer></script>
-<script src="../assets/vendor/qrcode-generator/qrcode.js" defer></script>
-<script src="../assets/js/productor-qr-pdf.js" defer></script>
+<?php
+  // Resolver desde la instalación, también si la URL del listado termina en /.
+  $qrAssetBase = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? '/index.php'), '/\\') . '/assets/';
+  foreach (['vendor/jspdf/jspdf.umd.min.js', 'vendor/qrcode-generator/qrcode.js', 'js/productor-qr-pdf.js'] as $qrAsset) {
+    $qrAssetFile = __DIR__ . '/../../assets/' . $qrAsset;
+    $qrAssetVersion = is_file($qrAssetFile) ? filemtime($qrAssetFile) : 0;
+?>
+<script src="<?= htmlspecialchars($qrAssetBase . $qrAsset . '?v=' . $qrAssetVersion, ENT_QUOTES, 'UTF-8') ?>" defer></script>
+<?php } ?>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (window.ProductorQrPdf) return;
+    // Un despliegue incompleto no debe dejar el botón sin respuesta.
+    document.querySelectorAll('[data-productor-qr]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var status = document.getElementById('qr-pdf-status');
+        status.setAttribute('role', 'alert');
+        status.textContent = 'No se pudo cargar el generador de PDF. Revisá que se haya subido la actualización completa y recargá la página.';
+        status.scrollIntoView({ block: 'nearest' });
+      });
+    });
+  });
+</script>
 
 <?php require_once __DIR__ . '/footer.php'; ?>
