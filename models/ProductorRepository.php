@@ -70,8 +70,10 @@ class ProductorRepository {
         $params = [];
 
         if ($busqueda !== '') {
-            $sql .= " AND (p.nombre LIKE :q OR p.rubro LIKE :q OR p.direccion LIKE :q OR p.descripcion LIKE :q)";
-            $params[':q'] = "%{$busqueda}%";
+            $sql .= " AND (p.nombre LIKE :q_nombre OR p.rubro LIKE :q_rubro OR p.direccion LIKE :q_direccion OR p.descripcion LIKE :q_descripcion)";
+            foreach (['nombre', 'rubro', 'direccion', 'descripcion'] as $campo) {
+                $params[':q_' . $campo] = "%{$busqueda}%";
+            }
         }
 
         if ($categoria !== 'todos' && $categoria !== '') {

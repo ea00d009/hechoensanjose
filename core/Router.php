@@ -61,6 +61,6 @@ class Router {
         // Manejar 404
         http_response_code(404);
         echo "<h1>404 Not Found</h1>";
-        echo "<p>La ruta $path no existe.</p>";
+        echo '<p>La ruta ' . htmlspecialchars($path, ENT_QUOTES, 'UTF-8') . ' no existe.</p>';
     }
 }

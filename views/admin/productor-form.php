@@ -13,7 +13,7 @@ requireAdmin();
 
 $pdo = getDBConnection();
 $gondolaRepo = new GondolaRepository();
-$todasGondolas = $gondolaRepo->getActivas();
+$todasGondolas = $gondolaRepo->getAllForAdmin();
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $fromSolicitudId = isset($_GET['from_solicitud']) ? (int)$_GET['from_solicitud'] : 0;
@@ -64,6 +64,11 @@ if ($isEditing) {
     $stmtSol = $pdo->prepare("SELECT * FROM `ps_solicitudes_inscripcion` WHERE `id` = :sid LIMIT 1");
     $stmtSol->execute([':sid' => $fromSolicitudId]);
     $sol = $stmtSol->fetch();
+    if (!$sol || $sol['estado'] !== 'pendiente') {
+        setFlash('danger', 'La solicitud ya fue procesada o no está pendiente. No se creó otro productor.');
+        header('Location: solicitudes.php');
+        exit;
+    }
     if ($sol) {
         $datos['nombre']      = $sol['nombre_emprendimiento'];
         $datos['rubro']       = $sol['rubro'];
@@ -71,12 +76,12 @@ if ($isEditing) {
         $datos['direccion']   = $sol['direccion'];
         $datos['descripcion'] = $sol['descripcion'];
         // Mapear categoría aproximada
-        $rubroLower = strtolower($sol['rubro']);
-        if (strpos($rubroLower, 'miel') !== false || strpos($rubroLower, 'queso') !== false || strpos($rubroLower, 'dulce') !== false || strpos($rubroLower, 'conserva') !== false) {
+        $rubroLower = strtr(mb_strtolower($sol['rubro'], 'UTF-8'), ['á' => 'a', 'é' => 'e', 'í' => 'i', 'ó' => 'o', 'ú' => 'u']);
+        if (strpos($rubroLower, 'miel') !== false || strpos($rubroLower, 'ques') !== false || strpos($rubroLower, 'lacteo') !== false || strpos($rubroLower, 'dulce') !== false || strpos($rubroLower, 'conserva') !== false) {
             $datos['categoria_id'] = 'alimentos';
         } elseif (strpos($rubroLower, 'vino') !== false || strpos($rubroLower, 'licor') !== false || strpos($rubroLower, 'cerveza') !== false) {
             $datos['categoria_id'] = 'bebidas';
-        } elseif (strpos($rubroLower, 'artesania') !== false || strpos($rubroLower, 'cuero') !== false || strpos($rubroLower, 'mineral') !== false || strpos($rubroLower, 'cuchillo') !== false) {
+        } elseif (strpos($rubroLower, 'artesania') !== false || strpos($rubroLower, 'cuero') !== false || strpos($rubroLower, 'mineral') !== false || strpos($rubroLower, 'cuchill') !== false || strpos($rubroLower, 'piedra') !== false || strpos($rubroLower, 'fibra') !== false) {
             $datos['categoria_id'] = 'artesania';
         }
         $solicitudInteresGondola = !empty($sol['interes_gondola']);
@@ -92,13 +97,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = 'Token de seguridad inválido. Por favor recargá la página.';
     }
 
+    // Rechazar valores compuestos y conservar sólo los campos del formulario.
+    $limites = ['nombre' => 150, 'rubro' => 200, 'categoria_id' => 50, 'tag_label' => 100,
+        'direccion' => 255, 'telefono' => 50, 'whatsapp' => 50, 'horario' => 150,
+        'descripcion' => 10000, 'imagen_url' => 255, 'lat' => 30, 'lng' => 30];
+    foreach ($limites as $campo => $maximo) {
+        if (isset($_POST[$campo]) && (!is_string($_POST[$campo]) || !mb_check_encoding($_POST[$campo], 'UTF-8'))) {
+            $errores[] = 'El campo ' . str_replace('_', ' ', $campo) . ' no tiene un formato válido.';
+            $_POST[$campo] = '';
+        } elseif (isset($_POST[$campo]) && mb_strlen($_POST[$campo], 'UTF-8') > $maximo) {
+            $errores[] = 'El campo ' . str_replace('_', ' ', $campo) . ' no debe superar los ' . $maximo . ' caracteres.';
+        }
+    }
+    $gondolasPost = $_POST['gondolas'] ?? [];
+    if (!is_array($gondolasPost) || count(array_filter($gondolasPost, static function ($gid) {
+        return !is_string($gid) || !ctype_digit($gid) || (int)$gid <= 0;
+    })) > 0) {
+        $errores[] = 'La selección de góndolas no es válida.';
+        $gondolasPost = [];
+    }
+    $gondolasPost = array_values(array_unique(array_map('intval', $gondolasPost)));
+    if (array_diff($gondolasPost, array_column($todasGondolas, 'id'))) {
+        $errores[] = 'Una de las góndolas seleccionadas ya no existe. Revisá la selección.';
+    }
+    $gondolasAsignadas = $gondolasPost;
+
     $nombre       = trim($_POST['nombre'] ?? '');
     $rubro        = trim($_POST['rubro'] ?? '');
     $categoria_id = trim($_POST['categoria_id'] ?? '');
     $tag_label    = trim($_POST['tag_label'] ?? '');
     $direccion    = trim($_POST['direccion'] ?? '');
     $telefono     = trim($_POST['telefono'] ?? '');
-    $whatsapp     = preg_replace('/[^0-9+]/', '', trim($_POST['whatsapp'] ?? ''));
+    $whatsapp     = preg_replace('/[^0-9]/', '', trim($_POST['whatsapp'] ?? ''));
     $horario      = trim($_POST['horario'] ?? '');
     $descripcion  = trim($_POST['descripcion'] ?? '');
     $lat          = filter_var($_POST['lat'] ?? '', FILTER_VALIDATE_FLOAT);
@@ -113,12 +143,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($direccion)) $errores[] = 'La dirección es obligatoria.';
     if (empty($whatsapp)) $errores[] = 'El número de WhatsApp es obligatorio.';
     if (empty($descripcion)) $errores[] = 'La descripción es obligatoria.';
-    if ($lat === false || $lng === false) $errores[] = 'Coordenadas geográficas inválidas. Seleccionalas en el mapa.';
+    if ($lat === false || $lng === false || abs($lat) > 90 || abs($lng) > 180) $errores[] = 'Coordenadas geográficas inválidas. Seleccionalas en el mapa.';
+    if (!in_array($categoria_id, array_column($categorias, 'id'), true)) $errores[] = 'La categoría seleccionada no existe.';
+    if (strlen($whatsapp) < 6 || strlen($whatsapp) > 15) $errores[] = 'Ingresá un número de WhatsApp válido, con código de área.';
 
     // Manejo de imagen
     $rutaImagen = $datos['imagen'];
+    $imagenNueva = null;
 
-    if (isset($_FILES['imagen_archivo']) && $_FILES['imagen_archivo']['error'] === UPLOAD_ERR_OK) {
+    if (isset($_FILES['imagen_archivo']) && !in_array($_FILES['imagen_archivo']['error'], [UPLOAD_ERR_OK, UPLOAD_ERR_NO_FILE], true)) {
+        $errores[] = 'No se pudo recibir la imagen. Revisá que no supere los 5 MB e intentá nuevamente.';
+    }
+    if (empty($errores) && isset($_FILES['imagen_archivo']) && $_FILES['imagen_archivo']['error'] === UPLOAD_ERR_OK) {
         $archivo = $_FILES['imagen_archivo'];
         $ext = strtolower(pathinfo($archivo['name'], PATHINFO_EXTENSION));
         $extensionesValidas = ['jpg', 'jpeg', 'png', 'webp'];
@@ -135,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             // Generar nombre de archivo limpio y único
             $slug = strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $nombre));
-            $nombreArchivo = 'prod-' . trim($slug, '-') . '-' . time() . '.' . $ext;
+            $nombreArchivo = 'prod-' . trim($slug, '-') . '-' . bin2hex(random_bytes(8)) . '.' . $ext;
             $directorioDestino = dirname(__DIR__, 2) . '/assets/productores/';
 
             if (!is_dir($directorioDestino)) {
@@ -145,6 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $rutaFisica = $directorioDestino . $nombreArchivo;
             if (move_uploaded_file($archivo['tmp_name'], $rutaFisica)) {
                 $rutaImagen = 'assets/productores/' . $nombreArchivo;
+                $imagenNueva = $rutaFisica;
             } else {
                 $errores[] = 'No se pudo guardar la imagen en el servidor.';
             }
@@ -153,9 +190,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $rutaImagen = trim($_POST['imagen_url']);
     }
 
+    // Preservar datos y selecciones también si falla la persistencia.
+    foreach ($limites as $campo => $maximo) {
+        if (array_key_exists($campo, $datos) && isset($_POST[$campo])) $datos[$campo] = $_POST[$campo];
+    }
+    $datos['destacado'] = $destacado;
+    $datos['activo'] = $activo;
+
     // Si no hay errores, persistir en la base de datos
     if (empty($errores)) {
         try {
+            $pdo->beginTransaction();
+            if (!$isEditing && $fromSolicitudId > 0) {
+                $solLock = $pdo->prepare("SELECT estado FROM `ps_solicitudes_inscripcion` WHERE id = :id FOR UPDATE");
+                $solLock->execute([':id' => $fromSolicitudId]);
+                if ($solLock->fetchColumn() !== 'pendiente') {
+                    throw new RuntimeException('La solicitud ya fue procesada.');
+                }
+            }
             // Buscar datos de estilo por defecto de la categoría
             $catInfoStmt = $pdo->prepare("SELECT * FROM `ps_categorias` WHERE `id` = :cid LIMIT 1");
             $catInfoStmt->execute([':cid' => $categoria_id]);
@@ -209,7 +261,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ];
                 $pdo->prepare($sql)->execute($params);
                 $targetProductorId = $id;
-                setFlash('success', '¡Productor "' . htmlspecialchars($nombre) . '" actualizado correctamente!');
 
             } else {
                 $sql = "
@@ -250,26 +301,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $updSol = $pdo->prepare("UPDATE `ps_solicitudes_inscripcion` SET `estado` = 'aprobada' WHERE `id` = :sid");
                     $updSol->execute([':sid' => $fromSolicitudId]);
                 }
-
-                setFlash('success', '¡Productor "' . htmlspecialchars($nombre) . '" dado de alta exitosamente en la plataforma!');
             }
 
             // Sincronizar góndolas asignadas
-            $gondolasPost = isset($_POST['gondolas']) && is_array($_POST['gondolas']) ? $_POST['gondolas'] : [];
             $gondolaRepo->syncGondolasForProductor($targetProductorId, $gondolasPost);
+            $pdo->commit();
+            setFlash('success', $isEditing ? '¡Productor actualizado correctamente!' : '¡Productor dado de alta exitosamente en la plataforma!');
 
             header('Location: productores.php');
             exit;
 
         } catch (Throwable $e) {
+            if ($pdo->inTransaction()) $pdo->rollBack();
+            if ($imagenNueva !== null && is_file($imagenNueva)) unlink($imagenNueva);
             error_log("Error Gestión Productor: " . $e->getMessage());
             $errores[] = 'Error interno al guardar en la base de datos. Intentá más tarde.';
         }
-    } else {
-        // En caso de error, retener datos ingresados en el formulario
-        $datos = array_merge($datos, $_POST);
-        $datos['destacado'] = $destacado;
-        $datos['activo'] = $activo;
     }
 }
 
@@ -463,7 +510,7 @@ $csrf = getCsrfToken();
             <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; cursor: pointer; padding: 8px 10px; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border-light); transition: border-color 0.2s ease;">
               <input type="checkbox" name="gondolas[]" value="<?= (int)$tg['id'] ?>" <?= in_array((int)$tg['id'], $gondolasAsignadas) ? 'checked' : '' ?> style="margin-top: 3px; cursor: pointer; width: 16px; height: 16px;">
               <div>
-                <strong style="color: var(--text-main); font-size: 0.9rem;"><?= htmlspecialchars($tg['nombre']) ?></strong>
+                <strong style="color: var(--text-main); font-size: 0.9rem;"><?= htmlspecialchars($tg['nombre']) ?><?= $tg['activo'] ? '' : ' (inactiva)' ?></strong>
                 <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">
                   <span style="font-weight: 600; color: #059669;"><?= htmlspecialchars($tg['tipo']) ?></span> &bull; 📍 <?= htmlspecialchars($tg['direccion']) ?>
                 </div>

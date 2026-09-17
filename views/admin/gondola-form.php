@@ -14,11 +14,12 @@ require_once __DIR__ . '/../../models/ProductorRepository.php';
 
 $repo = new GondolaRepository();
 $prodRepo = new ProductorRepository();
+$pdo = getDBConnection();
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $isEditing = ($id > 0);
 
-$todosProductores = $prodRepo->getActivos();
+$todosProductores = $prodRepo->getAllForAdmin();
 $productoresAsignados = [];
 if ($isEditing) {
     $productoresAsignados = $repo->getProductorIdsForGondola($id);
@@ -65,6 +66,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = 'Token de seguridad inválido o expirado. Por favor recargá la página.';
     }
 
+    $limites = ['nombre' => 150, 'tipo' => 100, 'color' => 30, 'descripcion' => 10000,
+        'direccion' => 255, 'horario' => 150, 'telefono' => 50, 'whatsapp' => 50,
+        'productos_destacados' => 10000, 'google_maps_url' => 255, 'lat' => 30, 'lng' => 30, 'orden' => 10];
+    foreach ($limites as $campo => $maximo) {
+        if (isset($_POST[$campo]) && (!is_string($_POST[$campo]) || !mb_check_encoding($_POST[$campo], 'UTF-8'))) {
+            $errores[] = 'El campo ' . str_replace('_', ' ', $campo) . ' no tiene un formato válido.';
+            $_POST[$campo] = '';
+        } elseif (isset($_POST[$campo]) && mb_strlen($_POST[$campo], 'UTF-8') > $maximo) {
+            $errores[] = 'El campo ' . str_replace('_', ' ', $campo) . ' no debe superar los ' . $maximo . ' caracteres.';
+        }
+    }
+    $productoresPost = $_POST['productores'] ?? [];
+    if (!is_array($productoresPost) || count(array_filter($productoresPost, static function ($pid) {
+        return !is_string($pid) || !ctype_digit($pid) || (int)$pid <= 0;
+    })) > 0) {
+        $errores[] = 'La selección de productores no es válida.';
+        $productoresPost = [];
+    }
+    $productoresPost = array_values(array_unique(array_map('intval', $productoresPost)));
+    if (array_diff($productoresPost, array_column($todosProductores, 'id'))) {
+        $errores[] = 'Uno de los productores seleccionados ya no existe. Revisá la selección.';
+    }
+    $productoresAsignados = $productoresPost;
+
     $nombre              = trim($_POST['nombre'] ?? '');
     $tipo                = trim($_POST['tipo'] ?? 'Góndola Oficial');
     $color               = trim($_POST['color'] ?? 'icon-emerald');
@@ -72,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $direccion           = trim($_POST['direccion'] ?? '');
     $horario             = trim($_POST['horario'] ?? '');
     $telefono            = trim($_POST['telefono'] ?? '');
-    $whatsapp            = preg_replace('/[^0-9+]/', '', trim($_POST['whatsapp'] ?? ''));
+    $whatsapp            = preg_replace('/[^0-9]/', '', trim($_POST['whatsapp'] ?? ''));
     $productosDestacados = trim($_POST['productos_destacados'] ?? '');
     $googleMapsUrl       = trim($_POST['google_maps_url'] ?? '');
     $latVal              = trim($_POST['lat'] ?? '');
@@ -81,12 +106,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $lng                 = ($lngVal !== '') ? filter_var($lngVal, FILTER_VALIDATE_FLOAT) : null;
     $destacado           = !empty($_POST['destacado']) ? 1 : 0;
     $activo              = !empty($_POST['activo']) ? 1 : 0;
-    $orden               = (int)($_POST['orden'] ?? 0);
+    $orden               = filter_var($_POST['orden'] ?? 0, FILTER_VALIDATE_INT, ['options' => ['min_range' => 0, 'max_range' => 2147483647]]);
 
     // Validaciones
     if (empty($nombre)) $errores[] = 'El nombre del comercio o establecimiento es obligatorio.';
     if (empty($direccion)) $errores[] = 'La dirección física del comercio es obligatoria.';
     if (empty($descripcion)) $errores[] = 'La descripción de la góndola o exhibidor es obligatoria.';
+    if (empty($tipo)) $errores[] = 'El tipo de góndola es obligatorio.';
+    if ($orden === false) $errores[] = 'El orden debe ser un número entero mayor o igual a cero.';
+    if (!in_array($color, ['icon-emerald', 'icon-blue', 'icon-amber', 'icon-accent'], true)) $errores[] = 'El estilo visual seleccionado no es válido.';
+    if ($lat === false || $lng === false || ($lat === null) !== ($lng === null) || ($lat !== null && abs($lat) > 90) || ($lng !== null && abs($lng) > 180)) {
+        $errores[] = 'Las coordenadas geográficas no son válidas. Completá ambas o dejá ambas vacías.';
+    }
+    if ($whatsapp !== '' && (strlen($whatsapp) < 6 || strlen($whatsapp) > 15)) $errores[] = 'Ingresá un número de WhatsApp válido, con código de área.';
+    if ($googleMapsUrl !== '' && (!filter_var($googleMapsUrl, FILTER_VALIDATE_URL) || !in_array(strtolower(parse_url($googleMapsUrl, PHP_URL_SCHEME) ?? ''), ['http', 'https'], true))) {
+        $errores[] = 'El enlace a Google Maps debe ser una dirección http o https válida.';
+    }
 
     // Generar enlace a Google Maps automático si no se proporcionó y hay coordenadas
     if (empty($googleMapsUrl) && $lat !== null && $lng !== null) {
@@ -112,24 +147,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errores)) {
         try {
+            $pdo->beginTransaction();
             if ($isEditing) {
                 $repo->update($id, $datos);
                 $targetGondolaId = $id;
-                setFlash('success', '¡La góndola en «' . htmlspecialchars($nombre) . '» fue actualizada correctamente!');
             } else {
                 $targetGondolaId = $repo->create($datos);
-                setFlash('success', '¡Nueva góndola en «' . htmlspecialchars($nombre) . '» registrada con éxito!');
             }
 
             // Sincronizar productores asignados
-            $productoresPost = isset($_POST['productores']) && is_array($_POST['productores']) ? $_POST['productores'] : [];
             $repo->syncProductoresForGondola($targetGondolaId, $productoresPost);
+            $pdo->commit();
+            setFlash('success', $isEditing ? '¡Góndola actualizada correctamente!' : '¡Nueva góndola registrada con éxito!');
 
             header('Location: gondolas.php');
             exit;
         } catch (Throwable $e) {
+            if ($pdo->inTransaction()) $pdo->rollBack();
             error_log("Error al guardar góndola: " . $e->getMessage());
-            $errores[] = 'Error de base de datos al procesar la solicitud: ' . $e->getMessage();
+            $errores[] = 'No se pudo guardar la góndola. Revisá los datos e intentá nuevamente.';
         }
     }
 }
@@ -318,7 +354,7 @@ require_once __DIR__ . '/header.php';
               <label style="display: flex; align-items: flex-start; gap: 8px; font-size: 0.85rem; cursor: pointer; padding: 6px 8px; border-radius: 6px; background: var(--bg-card); border: 1px solid var(--border-light);">
                 <input type="checkbox" name="productores[]" value="<?= (int)$tp['id'] ?>" <?= in_array((int)$tp['id'], $productoresAsignados) ? 'checked' : '' ?> style="margin-top: 3px; cursor: pointer; width: 15px; height: 15px;">
                 <div>
-                  <strong style="color: var(--text-main); font-size: 0.86rem;"><?= htmlspecialchars($tp['nombre']) ?></strong>
+                  <strong style="color: var(--text-main); font-size: 0.86rem;"><?= htmlspecialchars($tp['nombre']) ?><?= $tp['activo'] ? '' : ' (inactivo)' ?></strong>
                   <div style="font-size: 0.74rem; color: var(--text-muted); margin-top: 2px;"><?= htmlspecialchars($tp['rubro']) ?></div>
                 </div>
               </label>

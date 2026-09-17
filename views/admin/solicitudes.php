@@ -13,20 +13,32 @@ $pdo = getDBConnection();
 // Procesar cambio de estado rápido (desestimar / restaurar)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $csrf = $_POST['csrf'] ?? '';
-    if (verifyCsrfToken($csrf)) {
+    if (!verifyCsrfToken($csrf)) {
+        http_response_code(403);
+        setFlash('danger', 'Token de seguridad inválido. Recargá la página e intentá nuevamente.');
+    } else {
         $sid = (int)($_POST['solicitud_id'] ?? 0);
         $nuevoEstado = $_POST['nuevo_estado'] ?? '';
-        if ($sid > 0 && in_array($nuevoEstado, ['pendiente', 'desestimada'])) {
-            $stmt = $pdo->prepare("UPDATE `ps_solicitudes_inscripcion` SET `estado` = :est WHERE `id` = :id");
-            $stmt->execute([':est' => $nuevoEstado, ':id' => $sid]);
-            setFlash('success', 'El estado de la solicitud #' . $sid . ' fue actualizado a "' . $nuevoEstado . '".');
+        if ($sid > 0 && in_array($nuevoEstado, ['pendiente', 'desestimada'], true)) {
+            $estadoAnterior = $nuevoEstado === 'pendiente' ? 'desestimada' : 'pendiente';
+            $stmt = $pdo->prepare("UPDATE `ps_solicitudes_inscripcion` SET `estado` = :est WHERE `id` = :id AND `estado` = :anterior");
+            $stmt->execute([':est' => $nuevoEstado, ':id' => $sid, ':anterior' => $estadoAnterior]);
+            if ($stmt->rowCount() === 1) {
+                setFlash('success', 'El estado de la solicitud #' . $sid . ' fue actualizado a "' . $nuevoEstado . '".');
+            } else {
+                setFlash('danger', 'La solicitud ya fue procesada o no admite ese cambio de estado.');
+            }
             header('Location: solicitudes.php');
             exit;
+        } else {
+            http_response_code(400);
+            setFlash('danger', 'La acción solicitada no es válida.');
         }
     }
 }
 
 $filtroEstado = $_GET['estado'] ?? 'pendiente';
+if (!in_array($filtroEstado, ['pendiente', 'aprobada', 'desestimada', 'todas'], true)) $filtroEstado = 'pendiente';
 
 $sql = "SELECT * FROM `ps_solicitudes_inscripcion` WHERE 1=1";
 $params = [];

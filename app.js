@@ -272,6 +272,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   function slugifyJs(str) {
     return (str || '').toLowerCase().trim()
       .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/&(?:amp;)?/g, 'y')
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
   }
@@ -332,6 +333,31 @@ function initMap() {
 
   // Renderizar marcadores iniciales
   updateMarkers();
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(() => {
+      mapInstance.invalidateSize({ pan: false });
+      markerMap.forEach(marker => {
+        Object.assign(marker.getPopup().options, getProducerPopupOptions());
+        if (marker.isPopupOpen()) marker.getPopup().update();
+      });
+    }).observe(mapElement);
+  }
+}
+
+function getProducerPopupOptions() {
+  const size = mapInstance.getSize();
+  return {
+    minWidth: Math.min(260, Math.max(180, size.x - 40)),
+    maxWidth: Math.min(340, Math.max(180, size.x - 40)),
+    maxHeight: Math.max(80, size.y - 88),
+    autoPan: true,
+    autoPanPadding: [16, 16],
+    className: 'custom-leaflet-popup'
+  };
+}
+
+function escapeHtmlText(value) {
+  return String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
 }
 
 /**
@@ -397,8 +423,8 @@ function createPopupContent(p) {
         </div>
 
         ${p.gondolas && p.gondolas.length > 0 ? `
-          <div class="popup-gondolas-info" style="margin: 8px 0; padding: 5px 8px; background: rgba(5, 150, 105, 0.08); border: 1px solid rgba(5, 150, 105, 0.2); border-radius: 6px; font-size: 0.72rem; color: #065f46; line-height: 1.35;">
-            🛒 <strong>Disponible en Góndola:</strong> ${p.gondolas.join(', ')}
+          <div class="popup-gondolas-info">
+            🛒 <strong>Disponible en Góndola:</strong> ${p.gondolas.map(escapeHtmlText).join(', ')}
           </div>
         ` : ''}
 
@@ -455,12 +481,7 @@ function updateMarkers() {
     const marker = L.marker(productor.coords, { icon: pinIcon });
     
     // Popup
-    marker.bindPopup(createPopupContent(productor), {
-      maxWidth: 320,
-      autoPan: true,
-      autoPanPadding: [50, 50],
-      className: 'custom-leaflet-popup'
-    });
+    marker.bindPopup(createPopupContent(productor), getProducerPopupOptions());
 
     // Evento al abrir popup: sincronizar selección en la barra lateral
     marker.on('click', () => {
@@ -512,7 +533,7 @@ function renderProducersList() {
   }
 
   container.innerHTML = filtered.map(p => `
-    <article class="producer-item-card has-cover" data-id="${p.id}" id="card-item-${p.id}" onclick="focusProducer(${p.id})">
+    <article class="producer-item-card has-cover" data-id="${p.id}" id="card-item-${p.id}" role="button" tabindex="0" onclick="focusProducer(${p.id})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();focusProducer(${p.id});}">
       <div class="producer-card-cover">
         <img src="${p.imagen || 'assets/logo-sanjose.png'}" alt="${p.nombre}" class="producer-cover-img ${!p.imagen ? 'img-fallback-logo' : ''}" loading="lazy" onerror="this.onerror=null; this.src='assets/logo-sanjose.png'; this.classList.add('img-fallback-logo');">
         <div class="cover-badge-overlay">
@@ -532,7 +553,7 @@ function renderProducersList() {
         </div>
         ${p.gondolas && p.gondolas.length > 0 ? `
           <div style="margin-top: 6px; font-size: 0.72rem; color: #059669; font-weight: 600; display: flex; align-items: center; gap: 4px;">
-            <span>🛒 En góndola: ${p.gondolas.join(', ')}</span>
+            <span>🛒 En góndola: ${p.gondolas.map(escapeHtmlText).join(', ')}</span>
           </div>
         ` : ''}
       </div>
@@ -555,15 +576,12 @@ function focusProducer(id) {
   const productor = PRODUCTORES_SAN_JOSE.find(p => p.id === id);
 
   if (marker && productor && mapInstance) {
-    const centerCoords = [productor.coords[0] + 0.0028, productor.coords[1]];
-    mapInstance.flyTo(centerCoords, 16, {
-      animate: true,
-      duration: 0.8
-    });
-
-    setTimeout(() => {
-      marker.openPopup();
-    }, 450);
+    // Abrir después de ajustar el mapa evita que la animación recorte la ficha.
+    mapInstance.stop();
+    mapInstance.invalidateSize({ pan: false });
+    mapInstance.setView(productor.coords, 16, { animate: false });
+    Object.assign(marker.getPopup().options, getProducerPopupOptions());
+    marker.openPopup();
   }
 }
 
@@ -586,12 +604,13 @@ function selectProducerInList(id) {
  * Configura los botones de filtro por rubro
  */
 function setupFilterListeners() {
-  const filterButtons = document.querySelectorAll('.filter-chip');
+  const filterButtons = document.querySelectorAll('.filter-chip[data-filter]');
   filterButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
-      filterButtons.forEach(b => b.classList.remove('active'));
+      filterButtons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
       const target = e.currentTarget;
       target.classList.add('active');
+      target.setAttribute('aria-pressed', 'true');
 
       currentFilter = target.getAttribute('data-filter') || 'todos';
       updateMarkers();
@@ -674,6 +693,8 @@ function switchMapTab(tab) {
   const btnList = document.getElementById('tab-btn-list');
 
   if (!layout) return;
+  if (btnMap) btnMap.setAttribute('aria-pressed', String(tab === 'map'));
+  if (btnList) btnList.setAttribute('aria-pressed', String(tab === 'list'));
 
   if (tab === 'map') {
     layout.classList.remove('layout-show-list');
@@ -682,9 +703,7 @@ function switchMapTab(tab) {
     if (btnList) btnList.classList.remove('active');
 
     if (mapInstance) {
-      setTimeout(() => {
-        mapInstance.invalidateSize();
-      }, 100);
+      mapInstance.invalidateSize({ pan: false });
     }
   } else if (tab === 'list') {
     layout.classList.remove('layout-show-map');
