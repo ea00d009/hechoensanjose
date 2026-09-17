@@ -350,7 +350,6 @@ productores-sanjose/
 ├── style.css                 # Sistema de diseño global (tokens, dark mode, responsive, print)
 ├── app.js                    # Controlador cliente: Leaflet, auto-enfoque, flyTo y filtros
 ├── setup.php                 # Asistente web para migración e inicialización de DB
-├── migrar_gondolas.php       # Script de migración y seed para la red de góndolas y relaciones
 ├── .htaccess                 # Reglas mod_rewrite, cabeceras HTTP y directivas de seguridad
 ├── .gitignore                # Reglas de exclusión de repositorio Git
 │
@@ -525,7 +524,6 @@ La plataforma cuenta con **6 capas defensivas** diseñadas para operar con máxi
 ## 📖 Documentación Complementaria
 
 * [**MANUAL_USUARIO.md**](MANUAL_USUARIO.md): Manual de operaciones institucionales, guía de homologación de solicitudes, exportación CSV para Excel y administración cartográfica.
-* [**ACTUALIZACION.md**](ACTUALIZACION.md): Instrucciones para aplicar las mejoras móviles y validaciones mediante el administrador de archivos.
 
 ---
 
