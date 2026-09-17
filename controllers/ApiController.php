@@ -5,6 +5,7 @@
  * ==============================================================================
  */
 require_once __DIR__ . '/../models/ProductorRepository.php';
+require_once __DIR__ . '/../models/GondolaRepository.php';
 
 class ApiController {
     public function getProductores() {
@@ -50,7 +51,8 @@ class ApiController {
                     'whatsapp'    => htmlspecialchars($row['whatsapp'] ?? '', ENT_QUOTES, 'UTF-8'),
                     'horario'     => htmlspecialchars($row['horario'] ?: '', ENT_QUOTES, 'UTF-8'),
                     'descripcion' => htmlspecialchars($row['descripcion'] ?? '', ENT_QUOTES, 'UTF-8'),
-                    'destacado'   => (bool)$row['destacado']
+                    'destacado'   => (bool)$row['destacado'],
+                    'gondolas'    => !empty($row['gondolas_nombres']) ? explode('||', $row['gondolas_nombres']) : []
                 ];
             }
 
@@ -185,6 +187,36 @@ class ApiController {
             echo json_encode([
                 'success' => false,
                 'error'   => 'Ocurrió un error al registrar la solicitud en el sistema: ' . $e->getMessage()
+            ], JSON_UNESCAPED_UNICODE);
+        }
+    }
+
+    public function getGondolas() {
+        if (!headers_sent()) {
+            header('Content-Type: application/json; charset=utf-8');
+            header('Access-Control-Allow-Origin: *');
+            header('Access-Control-Allow-Methods: GET, OPTIONS');
+        }
+
+        if (($_SERVER['REQUEST_METHOD'] ?? '') === 'OPTIONS') {
+            http_response_code(200);
+            exit;
+        }
+
+        try {
+            $repo = new GondolaRepository();
+            $gondolas = $repo->getActivas();
+
+            echo json_encode([
+                'success'  => true,
+                'total'    => count($gondolas),
+                'gondolas' => $gondolas
+            ], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        } catch (Throwable $e) {
+            http_response_code(500);
+            echo json_encode([
+                'success' => false,
+                'error'   => 'Error al obtener góndolas: ' . $e->getMessage()
             ], JSON_UNESCAPED_UNICODE);
         }
     }

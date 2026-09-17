@@ -41,14 +41,14 @@ $router->get('/mapa.php', [PublicController::class, 'mapa']);
 $router->get('/mapa/{slug}', [PublicController::class, 'mapa']);
 $router->get('/inscribir', [PublicController::class, 'inscribir']);
 $router->get('/inscribir.php', [PublicController::class, 'inscribir']);
-$router->get('/informe', [PublicController::class, 'informe']);
-$router->get('/informe.php', [PublicController::class, 'informe']);
 
 // ==========================================
 // RUTAS API
 // ==========================================
 $router->get('/api/productores', [ApiController::class, 'getProductores']);
 $router->get('/api/productores.php', [ApiController::class, 'getProductores']);
+$router->get('/api/gondolas', [ApiController::class, 'getGondolas']);
+$router->get('/api/gondolas.php', [ApiController::class, 'getGondolas']);
 $router->post('/api/inscribir', [ApiController::class, 'postInscribir']);
 $router->post('/api/inscribir.php', [ApiController::class, 'postInscribir']);
 
@@ -63,6 +63,8 @@ $router->get('/admin/productores', [AdminController::class, 'productores']);
 $router->get('/admin/productores.php', [AdminController::class, 'productores']);
 $router->get('/admin/categorias', [AdminController::class, 'categorias']);
 $router->get('/admin/categorias.php', [AdminController::class, 'categorias']);
+$router->get('/admin/gondolas', [AdminController::class, 'gondolas']);
+$router->get('/admin/gondolas.php', [AdminController::class, 'gondolas']);
 
 // Rutas de Solicitudes y Formularios (con y sin .php)
 $router->get('/admin/solicitudes', function() { require __DIR__ . '/views/admin/solicitudes.php'; });
@@ -77,6 +79,16 @@ $router->post('/admin/productor-form.php', function() { require __DIR__ . '/view
 
 $router->get('/admin/productor-acciones.php', function() { require __DIR__ . '/views/admin/productor-acciones.php'; });
 $router->post('/admin/productor-acciones.php', function() { require __DIR__ . '/views/admin/productor-acciones.php'; });
+
+// Rutas de Góndolas (Formulario y Acciones)
+$router->get('/admin/gondola-form', function() { require __DIR__ . '/views/admin/gondola-form.php'; });
+$router->get('/admin/gondola-form.php', function() { require __DIR__ . '/views/admin/gondola-form.php'; });
+$router->post('/admin/gondola-form', function() { require __DIR__ . '/views/admin/gondola-form.php'; });
+$router->post('/admin/gondola-form.php', function() { require __DIR__ . '/views/admin/gondola-form.php'; });
+
+$router->get('/admin/gondola-acciones.php', function() { require __DIR__ . '/views/admin/gondola-acciones.php'; });
+$router->post('/admin/gondola-acciones.php', function() { require __DIR__ . '/views/admin/gondola-acciones.php'; });
+
 $router->get('/admin/exportar-csv', function() { require __DIR__ . '/views/admin/exportar-csv.php'; });
 $router->get('/admin/exportar-csv.php', function() { require __DIR__ . '/views/admin/exportar-csv.php'; });
 $router->get('/admin/manual', function() { require __DIR__ . '/views/admin/manual.php'; });

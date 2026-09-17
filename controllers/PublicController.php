@@ -6,6 +6,7 @@
  */
 require_once __DIR__ . '/../models/ProductorRepository.php';
 require_once __DIR__ . '/../models/CategoriaRepository.php';
+require_once __DIR__ . '/../models/GondolaRepository.php';
 
 class PublicController {
     public function home() {
@@ -27,6 +28,8 @@ class PublicController {
     }
 
     public function gondola() {
+        $gondolaRepo = new GondolaRepository();
+        $gondolas = $gondolaRepo->getActivasConProductores();
         require __DIR__ . '/../views/public/gondola.php';
     }
 
@@ -42,9 +45,5 @@ class PublicController {
 
     public function inscribir() {
         require __DIR__ . '/../views/public/inscribir.php';
-    }
-
-    public function informe() {
-        require __DIR__ . '/../views/public/informe.php';
     }
 }

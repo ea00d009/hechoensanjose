@@ -1,3 +1,10 @@
+<?php
+if (!isset($gondolas)) {
+    require_once __DIR__ . '/../../models/GondolaRepository.php';
+    $gRepo = new GondolaRepository();
+    $gondolas = $gRepo->getActivasConProductores();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,6 +12,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Encontrá la Góndola «Hecho en San José» - Puntos de Venta Adheridos</title>
   <meta name="description" content="Localizá los comercios y supermercados de la ciudad que cuentan con las góndolas exclusivas del programa municipal «Hecho en San José». Comprá directo al productor.">
+  
+  <!-- Tipografía Google Fonts optimizada -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
+
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="assets/css/normalized.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛒</text></svg>">
@@ -176,113 +189,106 @@
 
     <div class="portal-grid">
 
-      <!-- Comercio 1 -->
-      <article class="grid-card s-98097ca5">
-        <div class="s-f7930129">
-          <div class="card-icon-container icon-emerald s-bd944105">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          </div>
-          <span class="s-a23b7701">Góndola Central</span>
+      <?php if (empty($gondolas)): ?>
+        <div style="grid-column: 1 / -1; text-align: center; padding: 3.5rem 1.5rem; background: var(--bg-card); border-radius: var(--radius-md); border: 1px solid var(--border-light);">
+          <div style="font-size: 2.8rem; margin-bottom: 0.6rem;">🛒</div>
+          <h3 style="color: var(--text-main); font-size: 1.3rem; margin-bottom: 0.5rem; font-weight: 700;">Próximamente más puntos de venta adheridos</h3>
+          <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 520px; margin: 0 auto; line-height: 1.5;">
+            El municipio continúa incorporando comercios para acercar los productos genuinamente sanjosesinos a todos los barrios de nuestra ciudad.
+          </p>
         </div>
-        <h3 class="card-title s-382e0963">Supermercado y Autoservicio San José</h3>
-        <p class="card-description s-8980900f">
-          Góndola destacada en el pasillo principal. Amplio surtido en nueces pecán, dulces coloniales, conservas de la colonia y licores artesanales Bard.
-        </p>
-        <div class="gondola-detail-list s-06594bb1">
-          <div class="s-650e1230">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span><strong>Dirección:</strong> Mitre y Centenario (Pleno centro)</span>
-          </div>
-          <div class="s-650e1230">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>Lun a Sáb: 08:00 a 13:00 y 16:30 a 21:00 hs</span>
-          </div>
-        </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=Mitre+y+Centenario+San+Jose+Entre+Rios" target="_blank" rel="noopener" class="btn btn-outline s-19df37d1">
-          <span>Cómo llegar con GPS &nearr;</span>
-        </a>
-      </article>
+      <?php else: ?>
+        <?php foreach ($gondolas as $g): ?>
+          <?php
+            $color = $g['color'] ?? 'icon-emerald';
+            $badgeClass = 's-a23b7701';
+            $strokeColor = '#059669';
 
-      <!-- Comercio 2 -->
-      <article class="grid-card s-98097ca5">
-        <div class="s-f7930129">
-          <div class="card-icon-container icon-blue s-bd944105">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-          </div>
-          <span class="s-1b789f48">Punto Turístico</span>
-        </div>
-        <h3 class="card-title s-382e0963">Centro de Información Turística Oficial</h3>
-        <p class="card-description s-8980900f">
-          Góndola institucional con muestras, degustaciones guiadas, folletería del circuito productivo y venta directa de artesanías de la colonia.
-        </p>
-        <div class="gondola-detail-list s-06594bb1">
-          <div class="s-650e1230">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0096c7" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span><strong>Dirección:</strong> Centenario y Entre Ríos</span>
-          </div>
-          <div class="s-650e1230">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0096c7" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>Todos los días: 08:00 a 20:00 hs (Horario corrido)</span>
-          </div>
-        </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=Centenario+y+Entre+Rios+San+Jose+Entre+Rios" target="_blank" rel="noopener" class="btn btn-outline s-19df37d1">
-          <span>Cómo llegar con GPS &nearr;</span>
-        </a>
-      </article>
+            if ($color === 'icon-blue') {
+                $badgeClass = 's-1b789f48';
+                $strokeColor = '#0096c7';
+            } elseif ($color === 'icon-amber') {
+                $badgeClass = 's-610e1852';
+                $strokeColor = '#d97706';
+            } elseif ($color === 'icon-accent') {
+                $badgeClass = 's-00197ddd';
+                $strokeColor = '#e54260';
+            }
 
-      <!-- Comercio 3 -->
-      <article class="grid-card s-98097ca5">
-        <div class="s-f7930129">
-          <div class="card-icon-container icon-amber s-bd944105">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20"/><path d="m17 5-5-3-5 3"/><path d="m17 19-5 3-5-3"/></svg>
-          </div>
-          <span class="s-610e1852">Almacén de Campo</span>
-        </div>
-        <h3 class="card-title s-382e0963">Almacén Histórico y Regional Francou</h3>
-        <p class="card-description s-8980900f">
-          Tradicional almacén de ramos generales con góndola dedicada a embutidos artesanales, miel de pradera, quesos de colonia y cuchillería entrerriana.
-        </p>
-        <div class="gondola-detail-list s-06594bb1">
-          <div class="s-650e1230">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span><strong>Dirección:</strong> Camino de los Colonos y Los Cedros</span>
-          </div>
-          <div class="s-650e1230">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>Mar a Dom: 09:00 a 13:00 y 16:00 a 20:30 hs</span>
-          </div>
-        </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=Camino+de+los+Colonos+San+Jose+Entre+Rios" target="_blank" rel="noopener" class="btn btn-outline s-19df37d1">
-          <span>Cómo llegar con GPS &nearr;</span>
-        </a>
-      </article>
+            $gpsUrl = !empty($g['google_maps_url']) 
+                ? $g['google_maps_url'] 
+                : (!empty($g['lat']) && !empty($g['lng']) 
+                    ? "https://www.google.com/maps/search/?api=1&query={$g['lat']},{$g['lng']}" 
+                    : "https://www.google.com/maps/search/?api=1&query=" . urlencode($g['direccion'] . ' San Jose Entre Rios'));
+          ?>
+          <article class="grid-card s-98097ca5">
+            <div class="s-f7930129">
+              <div class="card-icon-container <?= htmlspecialchars($color) ?> s-bd944105">
+                <?php if (!empty($g['icono_svg'])): ?>
+                  <?= $g['icono_svg'] ?>
+                <?php elseif ($color === 'icon-blue'): ?>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                <?php elseif ($color === 'icon-amber'): ?>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20"/><path d="m17 5-5-3-5 3"/><path d="m17 19-5 3-5-3"/></svg>
+                <?php elseif ($color === 'icon-accent'): ?>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                <?php else: ?>
+                  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <?php endif; ?>
+              </div>
+              <span class="<?= $badgeClass ?>"><?= htmlspecialchars($g['tipo']) ?></span>
+            </div>
+            <h3 class="card-title s-382e0963"><?= htmlspecialchars($g['nombre']) ?></h3>
+            <p class="card-description s-8980900f">
+              <?= htmlspecialchars($g['descripcion']) ?>
+            </p>
+            <div class="gondola-detail-list s-06594bb1">
+              <div class="s-650e1230">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="<?= $strokeColor ?>" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span><strong>Dirección:</strong> <?= htmlspecialchars($g['direccion']) ?></span>
+              </div>
+              <?php if (!empty($g['horario'])): ?>
+                <div class="s-650e1230">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="<?= $strokeColor ?>" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span><?= htmlspecialchars($g['horario']) ?></span>
+                </div>
+              <?php endif; ?>
+              <?php if (!empty($g['productos_destacados'])): ?>
+                <div class="s-650e1230" style="margin-top: 2px;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="<?= $strokeColor ?>" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/></svg>
+                  <span><strong>Encontrás:</strong> <?= htmlspecialchars($g['productos_destacados']) ?></span>
+                </div>
+              <?php endif; ?>
+              <?php if (!empty($g['whatsapp'])): ?>
+                <div class="s-650e1230">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="<?= $strokeColor ?>" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                  <span><strong>WhatsApp:</strong> <a href="https://wa.me/<?= preg_replace('/[^0-9]/', '', $g['whatsapp']) ?>" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline;"><?= htmlspecialchars($g['whatsapp']) ?></a></span>
+                </div>
+              <?php endif; ?>
+            </div>
 
-      <!-- Comercio 4 -->
-      <article class="grid-card s-98097ca5">
-        <div class="s-f7930129">
-          <div class="card-icon-container icon-accent s-bd944105">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-          </div>
-          <span class="s-00197ddd">Complejo Termal</span>
-        </div>
-        <h3 class="card-title s-382e0963">Proveeduría Regional Termas San José</h3>
-        <p class="card-description s-8980900f">
-          Ubicada en el predio del parque termal. Góndola exclusiva con productos listos para regalar: alfajores de nuez pecán, licores en miniatura y cosmética apícola.
-        </p>
-        <div class="gondola-detail-list s-06594bb1">
-          <div class="s-650e1230">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#e54260" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-            <span><strong>Dirección:</strong> Acceso a Termas San José s/n</span>
-          </div>
-          <div class="s-650e1230">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#e54260" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>Abierto todos los días de 09:00 a 20:00 hs</span>
-          </div>
-        </div>
-        <a href="https://www.google.com/maps/search/?api=1&query=Termas+San+Jose+Entre+Rios" target="_blank" rel="noopener" class="btn btn-outline s-19df37d1">
-          <span>Cómo llegar con GPS &nearr;</span>
-        </a>
-      </article>
+            <?php if (!empty($g['productores'])): ?>
+              <div style="margin: 0.85rem 0 1.15rem 0; padding-top: 0.85rem; border-top: 1px dashed var(--border-light);">
+                <div style="font-size: 0.76rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 5px;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  <span>Productores en este exhibidor (<?= count($g['productores']) ?>):</span>
+                </div>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.35rem;">
+                  <?php foreach ($g['productores'] as $gp): ?>
+                    <a href="catalogo?q=<?= urlencode($gp['nombre']) ?>" style="display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; font-size: 0.74rem; border-radius: var(--radius-full); background: var(--bg-surface); border: 1px solid var(--border-light); color: var(--text-main); text-decoration: none; font-weight: 600; transition: var(--transition);" title="Ver en catálogo a <?= htmlspecialchars($gp['nombre']) ?>">
+                      <span><?= htmlspecialchars($gp['nombre']) ?></span>
+                    </a>
+                  <?php endforeach; ?>
+                </div>
+              </div>
+            <?php endif; ?>
+
+            <a href="<?= htmlspecialchars($gpsUrl) ?>" target="_blank" rel="noopener" class="btn btn-outline s-19df37d1">
+              <span>Cómo llegar con GPS &nearr;</span>
+            </a>
+          </article>
+        <?php endforeach; ?>
+      <?php endif; ?>
 
     </div>
 
@@ -354,13 +360,6 @@
           </svg>
           <span>Panel de Gestión</span>
         </a>
-        <button type="button" class="btn-admin-access" onclick="window.abrirModalAdminPin()" title="Acceso Administrativo HCD / Gestión" aria-label="Acceso Administrativo">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-          <span>Acceso HCD</span>
-        </button>
       </div>
     </div>
   </footer>

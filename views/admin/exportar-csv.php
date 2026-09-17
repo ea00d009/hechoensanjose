@@ -79,6 +79,39 @@ if ($tipo === 'productores') {
     }
     fclose($output);
     exit;
+
+} elseif ($tipo === 'gondolas') {
+    $filename = "gondolas_sanjose_" . date('Y-m-d') . ".csv";
+
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename=' . $filename);
+
+    $output = fopen('php://output', 'w');
+    fprintf($output, chr(0xEF).chr(0xBB).chr(0xBF)); // BOM para UTF-8 en Excel
+
+    fputcsv($output, ['ID', 'Comercio', 'Tipo', 'Dirección', 'Horario', 'Teléfono', 'WhatsApp', 'Productos Destacados', 'Enlace GPS', 'Destacado', 'Habilitada', 'Orden']);
+
+    $stmt = $pdo->query("SELECT * FROM `ps_gondolas` ORDER BY `orden` ASC, `id` ASC");
+
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        fputcsv($output, [
+            $row['id'],
+            $row['nombre'],
+            $row['tipo'],
+            $row['direccion'],
+            $row['horario'],
+            $row['telefono'],
+            $row['whatsapp'],
+            $row['productos_destacados'],
+            $row['google_maps_url'],
+            $row['destacado'] ? 'Si' : 'No',
+            $row['activo'] ? 'Si' : 'No',
+            $row['orden']
+        ]);
+    }
+    fclose($output);
+    exit;
+
 } else {
     die("Tipo de exportación no válido.");
 }

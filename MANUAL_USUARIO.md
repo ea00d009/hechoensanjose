@@ -24,18 +24,25 @@
    - [4.3. Selector Geográfico Satelital Interactivo](#43-selector-geográfico-satelital-interactivo)
    - [4.4. Carga y Validación de Fotografías](#44-carga-y-validación-de-fotografías)
    - [4.5. Configuración de Enlaces a WhatsApp](#45-configuración-de-enlaces-a-whatsapp)
-5. [Bandeja de Solicitudes y Homologación en 1 Clic](#5-bandeja-de-solicitudes-y-homologación-en-1-clic)
-   - [5.1. Ciclo de Vida de una Solicitud (Pendiente &bull; Aprobada &bull; Desestimada)](#51-ciclo-de-vida-de-una-solicitud)
-   - [5.2. Verificación de Datos e Identificación Fiscal (CUIT/DNI)](#52-verificación-de-datos-e-identificación-fiscal)
-   - [5.3. Circuito Automatizado «Aprobar y Convertir en Productor»](#53-circuito-automatizado-aprobar-y-convertir-en-productor)
-   - [5.4. Contacto Institucional Previo por WhatsApp](#54-contacto-institucional-previo-por-whatsapp)
-6. [URLs Semánticas y Marketing Territorial con Códigos QR](#6-urls-semánticas-y-marketing-territorial-con-códigos-qr)
-   - [6.1. Estructura de URLs Amigables (`/mapa/<slug>`)](#61-estructura-de-urls-amigables)
-   - [6.2. Generación e Impresión de Códigos QR para Packaging y Señalética](#62-generación-e-impresión-de-códigos-qr)
-7. [Categorías, Rubros y Simbología Cartográfica](#7-categorías-rubros-y-simbología-cartográfica)
-8. [Exportación de Datos y Estadísticas Comunitarias (CSV / Excel)](#8-exportación-de-datos-y-estadísticas-comunitarias)
-9. [Seguridad del Sistema, Resguardos y Buenas Prácticas](#9-seguridad-del-sistema-resguardos-y-buenas-prácticas)
-10. [Preguntas Frecuentes y Soporte Operativo](#10-preguntas-frecuentes-y-soporte-operativo)
+   - [4.6. Asignación a Góndolas Municipales (Sinergia Padrón Web ↔ Puntos Físicos)](#46-asignación-a-góndolas-municipales)
+5. [Red de Góndolas Oficiales (Módulo ABM y Sinergia)](#5-red-de-góndolas-oficiales-módulo-abm-y-sinergia)
+   - [5.1. Iniciativa Municipal y Concepto de Góndola](#51-iniciativa-municipal-y-concepto-de-góndola)
+   - [5.2. Regla Institucional: Requisito de Padrón Web](#52-regla-institucional-requisito-de-padrón-web)
+   - [5.3. Padrón y Acciones Rápidas (`/admin/gondolas`)](#53-padrón-y-acciones-rápidas)
+   - [5.4. Formulario de Alta y Edición (`/admin/gondola-form`)](#54-formulario-de-alta-y-edición-de-góndolas)
+   - [5.5. Integración Dinámica en la Web Pública (`/gondola`, `/catalogo` y `/mapa`)](#55-integración-dinámica-en-la-web-pública)
+6. [Bandeja de Solicitudes y Homologación en 1 Clic](#6-bandeja-de-solicitudes-y-homologación-en-1-clic)
+   - [6.1. Ciclo de Vida de una Solicitud (Pendiente &bull; Aprobada &bull; Desestimada)](#61-ciclo-de-vida-de-una-solicitud)
+   - [6.2. Verificación de Datos e Identificación Fiscal (CUIT/DNI)](#62-verificación-de-datos-e-identificación-fiscal)
+   - [6.3. Circuito Automatizado «Aprobar y Asignar a Góndolas»](#63-circuito-automatizado-aprobar-y-asignar-a-góndolas)
+   - [6.4. Contacto Institucional Previo por WhatsApp](#64-contacto-institucional-previo-por-whatsapp)
+7. [URLs Semánticas y Marketing Territorial con Códigos QR](#7-urls-semánticas-y-marketing-territorial-con-códigos-qr)
+   - [7.1. Estructura de URLs Amigables (`/mapa/<slug>`)](#71-estructura-de-urls-amigables)
+   - [7.2. Generación e Impresión de Códigos QR para Packaging y Señalética](#72-generación-e-impresión-de-códigos-qr)
+8. [Categorías, Rubros y Simbología Cartográfica](#8-categorías-rubros-y-simbología-cartográfica)
+9. [Exportación de Datos y Estadísticas Comunitarias (CSV / Excel)](#9-exportación-de-datos-y-estadísticas-comunitarias)
+10. [Seguridad del Sistema, Resguardos y Buenas Prácticas](#10-seguridad-del-sistema-resguardos-y-buenas-prácticas)
+11. [Preguntas Frecuentes y Soporte Operativo](#11-preguntas-frecuentes-y-soporte-operativo)
 
 ---
 
@@ -110,12 +117,12 @@ Formulario interactivo en **4 pasos** diseñado para facilitar el registro de pr
 El panel de control permite a los operadores autorizados de la Municipalidad gestionar todo el ecosistema de datos de manera intuitiva y segura.
 
 ```
-                  PANEL DE ADMINISTRACIÓN (/admin)
-                                │
-   ┌──────────────┬─────────────┼─────────────┬──────────────┐
-   ▼              ▼             ▼             ▼              ▼
-Dashboard    Productores   Solicitudes   Categorías     Manual de
- (/admin)   (/admin/prod)  (/admin/sol)  (/admin/cat)   Operaciones
+                   PANEL DE ADMINISTRACIÓN (/admin)
+                                 │
+    ┌──────────────┬─────────────┼─────────────┬──────────────┬──────────────┐
+    ▼              ▼             ▼             ▼              ▼              ▼
+Dashboard    Productores     Góndolas     Solicitudes    Categorías      Manual
+ (/admin)   (/admin/prod)  (/admin/gond) (/admin/sol)   (/admin/cat)   Operativo
 ```
 
 ### 3.1. Acceso y Autenticación de Operadores
@@ -200,17 +207,64 @@ Para garantizar máxima exactitud sin requerir conocimientos técnicos de GPS:
 * **Formato Correcto:** Ingresar el número con código de país y área sin el signo `+` ni el prefijo `15` (ejemplo para San José: `5493447412345`).
 * **Comportamiento en la Web:** Al hacer clic en el botón de WhatsApp del portal público, el sistema abre la aplicación en teléfonos móviles o WhatsApp Web en computadoras con un texto institucional prearmado.
 
+### 4.6. Asignación a Góndolas Municipales (Sinergia Padrón Web ↔ Puntos Físicos)
+En la **Sección 5** del formulario de edición del productor (`productor-form.php`), el sistema presenta la lista dinámica de todas las góndolas municipales activas con casillas de verificación (checkboxes):
+* **Marcación Múltiple:** Se pueden tildar uno, varios o todos los puntos de venta donde este productor tiene mercadería en exhibición.
+* **Sincronización Inmediata:** Al guardar el formulario, la tabla relacional `ps_gondola_productores` se actualiza al instante.
+* **Insignias en el Padrón:** En la tabla de productores (`/admin/productores`), cada fila exhibe la insignia `🛒 X góndolas` indicando la cantidad de exhibidores físicos donde participa.
+
 ---
 
-## 5. Bandeja de Solicitudes y Homologación en 1 Clic
+## 5. Red de Góndolas Oficiales (Módulo ABM y Sinergia)
+
+Las **Góndolas «Hecho en San José»** son una **Iniciativa Municipal** que brinda un espacio exclusivo para el trabajo local. Son exhibidores especialmente identificados con cartelería y diseño institucional ubicados en los principales comercios, supermercados y centros turísticos de nuestra ciudad.
+
+Su propósito fundamental es:
+* **Precios justos y productos genuinamente sanjosesinos.**
+* **Fácil acceso para turistas y residentes sin tener que recorrer toda la colonia.**
+
+### 5.1. Iniciativa Municipal y Concepto de Góndola
+Cada punto adherido cuenta con un mueble o exhibidor oficial provisto por el municipio donde los productores colocan miel, nueces pecán, dulces coloniales, licores centenarios, embutidos y artesanías locales.
+
+### 5.2. Regla Institucional: Requisito de Padrón Web
+> [!IMPORTANT]
+> **Norma de Homologación Municipal:** Para que un productor local pueda colocar y vender sus productos en las Góndolas Municipales instaladas en comercios y supermercados, **es condición obligatoria e ineludible estar inscripto, homologado y publicado en el padrón web oficial de «Hecho en San José»**.
+> Esta directriz garantiza trazabilidad de origen, calidad artesanal, habilitaciones correspondientes y asegura que cualquier turista o vecino frente a la góndola física pueda escanear el QR institucional y acceder a la historia, proceso y contacto directo del productor.
+
+### 5.3. Padrón y Acciones Rápidas (`/admin/gondolas`)
+* **URL:** `/admin/gondolas` o `/admin/gondolas.php`.
+* **Métricas y Badges en Vivo:** Cada tarjeta de góndola muestra la pastilla `👨‍🌾 X productores asignados` con enlace directo a su gestión.
+* **Filtros por Búsqueda y Estado:** Permite filtrar rápidamente por nombre del local, dirección o productos, y por estado (*Habilitadas*, *Pausadas*, *Destacadas*).
+* **Conmutadores de 1 Clic:**
+  * **Habilitada / Pausada:** Alterna la visibilidad pública en el portal web de manera instantánea.
+  * **Destacada (★):** Otorga insignia dorada y prioridad visual al exhibidor.
+* **Exportación CSV:** Botón para generar reporte en Excel de todos los puntos de venta adheridos.
+
+### 5.4. Formulario de Alta y Edición de Góndolas (`/admin/gondola-form`)
+* **Nombre del Comercio / Local:** Denominación física del establecimiento.
+* **Tipo / Distintivo:** Góndola Central, Punto Turístico, Almacén de Campo, Complejo Termal, etc.
+* **Estilo Visual / Color:** Selección de paleta institucional (Esmeralda, Azul, Ámbar, Acento).
+* **Productos Destacados:** Detalle de qué artículos se encuentran exhibidos en ese punto específico.
+* **Geolocalización Satelital Interactiva:** Selector sobre mapa satelital Leaflet para arrastrar el pin y obtener automáticamente las coordenadas GPS y el enlace de llegada de Google Maps.
+* **Asignación Bidireccional de Productores:** Selector con casillas de verificación para marcar qué productores locales registrados tienen presencia física en ese exhibidor comercial.
+
+### 5.5. Integración Dinámica en la Web Pública (`/gondola`, `/catalogo` y `/mapa`)
+La articulación entre góndolas y productores se refleja en toda la plataforma ciudadana:
+* **En `/gondola`:** Cada tarjeta de punto de venta enumera a los productores locales participantes mediante chips enlazados que permiten buscar su ficha con un solo clic.
+* **En `/catalogo`:** Los productores asignados a góndolas lucen una insignia destacada `🛒 Disponible en Góndola: [Comercios...]`. Al pulsar sobre ella, el catálogo filtra automáticamente mostrando la disponibilidad en dicho comercio.
+* **En `/mapa`:** La ventana emergente (popup) del productor y la barra lateral detallan las góndolas municipales donde se consiguen sus elaboraciones.
+
+---
+
+## 6. Bandeja de Solicitudes y Homologación en 1 Clic
 
 El módulo de solicitudes (`/admin/solicitudes`) conecta la participación ciudadana con la gestión municipal, eliminando la duplicación de tareas de carga.
 
-### 5.1. Ciclo de Vida de una Solicitud
+### 6.1. Ciclo de Vida de una Solicitud
 
 ```
   Vecino completa formulario      Bandeja de Entrada Admin          Homologación Oficial
-     en /inscribir.php         ──►   solicitudes.php         ──►    «Aprobar y Convertir»
+     en /inscribir.php         ──►   solicitudes.php         ──►    «Aprobar y Asignar»
    (Estado: 'pendiente')               (Revisión)                   (Estado: 'aprobada')
 ```
 
@@ -218,7 +272,7 @@ El módulo de solicitudes (`/admin/solicitudes`) conecta la participación ciuda
 2. **🟢 Aprobada (En Padrón):** Emprendimiento homologado que ya forma parte activa del padrón oficial y mapa interactivo.
 3. **⚪ Desestimada:** Postulaciones incompletas, duplicadas o que no se encuadran en los requisitos del programa.
 
-### 5.2. Verificación de Datos e Identificación Fiscal
+### 6.2. Verificación de Datos e Identificación Fiscal
 Cada tarjeta de solicitud presenta los siguientes datos recopilados:
 * Nombre del titular y nombre del emprendimiento.
 * Dirección física declarada.
@@ -226,35 +280,37 @@ Cada tarjeta de solicitud presenta los siguientes datos recopilados:
 * **Identificación Fiscal / Notas:** Número de CUIT o DNI informado por el postulante en el formulario para cruce con habilitaciones comerciales y bromatología.
 * Módulos de interés (Catálogo, Mapa, Góndolas, Ferias).
 
-### 5.3. Circuito Automatizado «Aprobar y Convertir en Productor»
+### 6.3. Circuito Automatizado «Aprobar y Asignar a Góndolas»
 
 Para dar de alta a un solicitante sin tener que tipear sus datos nuevamente:
 
 1. Ingresar a la pestaña **«Pendientes de Revisión»** en `/admin/solicitudes`.
-2. Presionar el botón verde **«✓ Aprobar y Convertir en Productor»**.
-3. **Transferencia Automática:** El sistema abre el formulario de alta de productor con los siguientes campos ya completados:
+2. **Detección de Interés en Góndolas:**
+   * Si el postulante tildó el módulo de *Venta en Góndolas Municipales*, el sistema resalta el botón en color púrpura: **`✓ Aprobar y Asignar a Góndolas →`**.
+   * Si no tildó góndolas, el botón se muestra como **`✓ Aprobar y Convertir en Productor`**.
+3. **Transferencia Automática con Guía Asistida:** El sistema abre el formulario de alta de productor con los campos ya completados:
    * Nombre comercial.
    * Rubro y especialidad.
    * Número de WhatsApp.
    * Dirección declarada.
    * Descripción productiva.
-   * **Deducción de Categoría Inteligente:** Si en el rubro figuran términos como *miel, dulce, queso* se asigna *Alimentos*; si figura *vino, licor, cerveza* se asigna *Bebidas*; si figura *artesanía, cuchillo, cuero* se asigna *Artesanías*.
-4. **Completar Ubicación:** El operador solo debe ubicar el pin en el mapa satelital y seleccionar una fotografía.
-5. **Guardar:** Al presionar *«Guardar Productor»*, el sistema:
+   * **Deducción de Categoría Inteligente:** Clasifica automáticamente entre Alimentos, Bebidas, Artesanías, etc. según las palabras clave del rubro.
+   * **Llamado de Atención para Asignación de Góndolas:** Aparece un aviso destacado recordando al operador que debe tildar en la **Sección 5** los puntos de góndola acordados.
+4. **Completar Ubicación y Foto:** El operador solo ubica el pin satelital, sube una foto y selecciona las góndolas correspondientes.
+5. **Guardar y Homologar:** Al pulsar *«Guardar Productor»*, el sistema:
    * Inserta el nuevo productor en `ps_productores`.
+   * Guarda las relaciones en `ps_gondola_productores`.
    * **Actualiza automáticamente la solicitud al estado `aprobada`**.
-   * El emprendimiento queda visible de inmediato en la web pública.
+   * El emprendimiento queda visible de inmediato en la web pública, mapa, catálogo y góndolas.
 
-### 5.4. Contacto Institucional Previo por WhatsApp
-Antes de homologar, el operador puede hacer clic en el botón **«Enviar WhatsApp»** dentro de la tarjeta de la solicitud. Esto abre un chat directo con el titular con el siguiente mensaje de cortesía municipal:
-
-> *"Hola [Nombre], nos comunicamos desde la Secretaría de Educación, Cultura y Turismo de San José en relación a tu solicitud de inscripción al programa Hecho en San José..."*
+### 6.4. Contacto Institucional Previo por WhatsApp
+Antes de homologar, el operador puede hacer clic en el botón **«Enviar WhatsApp»** dentro de la tarjeta de la solicitud. Esto abre un chat directo con el titular con un mensaje de cortesía municipal preconfigurado.
 
 ---
 
-## 6. URLs Semánticas y Marketing Territorial con Códigos QR
+## 7. URLs Semánticas y Marketing Territorial con Códigos QR
 
-### 6.1. Estructura de URLs Amigables
+### 7.1. Estructura de URLs Amigables
 La plataforma genera identificadores semánticos limpios (slugs) a partir del nombre comercial de cada productor:
 
 | Productor | URL Amigable Oficial |
@@ -265,7 +321,7 @@ La plataforma genera identificadores semánticos limpios (slugs) a partir del no
 | Viñedos & Bodega Vulliez Sermet | `https://sanjose.tur.ar/mapa/vinedos-y-bodega-vulliez-sermet` |
 | Cuchillería Sanjo Tradición | `https://sanjose.tur.ar/mapa/cuchilleria-sanjo-tradicion` |
 
-### 6.2. Generación e Impresión de Códigos QR
+### 7.2. Generación e Impresión de Códigos QR
 
 Desde el listado del padrón (`/admin/productores`), el botón **«QR»** genera el código bidimensional enlazado a la URL oficial del productor.
 
@@ -276,7 +332,7 @@ Desde el listado del padrón (`/admin/productores`), el botón **«QR»** genera
 
 ---
 
-## 7. Categorías, Rubros y Simbología Cartográfica
+## 8. Categorías, Rubros y Simbología Cartográfica
 
 El módulo de categorías (`/admin/categorias`) permite organizar los sectores de la economía regional:
 
@@ -288,19 +344,19 @@ El módulo de categorías (`/admin/categorias`) permite organizar los sectores d
 
 ---
 
-## 8. Exportación de Datos y Estadísticas Comunitarias
+## 9. Exportación de Datos y Estadísticas Comunitarias
 
 Para tareas de planificación municipal, informes de gestión o articulación turística y comercial:
 
-1. Ingresar a `/admin/productores` o `/admin/solicitudes`.
+1. Ingresar a `/admin/productores`, `/admin/gondolas` o `/admin/solicitudes`.
 2. Presionar el botón **«⬇️ Exportar CSV»**.
 3. El sistema genera un archivo con formato estándar de valores separados por comas:
    * **Compatibilidad Total:** El archivo incorpora marca de orden de bytes (**UTF-8 BOM**), garantizando que **Microsoft Excel** y **LibreOffice Calc** abran el archivo de forma nativa sin corromper tildes, letras «ñ» ni caracteres especiales.
-   * **Campos Exportados:** ID, nombre, rubro, categoría, dirección, coordenadas geográficas, teléfonos, horarios, fecha de creación y estado.
+   * **Campos Exportados:** ID, nombre, rubro, categoría, dirección, coordenadas geográficas, teléfonos, horarios, góndolas asignadas, fecha de creación y estado.
 
 ---
 
-## 9. Seguridad del Sistema, Resguardos y Buenas Prácticas
+## 10. Seguridad del Sistema, Resguardos y Buenas Prácticas
 
 El sistema implementa 6 capas de seguridad defensiva para proteger la infraestructura informática municipal:
 
@@ -328,7 +384,10 @@ El sistema implementa 6 capas de seguridad defensiva para proteger la infraestru
 
 ---
 
-## 10. Preguntas Frecuentes y Soporte Operativo
+## 11. Preguntas Frecuentes y Soporte Operativo
+
+### ¿Un productor puede participar en una Góndola Municipal sin estar en la web?
+**No.** Por disposición municipal del programa Hecho en San José, la presencia física en las góndolas de comercios y supermercados exige estar previamente registrado y homologado en el padrón web oficial. Esto permite a los consumidores acceder a la información del productor mediante el código QR exhibido en el punto de venta.
 
 ### ¿Qué hago si un productor cambia de taller o traslada su punto de venta?
 Acceder a **Gestión de Productores**, hacer clic en **Editar** en el registro correspondiente y reposicionar el pin en el mapa satelital. Las coordenadas se actualizarán de inmediato en el mapa interactivo.

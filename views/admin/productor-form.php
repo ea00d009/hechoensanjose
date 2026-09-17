@@ -8,13 +8,22 @@
  */
 
 require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/../../models/GondolaRepository.php';
 requireAdmin();
 
 $pdo = getDBConnection();
+$gondolaRepo = new GondolaRepository();
+$todasGondolas = $gondolaRepo->getActivas();
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $fromSolicitudId = isset($_GET['from_solicitud']) ? (int)$_GET['from_solicitud'] : 0;
 $isEditing = ($id > 0);
+
+$gondolasAsignadas = [];
+if ($isEditing) {
+    $gondolasAsignadas = $gondolaRepo->getGondolaIdsForProductor($id);
+}
+$solicitudInteresGondola = false;
 
 // Cargar categorías disponibles
 $categorias = $pdo->query("SELECT * FROM `ps_categorias` ORDER BY `orden` ASC")->fetchAll();
@@ -70,6 +79,7 @@ if ($isEditing) {
         } elseif (strpos($rubroLower, 'artesania') !== false || strpos($rubroLower, 'cuero') !== false || strpos($rubroLower, 'mineral') !== false || strpos($rubroLower, 'cuchillo') !== false) {
             $datos['categoria_id'] = 'artesania';
         }
+        $solicitudInteresGondola = !empty($sol['interes_gondola']);
     }
 }
 
@@ -198,7 +208,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':id'           => $id
                 ];
                 $pdo->prepare($sql)->execute($params);
-                setFlash('success', '¿Productor "' . htmlspecialchars($nombre) . '" actualizado correctamente!');
+                $targetProductorId = $id;
+                setFlash('success', '¡Productor "' . htmlspecialchars($nombre) . '" actualizado correctamente!');
 
             } else {
                 $sql = "
@@ -232,6 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     ':activo'       => $activo
                 ];
                 $pdo->prepare($sql)->execute($params);
+                $targetProductorId = (int)$pdo->lastInsertId();
 
                 // Si provenía de una solicitud pública, marcarla como aprobada
                 if ($fromSolicitudId > 0) {
@@ -239,8 +251,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $updSol->execute([':sid' => $fromSolicitudId]);
                 }
 
-                setFlash('success', '¿Productor "' . htmlspecialchars($nombre) . '" dado de alta exitosamente en la plataforma!');
+                setFlash('success', '¡Productor "' . htmlspecialchars($nombre) . '" dado de alta exitosamente en la plataforma!');
             }
+
+            // Sincronizar góndolas asignadas
+            $gondolasPost = isset($_POST['gondolas']) && is_array($_POST['gondolas']) ? $_POST['gondolas'] : [];
+            $gondolaRepo->syncGondolasForProductor($targetProductorId, $gondolasPost);
 
             header('Location: productores.php');
             exit;
@@ -424,6 +440,38 @@ $csrf = getCsrfToken();
       <button type="button" class="btn btn-outline btn-sm" onclick="centrarPlaza()" style="width: 100%; margin-bottom: 1.5rem;">
         🎯 Centrar en Plaza Urquiza (Centro de San José)
       </button>
+
+      <!-- Sección 5: Góndolas Municipales -->
+      <h3 style="font-size: 1.15rem; color: #059669; margin: 1.75rem 0 0.5rem 0; border-bottom: 1px solid var(--border-light); padding-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+        <span>🛒 5. Presencia en Góndolas Municipales</span>
+      </h3>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin: 0 0 10px 0;">
+        Seleccioná los puntos de venta físicos oficiales donde se exhiben y comercializan los productos de este productor:
+      </p>
+
+      <?php if ($solicitudInteresGondola): ?>
+        <div style="background: rgba(16, 185, 129, 0.12); border: 1px solid #10b981; border-radius: 8px; padding: 10px 14px; margin-bottom: 12px; font-size: 0.84rem; color: #065f46; line-height: 1.45;">
+          📢 <strong>Postulación para Góndolas:</strong> En su inscripción digital, este emprendedor indicó expresamente que desea participar en las <strong>Góndolas Municipales</strong>.
+        </div>
+      <?php endif; ?>
+
+      <div style="display: flex; flex-direction: column; gap: 8px; background: var(--bg-hover); padding: 12px; border-radius: 10px; border: 1px solid var(--border-light); margin-bottom: 1.5rem;">
+        <?php if (empty($todasGondolas)): ?>
+          <div style="font-size: 0.85rem; color: var(--text-muted);">No hay góndolas registradas en el sistema.</div>
+        <?php else: ?>
+          <?php foreach ($todasGondolas as $tg): ?>
+            <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 0.88rem; cursor: pointer; padding: 8px 10px; border-radius: 8px; background: var(--bg-card); border: 1px solid var(--border-light); transition: border-color 0.2s ease;">
+              <input type="checkbox" name="gondolas[]" value="<?= (int)$tg['id'] ?>" <?= in_array((int)$tg['id'], $gondolasAsignadas) ? 'checked' : '' ?> style="margin-top: 3px; cursor: pointer; width: 16px; height: 16px;">
+              <div>
+                <strong style="color: var(--text-main); font-size: 0.9rem;"><?= htmlspecialchars($tg['nombre']) ?></strong>
+                <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">
+                  <span style="font-weight: 600; color: #059669;"><?= htmlspecialchars($tg['tipo']) ?></span> &bull; 📍 <?= htmlspecialchars($tg['direccion']) ?>
+                </div>
+              </div>
+            </label>
+          <?php endforeach; ?>
+        <?php endif; ?>
+      </div>
 
       <div style="border-top: 1px solid var(--border-light); padding-top: 1.5rem; display: flex; gap: 1rem; justify-content: flex-end;">
         <a href="productores" class="btn btn-outline" style="padding: 12px 20px;">Cancelar</a>

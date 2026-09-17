@@ -27,6 +27,12 @@ $currentPage = basename($_SERVER['PHP_SELF']);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= isset($pageTitle) ? htmlspecialchars($pageTitle) . ' &bull; ' : '' ?>Panel de Gestión &bull; Hecho en San José</title>
+  
+  <!-- Tipografía Google Fonts optimizada -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
+
   <link rel="stylesheet" href="../style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏛️</text></svg>">
   
@@ -91,6 +97,10 @@ $currentPage = basename($_SERVER['PHP_SELF']);
           </a>
           <a href="categorias" class="admin-nav-item <?= $currentPage === 'categorias.php' ? 'active' : '' ?>">
             Categorías
+          </a>
+          <a href="gondolas" class="admin-nav-item <?= in_array($currentPage, ['gondolas.php', 'gondola-form.php']) ? 'active' : '' ?>">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            Góndolas
           </a>
           <a href="productor-form.php" class="admin-nav-item <?= $currentPage === 'productor-form.php' && empty($_GET['id']) ? 'active' : '' ?>" style="color: #0284c7; font-weight: 700;">
             + Nueva Alta
