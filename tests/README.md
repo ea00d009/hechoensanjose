@@ -52,6 +52,7 @@ No necesita servidor ni base de datos:
 ```powershell
 node tests/qr-pdf.test.cjs
 node tests/qr-pdf-browser.test.cjs
+node tests/producer-target.test.cjs
 node tests/qr-pdf.test.cjs 'C:\qa\pdfs'
 ```
 

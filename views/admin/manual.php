@@ -162,7 +162,7 @@ require_once __DIR__ . '/header.php';
           <div style="border-left: 4px solid #059669; padding-left: 1rem;">
             <strong style="color: var(--text-main); font-size: 0.95rem;">📱 Botón «QR PDF» (PDF para Imprimir):</strong>
             <p style="margin: 0.25rem 0 0 0;">
-              Descarga un PDF A4 de una sola página con el nombre y rubro del productor, su dirección, WhatsApp, teléfono y horario de atención cuando estén cargados, junto a un código QR grande de 12 cm. El QR conserva su URL pública en el mapa (ej. <code>https://sanjose.tur.ar/mapa/licores-bard</code>) y se incluye en formato vectorial para una impresión nítida.
+              Descarga un PDF A4 de una sola página con el nombre y rubro del productor, su dirección, WhatsApp, teléfono y horario de atención cuando estén cargados, junto a un código QR grande de 12 cm. El QR conserva su URL pública en el mapa (ej. <code>https://sanjose.tur.ar/hechoensanjose/licores-bard</code>) y se incluye en formato vectorial para una impresión nítida.
             </p>
           </div>
 

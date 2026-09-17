@@ -98,6 +98,10 @@ $router->get('/admin/exportar-csv.php', function() { require __DIR__ . '/views/a
 $router->get('/admin/manual', function() { require __DIR__ . '/views/admin/manual.php'; });
 $router->get('/admin/manual.php', function() { require __DIR__ . '/views/admin/manual.php'; });
 
+// QR: /hechoensanjose/{slug} cuando la aplicación está en esa subcarpeta.
+// Las rutas exactas de las secciones conservan prioridad.
+$router->get('/{slug}', [PublicController::class, 'fichaProductor']);
+
 // Despachar ruta actual
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $uri = $_SERVER['REQUEST_URI'] ?? '/';

@@ -52,7 +52,7 @@
     const name = cleanText(data.nombre);
     if (!name) throw new Error('El productor no tiene nombre. Completá su ficha antes de descargar.');
     const url = new URL(data.url);
-    if (url.origin !== 'https://sanjose.tur.ar' || !/^\/mapa\/[a-z0-9-]+$/.test(url.pathname) || url.search || url.hash) {
+    if (url.origin !== 'https://sanjose.tur.ar' || !/^\/hechoensanjose\/[a-z0-9-]+$/.test(url.pathname) || url.search || url.hash) {
       throw new Error('El enlace del productor no es válido. Revisá su nombre antes de descargar.');
     }
     const doc = new root.jspdf.jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true });
