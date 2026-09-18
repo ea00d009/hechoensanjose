@@ -25,7 +25,8 @@ Desarrollada bajo estándares modernos de desarrollo web, accesibilidad (WCAG 2.
 8. [Sistema de Diseño, UI/UX y Accesibilidad](#-sistema-de-diseño-uiux-y-accesibilidad)
 9. [Padrón Oficial de Productores y URLs Semánticas](#-padrón-oficial-de-productores-y-urls-semánticas)
 10. [Instalación, Configuración y Despliegue](#-instalación-configuración-y-despliegue)
-11. [Documentación Complementaria](#-documentación-complementaria)
+11. [Aseguramiento de Calidad y Pruebas Automatizadas](#-aseguramiento-de-calidad-y-pruebas-automatizadas)
+12. [Documentación Complementaria](#-documentación-complementaria)
 
 ---
 
@@ -56,6 +57,7 @@ El sistema está desarrollado bajo el principio de **cero dependencias innecesar
 | **Estilos y Maquetación** | **Vanilla CSS3** | Nativo | Sin frameworks compilados (como Tailwind o Bootstrap). Sistema propio basado en Custom Properties (Tokens CSS), Flexbox, CSS Grid y estilos de impresión (`@media print`). |
 | **Lógica del Cliente** | **JavaScript Vanilla (ES6+)** | Modern ES | Manipulación declarativa del DOM, filtrado dinámico en memoria, sincronización síncrona con inyección desde PHP (`window.INITIAL_PRODUCTORES`) y eventos táctiles. |
 | **Tipografía Web** | **Google Fonts** | Hosted | Tipografía geométrica **Outfit** (titulares e identidad institucional) y **Plus Jakarta Sans** (cuerpo de texto, datos técnicos y tablas). |
+| **Generación QR PDF** | **jsPDF + qrcode-generator** | `2.5.1` / `1.4.4` | Motor de generación 100% en cliente de afiches A4 vectoriales para imprenta con código QR de 12 cm, sin consumo de CPU ni dependencias en el servidor. |
 | **Servidor Web** | **Apache HTTP Server** | `2.4+` | Enrutamiento por reescritura de URLs (`mod_rewrite`), inyección de cabeceras de seguridad (`mod_headers`) y compresión de activos estáticos (`mod_deflate`). |
 | **Seguridad Criptográfica** | **Bcrypt / CSPRNG** | Nativo | Cifrado de contraseñas de sentido único (`password_hash`), generación de tokens de seguridad CSRF aleatorios (`random_bytes(32)`). |
 
@@ -401,10 +403,23 @@ productores-sanjose/
 ├── sql/                      # Scripts de base de datos relacional
 │   └── database.sql          # Estructura DDL completa, 11 productores auténticos y góndolas
 │
+├── tests/                    # Suites de pruebas automatizadas y aseguramiento de calidad
+│   ├── qr-pdf.test.cjs       # Validación de afiches A4, 1 página, límites y márgenes
+│   ├── qr-pdf-browser.test.cjs # Pruebas de eventos DOM, descarga y notificación de errores
+│   ├── producer-target.test.cjs # Pruebas de auto-enfoque en mapa, slugs y retrocompatibilidad
+│   ├── admin-http.test.cjs   # Verificación de rutas protegidas, CSRF y cabeceras
+│   ├── registration-http.test.py # Suite HTTP integral de inscripciones y transacciones
+│   └── README.md             # Instrucciones de ejecución del entorno de pruebas
+│
 └── assets/                   # Recursos estáticos servidos al cliente
     ├── css/
     │   ├── admin.css         # Estilos específicos del panel de control
     │   └── normalized.css    # Reseteo de estilos y normalización tipográfica
+    ├── js/
+    │   └── productor-qr-pdf.js # Generador de afiches PDF con QR vectorial para imprenta
+    ├── vendor/               # Librerías cliente integradas localmente (sin CDNs)
+    │   ├── jspdf/            # Motor jsPDF para armado de documentos PDF
+    │   └── qrcode-generator/ # Generador de matrices QR vectoriales
     ├── logo-sanjose.png      # Isologotipo oficial de la Municipalidad de San José
     └── productores/          # Galería de imágenes de los establecimientos
 ```
@@ -465,19 +480,21 @@ La plataforma cuenta con **6 capas defensivas** diseñadas para operar con máxi
 
 ## 🌰 Padrón Oficial de Productores y URLs Semánticas
 
-| N° | Emprendimiento | Categoría | Especialidad Artesanal | URL Semántica Oficial |
+Las siguientes URLs corresponden a los accesos directos oficiales vinculados a los **códigos QR institucionales**. Al abrir cualquiera de estos enlaces, la plataforma abre el mapa interactivo y enfoca automáticamente la ficha del establecimiento. Por retrocompatibilidad, las rutas tradicionales `/mapa/{slug}` se conservan plenamente operativas:
+
+| N° | Emprendimiento | Categoría | Especialidad Artesanal | URL Semántica Oficial (QR) |
 | :-: | :--- | :---: | :--- | :--- |
-| **01** | **Licores Bard** | `bebidas` | Licores Tradicionales (Desde 1908) | [`/mapa/licores-bard`](https://sanjose.tur.ar/mapa/licores-bard) |
-| **02** | **Establecimiento Los Pecanes** | `pecan` | Plantación Pionera, Casa de Té y Campo | [`/mapa/establecimiento-los-pecanes`](https://sanjose.tur.ar/mapa/establecimiento-los-pecanes) |
-| **03** | **De los Troncos Petrificados** | `artesania` | Reserva Natural, Maderas y Minerales | [`/mapa/de-los-troncos-petrificados`](https://sanjose.tur.ar/mapa/de-los-troncos-petrificados) |
-| **04** | **Artesanías El Palmar** | `artesania` | Cestería en Palma Yatay y Mates | [`/mapa/artesanias-el-palmar`](https://sanjose.tur.ar/mapa/artesanias-el-palmar) |
-| **05** | **Nuez Pecán La Reina** | `pecan` | Boutique del Pecán Seleccionado | [`/mapa/nuez-pecan-la-reina`](https://sanjose.tur.ar/mapa/nuez-pecan-la-reina) |
-| **06** | **Apícola La Sanjosesina** | `alimentos` | Miel Pura de Monte Nativo y Propóleo | [`/mapa/apicola-la-sanjosesina`](https://sanjose.tur.ar/mapa/apicola-la-sanjosesina) |
-| **07** | **Granja La Administración** | `alimentos` | Quesería Tradicional junto al Molino Forclaz | [`/mapa/granja-la-administracion`](https://sanjose.tur.ar/mapa/granja-la-administracion) |
-| **08** | **Dulces Caseros La Juanita** | `alimentos` | Mermeladas en Paila de Cobre | [`/mapa/dulces-caseros-la-juanita`](https://sanjose.tur.ar/mapa/dulces-caseros-la-juanita) |
-| **09** | **Viñedos & Bodega Vulliez Sermet**| `bebidas` | Enoturismo y Varietales Entrerrianos | [`/mapa/vinedos-y-bodega-vulliez-sermet`](https://sanjose.tur.ar/mapa/vinedos-y-bodega-vulliez-sermet) |
-| **10** | **Cervecería Artesanal El Molino**| `bebidas` | Microcervecería con Maltas Entrerrianas | [`/mapa/cerveceria-artesanal-el-molino`](https://sanjose.tur.ar/mapa/cerveceria-artesanal-el-molino) |
-| **11** | **Cuchillería Sanjo Tradición** | `artesania` | Forja Criolla en Acero y Platería | [`/mapa/cuchilleria-sanjo-tradicion`](https://sanjose.tur.ar/mapa/cuchilleria-sanjo-tradicion) |
+| **01** | **Licores Bard** | `bebidas` | Licores Tradicionales (Desde 1908) | [`/hechoensanjose/licores-bard`](https://sanjose.tur.ar/hechoensanjose/licores-bard) |
+| **02** | **Establecimiento Los Pecanes** | `pecan` | Plantación Pionera, Casa de Té y Campo | [`/hechoensanjose/establecimiento-los-pecanes`](https://sanjose.tur.ar/hechoensanjose/establecimiento-los-pecanes) |
+| **03** | **De los Troncos Petrificados** | `artesania` | Reserva Natural, Maderas y Minerales | [`/hechoensanjose/de-los-troncos-petrificados`](https://sanjose.tur.ar/hechoensanjose/de-los-troncos-petrificados) |
+| **04** | **Artesanías El Palmar** | `artesania` | Cestería en Palma Yatay y Mates | [`/hechoensanjose/artesanias-el-palmar`](https://sanjose.tur.ar/hechoensanjose/artesanias-el-palmar) |
+| **05** | **Nuez Pecán La Reina** | `pecan` | Boutique del Pecán Seleccionado | [`/hechoensanjose/nuez-pecan-la-reina`](https://sanjose.tur.ar/hechoensanjose/nuez-pecan-la-reina) |
+| **06** | **Apícola La Sanjosesina** | `alimentos` | Miel Pura de Monte Nativo y Propóleo | [`/hechoensanjose/apicola-la-sanjosesina`](https://sanjose.tur.ar/hechoensanjose/apicola-la-sanjosesina) |
+| **07** | **Granja La Administración** | `alimentos` | Quesería Tradicional junto al Molino Forclaz | [`/hechoensanjose/granja-la-administracion`](https://sanjose.tur.ar/hechoensanjose/granja-la-administracion) |
+| **08** | **Dulces Caseros La Juanita** | `alimentos` | Mermeladas en Paila de Cobre | [`/hechoensanjose/dulces-caseros-la-juanita`](https://sanjose.tur.ar/hechoensanjose/dulces-caseros-la-juanita) |
+| **09** | **Viñedos & Bodega Vulliez Sermet**| `bebidas` | Enoturismo y Varietales Entrerrianos | [`/hechoensanjose/vinedos-y-bodega-vulliez-sermet`](https://sanjose.tur.ar/hechoensanjose/vinedos-y-bodega-vulliez-sermet) |
+| **10** | **Cervecería Artesanal El Molino**| `bebidas` | Microcervecería con Maltas Entrerrianas | [`/hechoensanjose/cerveceria-artesanal-el-molino`](https://sanjose.tur.ar/hechoensanjose/cerveceria-artesanal-el-molino) |
+| **11** | **Cuchillería Sanjo Tradición** | `artesania` | Forja Criolla en Acero y Platería | [`/hechoensanjose/cuchilleria-sanjo-tradicion`](https://sanjose.tur.ar/hechoensanjose/cuchilleria-sanjo-tradicion) |
 
 ---
 
@@ -518,6 +535,29 @@ La plataforma cuenta con **6 capas defensivas** diseñadas para operar con máxi
    * Credenciales predeterminadas de fábrica:
      * **Usuario:** `admin`
      * **Contraseña:** `admin123` *(debe modificarse de inmediato en el primer acceso)*.
+
+---
+
+## 🧪 Aseguramiento de Calidad y Pruebas Automatizadas
+
+El proyecto cuenta con un conjunto de suites de pruebas automáticas para garantizar la estabilidad técnica, la consistencia de los documentos PDF para imprenta, el enrutamiento y la seguridad ante actualizaciones:
+
+### Pruebas Unitarias y de Renderizado (Node.js)
+No requieren servidor web ni base de datos local:
+
+```bash
+# Valida la generación de afiches A4, límites de 1 página, acentos y campos opcionales
+node tests/qr-pdf.test.cjs
+
+# Simula eventos del navegador, click del botón, descarga y notificación visual de errores
+node tests/qr-pdf-browser.test.cjs
+
+# Comprueba la lógica de auto-enfoque en el mapa con slugs alfanuméricos y retrocompatibilidad de IDs
+node tests/producer-target.test.cjs
+```
+
+### Pruebas de Integración y Seguridad HTTP
+Para ejecutar las comprobaciones exhaustivas de seguridad (CSRF, aislamiento de archivos `.htaccess`, transacciones atómicas de aprobación y sesiones), consultar la guía técnica en [**tests/README.md**](tests/README.md).
 
 ---
 
