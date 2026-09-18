@@ -37,7 +37,7 @@ $csrf = getCsrfToken();
       } catch (e) {}
     })();
   </script>
-  <link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="stylesheet" href="../assets/css/admin.css?v=<?= filemtime(__DIR__ . '/../../assets/css/admin.css') ?>">
 </head>
 <body>
   <div class="login-wrapper">

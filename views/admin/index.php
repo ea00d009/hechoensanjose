@@ -175,7 +175,7 @@ $ultimasSolicitudes = $pdo->query("
                     ?>
                     <img src="<?= htmlspecialchars($thumbUrl) ?>" alt="" class="thumb-mini" onerror="this.onerror=null; this.src='../assets/logo-sanjose.png'">
                     <div>
-                      <strong style="color: var(--text-main); font-size: 0.92rem;"><?= htmlspecialchars($p['nombre']) ?></strong>
+                      <strong class="admin-prod-name"><?= htmlspecialchars($p['nombre']) ?></strong>
                       <?php if ($p['destacado']): ?>
                         <span style="color: #d97706; font-size: 0.75rem; margin-left: 4px;" title="Destacado">★</span>
                       <?php endif; ?>
@@ -334,12 +334,20 @@ $ultimasSolicitudes = $pdo->query("
       }
     });
 
-    // Observar cambios en el tema para actualizar los gráficos en tiempo real
+    // Observar cambios en el tema para actualizar los gráficos en tiempo real con alto contraste
     const themeObserver = new MutationObserver(() => {
       const colors = getThemeColors();
       Chart.defaults.color = colors.textColor;
-      chartCategorias.update();
-      chartEstados.update();
+      if (chartCategorias && chartCategorias.options && chartCategorias.options.scales) {
+        chartCategorias.options.scales.x.ticks.color = colors.textColor;
+        chartCategorias.options.scales.y.ticks.color = colors.textColor;
+        chartCategorias.options.scales.y.grid.color = colors.gridColor;
+        chartCategorias.update();
+      }
+      if (chartEstados && chartEstados.options && chartEstados.options.plugins) {
+        chartEstados.options.plugins.legend.labels.color = colors.textColor;
+        chartEstados.update();
+      }
     });
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   });
