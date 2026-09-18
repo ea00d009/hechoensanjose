@@ -205,16 +205,16 @@ if (!empty($productores)) {
   </section>
 
   <!-- Grilla del Catálogo -->
-  <main class="main-container-custom">
-    <div class="flex-between-wrap">
-      <h2 class="main-title-custom" id="catalogo-title-counter">Mostrando <?= $totalProds > 0 ? $totalProds : '13' ?> emprendimientos adheridos</h2>
-      <a href="inscribir" class="btn btn-outline btn-register-custom">
-        <span>+ Inscribir mi emprendimiento</span>
-      </a>
+  <main class="main-container-custom catalogo-main-container">
+    <div class="catalogo-results-bar">
+      <div class="catalogo-results-info">
+        <span class="catalogo-status-dot" aria-hidden="true"></span>
+        <h2 class="catalogo-counter-title" id="catalogo-title-counter">Mostrando <?= $totalProds > 0 ? $totalProds : '13' ?> emprendimientos adheridos</h2>
+      </div>
     </div>
 
-    <!-- Contenedor dinámico de tarjetas del catálogo -->
-    <div class="portal-grid" id="catalogo-cards-container">
+    <!-- Contenedor dinámico de tarjetas del catálogo en formato Masonry orgánico -->
+    <div class="catalogo-cards-masonry" id="catalogo-cards-container">
       <!-- Inyectado por JS o pre-renderizado -->
     </div>
   </main>
@@ -386,11 +386,11 @@ if (!empty($productores)) {
                 </div>
 
                 ${p.gondolas && p.gondolas.length > 0 ? `
-                  <div class="card-gondolas-badge-wrap" style="margin: 0.65rem 0 0.85rem 0; padding: 0.5rem 0.75rem; background: rgba(5, 150, 105, 0.08); border: 1px solid rgba(5, 150, 105, 0.25); border-radius: var(--radius-sm); font-size: 0.76rem; color: #065f46; display: flex; align-items: flex-start; gap: 6px; line-height: 1.4;">
-                    <span style="font-size: 0.95rem; line-height: 1;">🛒</span>
+                  <div class="card-gondolas-badge-wrap">
+                    <span class="gondola-badge-icon">🛒</span>
                     <div>
-                      <strong style="color: #047857;">Disponible en Góndola:</strong>
-                      <span style="color: var(--text-main); font-weight: 600;"> ${p.gondolas.map(escapeHtmlText).join(', ')}</span>
+                      <strong class="gondola-badge-label">Disponible en Góndola:</strong>
+                      <span class="gondola-badge-names"> ${p.gondolas.map(escapeHtmlText).join(', ')}</span>
                     </div>
                   </div>
                 ` : ''}

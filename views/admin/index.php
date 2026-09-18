@@ -1,7 +1,7 @@
 <?php
 /**
  * ==============================================================================
- * HECHO EN SAN JOSÃ‰ â€¢ DASHBOARD DE GESTIÃ“N MUNICIPAL
+ * HECHO EN SAN JOSÉ • DASHBOARD DE GESTIÓN MUNICIPAL
  * ==============================================================================
  */
 
@@ -17,7 +17,7 @@ $totalDestacados  = (int)$pdo->query("SELECT COUNT(*) FROM `ps_productores` WHER
 $totalSolicitudes = (int)$pdo->query("SELECT COUNT(*) FROM `ps_solicitudes_inscripcion` WHERE `estado` = 'pendiente'")->fetchColumn();
 $totalGondolas    = (int)$pdo->query("SELECT COUNT(*) FROM `ps_gondolas` WHERE `activo` = 1")->fetchColumn();
 
-// Ãšltimos productores modificados
+// Últimos productores modificados
 $ultimosProductores = $pdo->query("
     SELECT p.*, c.nombre AS categoria_nombre 
     FROM `ps_productores` p
@@ -35,7 +35,7 @@ $statsPorCategoria = $pdo->query("
     ORDER BY cantidad DESC
 ")->fetchAll();
 
-// Ãšltimas solicitudes recibidas
+// Últimas solicitudes recibidas
 $ultimasSolicitudes = $pdo->query("
     SELECT * FROM `ps_solicitudes_inscripcion` 
     ORDER BY `creado_en` DESC 
@@ -177,7 +177,7 @@ $ultimasSolicitudes = $pdo->query("
                     <div>
                       <strong style="color: var(--text-main); font-size: 0.92rem;"><?= htmlspecialchars($p['nombre']) ?></strong>
                       <?php if ($p['destacado']): ?>
-                        <span style="color: #d97706; font-size: 0.75rem; margin-left: 4px;" title="Destacado">â˜…</span>
+                        <span style="color: #d97706; font-size: 0.75rem; margin-left: 4px;" title="Destacado">★</span>
                       <?php endif; ?>
                     </div>
                   </div>
@@ -221,10 +221,10 @@ $ultimasSolicitudes = $pdo->query("
     <?php else: ?>
       <div style="display: flex; flex-direction: column; gap: 0.75rem;">
         <?php foreach ($ultimasSolicitudes as $sol): ?>
-          <div style="padding: 1rem; border-radius: 10px; border: 1px solid var(--border-light); background: var(--bg-hover, #f8fafc);">
+          <div class="solicitud-card-item">
             <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px;">
               <strong style="color: var(--text-main); font-size: 0.92rem;"><?= htmlspecialchars($sol['nombre_emprendimiento']) ?></strong>
-              <span style="font-size: 0.72rem; padding: 2px 6px; border-radius: 4px; font-weight: 700; background: <?= $sol['estado'] === 'pendiente' ? '#fee2e2; color: #dc2626;' : '#e0f2fe; color: #0284c7;' ?>">
+              <span class="badge-solicitud-<?= $sol['estado'] === 'pendiente' ? 'pendiente' : 'aprobada' ?>">
                 <?= ucfirst($sol['estado']) ?>
               </span>
             </div>
@@ -249,11 +249,17 @@ $ultimasSolicitudes = $pdo->query("
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const isDark = document.body.classList.contains('dark-theme');
-    const textColor = isDark ? '#f8fafc' : '#0f172a';
-    const gridColor = isDark ? '#334155' : '#e2e8f0';
+    function getThemeColors() {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      return {
+        isDark: isDark,
+        textColor: isDark ? '#e2e8f0' : '#475569',
+        gridColor: isDark ? 'rgba(255, 255, 255, 0.1)' : '#e2e8f0'
+      };
+    }
 
-    Chart.defaults.color = textColor;
+    let currentColors = getThemeColors();
+    Chart.defaults.color = currentColors.textColor;
     Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
 
     // Datos Categorías
@@ -261,7 +267,7 @@ $ultimasSolicitudes = $pdo->query("
     const catData = <?= json_encode(array_column($statsPorCategoria, 'cantidad')) ?>;
     const catColors = <?= json_encode(array_column($statsPorCategoria, 'pin_color')) ?>;
 
-    new Chart(document.getElementById('chartCategorias'), {
+    const chartCategorias = new Chart(document.getElementById('chartCategorias'), {
       type: 'bar',
       data: {
         labels: catLabels,
@@ -281,10 +287,19 @@ $ultimasSolicitudes = $pdo->query("
         scales: {
           y: { 
             beginAtZero: true,
-            ticks: { stepSize: 1 },
-            grid: { color: gridColor }
+            ticks: { 
+              stepSize: 1,
+              color: () => getThemeColors().textColor
+            },
+            grid: { 
+              color: () => getThemeColors().gridColor
+            }
           },
           x: {
+            ticks: { 
+              color: () => getThemeColors().textColor,
+              font: { size: 11, weight: '600' }
+            },
             grid: { display: false }
           }
         }
@@ -292,7 +307,7 @@ $ultimasSolicitudes = $pdo->query("
     });
 
     // Datos Estados
-    new Chart(document.getElementById('chartEstados'), {
+    const chartEstados = new Chart(document.getElementById('chartEstados'), {
       type: 'doughnut',
       data: {
         labels: ['Activos', 'Inactivos'],
@@ -307,10 +322,26 @@ $ultimasSolicitudes = $pdo->query("
         maintainAspectRatio: false,
         cutout: '70%',
         plugins: {
-          legend: { position: 'bottom' }
+          legend: { 
+            position: 'bottom',
+            labels: {
+              color: () => getThemeColors().textColor,
+              font: { size: 12, weight: '600' },
+              padding: 16
+            }
+          }
         }
       }
     });
+
+    // Observar cambios en el tema para actualizar los gráficos en tiempo real
+    const themeObserver = new MutationObserver(() => {
+      const colors = getThemeColors();
+      Chart.defaults.color = colors.textColor;
+      chartCategorias.update();
+      chartEstados.update();
+    });
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   });
 </script>
 

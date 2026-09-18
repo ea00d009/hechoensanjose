@@ -1,7 +1,7 @@
 <?php
 /**
  * ==============================================================================
- * HECHO EN SAN JOSÃ‰ â€¢ CABECERA COMÃšN DEL PANEL DE ADMINISTRACIÃ“N
+ * HECHO EN SAN JOSÉ • CABECERA COMÚN DEL PANEL DE ADMINISTRACIÓN
  * ==============================================================================
  */
 

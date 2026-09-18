@@ -2,6 +2,14 @@
  * HECHO EN SAN JOSÉ • ESTILOS ADMINISTRATIVOS Y SETUP
  * ============================================================================== */
 
+:root {
+  --bg-hover: #f1f5f9;
+}
+
+[data-theme="dark"] {
+  --bg-hover: #1e293b;
+}
+
 /* --- Estilos de admin/header.php --- */
 .admin-container {
   max-width: 1200px;
@@ -95,6 +103,72 @@
 }
 .admin-table tr:hover td {
   background: var(--bg-hover, #f8fafc);
+}
+
+/* Items de Solicitudes en Dashboard */
+.solicitud-card-item {
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-light, #e2e8f0);
+  background: var(--bg-surface, #f8fafc);
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.solicitud-card-item:hover {
+  background: var(--bg-hover, #f1f5f9);
+}
+
+.badge-solicitud-pendiente {
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  background: #fee2e2;
+  color: #dc2626;
+  display: inline-block;
+}
+.badge-solicitud-aprobada {
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  background: #e0f2fe;
+  color: #0284c7;
+  display: inline-block;
+}
+
+/* Adaptación completa a Modo Oscuro en Admin */
+[data-theme="dark"] .admin-table-wrap {
+  border-color: #26334d;
+}
+[data-theme="dark"] .admin-table th {
+  background: #19253d;
+  color: #94a3b8;
+  border-bottom-color: #26334d;
+}
+[data-theme="dark"] .admin-table td {
+  border-bottom-color: #1e293b;
+  color: #f1f5f9;
+}
+[data-theme="dark"] .admin-table tr:hover td {
+  background: rgba(30, 41, 59, 0.6);
+}
+[data-theme="dark"] .solicitud-card-item {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: #26334d;
+}
+[data-theme="dark"] .solicitud-card-item:hover {
+  background: rgba(30, 41, 59, 0.75);
+  border-color: #334155;
+}
+[data-theme="dark"] .badge-solicitud-pendiente {
+  background: rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+[data-theme="dark"] .badge-solicitud-aprobada {
+  background: rgba(14, 165, 233, 0.2);
+  color: #7dd3fc;
+  border: 1px solid rgba(14, 165, 233, 0.35);
 }
 .thumb-mini {
   width: 48px;

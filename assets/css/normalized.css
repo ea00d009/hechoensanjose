@@ -40,6 +40,7 @@
 
 /* --- Main Layout --- */
 .main-container-custom { max-width: 1280px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+.catalogo-main-container { max-width: 1320px; margin: 0 auto; padding: 2.25rem 1.5rem 5rem; }
 .main-title-custom { font-size: 1.3rem; color: var(--text-main); }
 .btn-register-custom { font-size: 0.82rem; padding: 6px 14px; }
 
@@ -47,8 +48,88 @@
 .footer-admin-text { color: var(--text-light); }
 .btn-admin-access-custom { text-decoration: none; display: inline-flex; align-items: center; gap: 5px; }
 
-/* --- Catalog Grid / Cards --- */
-.no-results-wrapper { grid-column: 1 / -1; text-align: center; padding: 4rem 1rem; color: #94a3b8; }
+/* --- Catalog Header & Results Bar --- */
+.catalogo-results-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-light, rgba(226, 232, 240, 0.8));
+}
+.catalogo-results-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.catalogo-status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+  display: inline-block;
+  flex-shrink: 0;
+  animation: pulse-dot 2.5s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.8; }
+}
+.catalogo-counter-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main, #0f172a);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* --- Catalog Masonry Grid / Cards --- */
+.catalogo-cards-masonry {
+  column-count: 4;
+  column-gap: 1.75rem;
+  width: 100%;
+}
+@media (max-width: 1280px) {
+  .catalogo-cards-masonry {
+    column-count: 3;
+    column-gap: 1.5rem;
+  }
+}
+@media (max-width: 900px) {
+  .catalogo-cards-masonry {
+    column-count: 2;
+    column-gap: 1.25rem;
+  }
+}
+@media (max-width: 580px) {
+  .catalogo-cards-masonry {
+    column-count: 1;
+    column-gap: 0;
+  }
+}
+
+.catalogo-cards-masonry .catalog-card-custom {
+  display: inline-block;
+  width: 100%;
+  vertical-align: top;
+  margin-bottom: 1.75rem;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  border-radius: var(--radius-lg, 12px);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+  background: var(--bg-card, #ffffff);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.catalogo-cards-masonry .catalog-card-custom:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+.no-results-wrapper { grid-column: 1 / -1; column-span: all; text-align: center; padding: 4rem 1rem; color: #94a3b8; }
 .no-results-icon { margin-bottom: 1rem; opacity: 0.6; }
 .no-results-title { color: #475569; font-size: 1.2rem; margin-bottom: 0.5rem; }
 .no-results-text { font-size: 0.9rem; }
@@ -62,16 +143,57 @@
 .category-tag-custom { box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
 .sello-destacado { font-size: 0.68rem; font-weight: 800; color: #fff; background: rgba(217, 119, 6, 0.95); backdrop-filter: blur(4px); padding: 2px 8px; border-radius: 9999px; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
 
-.card-content-custom { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
-.card-title-custom { font-size: 1.25rem; margin-bottom: 0.35rem; }
-.card-rubro { font-size: 0.8rem; font-weight: 700; color: #0284c7; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
-.card-desc-custom { font-size: 0.9rem; margin-bottom: 1.25rem; color: var(--text-muted); line-height: 1.5; }
-.card-info-box { background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 8px; padding: 0.75rem; margin-bottom: 1.25rem; font-size: 0.82rem; color: var(--text-main); display: flex; flex-direction: column; gap: 4px; }
+/* Internal card spacing - equalized & rhythmized */
+.card-content-custom { padding: 1.35rem; display: flex; flex-direction: column; }
+.card-title-custom { font-size: 1.25rem; font-weight: 700; line-height: 1.3; margin-bottom: 0.35rem; color: var(--text-main); }
+.card-rubro { font-size: 0.78rem; font-weight: 700; color: #0284c7; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.card-desc-custom { font-size: 0.9rem; margin-bottom: 1.15rem; color: var(--text-muted); line-height: 1.55; flex-grow: 0 !important; }
+.card-info-box { background: var(--bg-surface); border: 1px solid var(--border-light); border-radius: 8px; padding: 0.75rem 0.85rem; margin-bottom: 1.15rem; font-size: 0.82rem; color: var(--text-main); display: flex; flex-direction: column; gap: 6px; }
 .card-info-row { display: flex; align-items: center; gap: 6px; }
 .card-info-icon { flex-shrink: 0; color: #0284c7; }
-.card-actions { display: flex; gap: 8px; margin-top: auto; }
+
+/* Góndolas badge in catalog */
+.card-gondolas-badge-wrap {
+  margin-bottom: 1.15rem;
+  padding: 0.65rem 0.85rem;
+  background: rgba(5, 150, 105, 0.08);
+  border: 1px solid rgba(5, 150, 105, 0.25);
+  border-radius: var(--radius-sm, 8px);
+  font-size: 0.78rem;
+  color: #065f46;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.45;
+}
+.gondola-badge-icon {
+  font-size: 0.95rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.gondola-badge-label {
+  color: #047857;
+  font-weight: 700;
+}
+.gondola-badge-names {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.card-actions { display: flex; gap: 8px; margin-top: 0.25rem; }
 .btn-contact { flex: 1; padding: 8px 10px; font-size: 0.8rem; background: #25d366; border-color: #25d366; }
 .btn-map-custom { padding: 8px 10px; font-size: 0.8rem; }
+
+/* Dark mode overrides for catalog */
+[data-theme="dark"] .catalogo-counter-title { color: #f1f5f9; }
+[data-theme="dark"] .catalogo-results-bar { border-bottom-color: rgba(51, 65, 85, 0.6); }
+[data-theme="dark"] .catalog-card-custom { background: var(--bg-card); border-color: var(--border-card); }
+[data-theme="dark"] .card-title-custom { color: #f8fafc; }
+[data-theme="dark"] .card-info-box { background: rgba(15, 23, 42, 0.6); border-color: rgba(51, 65, 85, 0.6); color: #cbd5e1; }
+[data-theme="dark"] .card-gondolas-badge-wrap { background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.3); color: #a7f3d0; }
+[data-theme="dark"] .gondola-badge-label { color: #34d399; }
+[data-theme="dark"] .gondola-badge-names { color: #f1f5f9; }
 /* Auto-extracted inline styles */
 .s-eefcf430 { color: ${p.pinColor}; }
 .s-0dd05134 { display: flex; gap: 1rem; align-items: center; }
